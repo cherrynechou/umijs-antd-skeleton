@@ -1,6 +1,7 @@
 import { defineConfig } from '@umijs/max';
 
 import routes from './routes';
+import proxy  from './proxy';
 
 export default defineConfig({
   antd: {},
@@ -12,6 +13,7 @@ export default defineConfig({
     title: '@umijs/max',
   },
   routes,
+  proxy: proxy['dev'],
   npmClient: 'pnpm',
 });
 

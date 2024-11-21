@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Dropdown, Spin, MenuProps } from 'antd';
 import { BulbOutlined, LogoutOutlined } from '@ant-design/icons';
+import { createStyles } from 'antd-style';
 import { useModel } from '@umijs/max';
 
 export type GlobalHeaderRightProps = {
@@ -13,10 +14,29 @@ export const AvatarName = () => {
   const { currentUser } = initialState || {};
   return (
     <span style={{ color: '#FFF', fontSize: 14 }}>
-      {currentUser?.nickname || '管理员'}
+      {currentUser?.name || '管理员'}
     </span>
   );
 };
+
+const useStyles = createStyles(({ token }) => {
+  return {
+    action: {
+      display: 'flex',
+      height: '48px',
+      marginLeft: 'auto',
+      overflow: 'hidden',
+      alignItems: 'center',
+      padding: '0 8px',
+      cursor: 'pointer',
+      borderRadius: token.borderRadius,
+      '&:hover': {
+        backgroundColor: token.colorBgTextHover,
+      },
+    },
+  };
+});
+
 
 export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({
    children
@@ -44,12 +64,12 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({
     //message.info(`Click on item ${key}`);
   };
 
-
+  const { styles } = useStyles();
 
 
   // -- layouts
   const loading = (
-    <span>
+    <span className={styles.action}>
       <Spin
         size="small"
         style={{
@@ -59,6 +79,8 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({
       />
     </span>
   );
+
+
 
   if (!initialState) {
     return loading;
@@ -74,6 +96,7 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({
     <>
       <Dropdown
         menu={{
+          selectedKeys: [],
           items: DropdownItems,
           onClick: DropdownOnClick,
         }}
