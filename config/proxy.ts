@@ -9,7 +9,7 @@
 export default {
   dev:{
     '/api' : {
-      target: 'https://csapi.ysxinyi.com/',
+      target: process.env.API_HOST,
       changeOrigin: true,
       secure: true,
       pathRewrite: (path: string) => path.replace(/^\/api/, ''),
