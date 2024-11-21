@@ -36,5 +36,6 @@ export const layout = ({initialState }) => {
       // 页面切换时触发
       console.log('页面切换时触发', initialState, location);
     },
+    ...initialState?.settings,
   };
 };
