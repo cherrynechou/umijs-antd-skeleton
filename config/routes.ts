@@ -20,7 +20,7 @@ export default [
         name: 'user',
         component: './Auth/User'
       },{
-        path: '/auth/menus',
+        path: '/auth/menu',
         name: 'menu',
         component: './Auth/Menu'
       },{

@@ -3,6 +3,7 @@ import { Dropdown, Spin, MenuProps } from 'antd';
 import { BulbOutlined, LogoutOutlined } from '@ant-design/icons';
 import { createStyles } from 'antd-style';
 import { useModel } from '@umijs/max';
+import { message } from 'antd';
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
