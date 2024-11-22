@@ -61,7 +61,7 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({
     if(key === 'logout'){
 
     }
-    //message.info(`Click on item ${key}`);
+    message.info(`Click on item ${key}`);
   };
 
   const { styles } = useStyles();
@@ -79,8 +79,6 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({
       />
     </span>
   );
-
-
 
   if (!initialState) {
     return loading;

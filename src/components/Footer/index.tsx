@@ -8,6 +8,7 @@ const Footer: FC = ()=> {
   return (
     <DefaultFooter
       copyright={`${currentYear}`}
+      style={{background: 'transparent'}}
     />
   )
 }

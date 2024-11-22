@@ -2,11 +2,17 @@ import { FC } from 'react';
 import { Row, Form, Input, Button, message } from 'antd';
 import type { FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-
-import { login } from '@/services/admin/system/CommonController';
+import { useModel } from '@umijs/max';
 
 import { createStyles } from 'antd-style';
 import backgroundImage from '@/assets/images/background.png'
+import localforage from 'localforage';
+
+import  { HttpStatusCode } from 'axios';
+
+import { login } from '@/services/admin/system/CommonController';
+import { queryCurrentUser } from '@/services/admin/auth/UserController';
+
 
 export type LoginFieldProps = {
   username?: string;
@@ -36,8 +42,28 @@ const useStyles = createStyles(({ token }) => {
 });
 
 const Login: FC = () =>{
-
+  const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
+
+  /**
+   * 设置凭证
+   * @param data
+   */
+  const setAccessToken = async (data: AccessTokenEntity) =>{
+    await localforage.setItem('access_token', data.access_token);
+    await localforage.setItem('token_type', data.token_type);
+  }
+
+  const fetchUserInfo = async () =>{
+    const userInfo = await queryCurrentUser();
+    if(userInfo){
+      await setInitialState((s: any)=>({
+        ...s,
+        currentUser: userInfo
+      }));
+    }
+  };
+
 
   /**
    * 用户登录
@@ -45,6 +71,11 @@ const Login: FC = () =>{
    */
   const onFinish: FormProps<LoginFieldProps>['onFinish'] = async (values) => {
     const res = await login(values);
+    if(res.status === HttpStatusCode.Ok){
+      const loginRes = res.data;
+      await setAccessToken(loginRes);
+      await fetchUserInfo();
+    }
   }
 
   return (
