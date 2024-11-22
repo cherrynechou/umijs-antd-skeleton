@@ -7,6 +7,8 @@ export default [
         name: 'login',
         path: '/admin/login',
         component: './Admin/Login'
+      },{
+        component: './Exception/404'
       }
     ]
   }, {
@@ -38,5 +40,10 @@ export default [
     path: '/dashboard',
     name: 'dashboard',
     component: './Dashboard'
+  },{
+    path: '/error/403',
+    component: './Exception/403'
+  },{
+    component: './Exception/404'
   }
 ]

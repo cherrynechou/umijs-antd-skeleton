@@ -12,6 +12,7 @@ import  { HttpStatusCode } from 'axios';
 
 import { login } from '@/services/admin/system/CommonController';
 import { queryCurrentUser } from '@/services/admin/auth/UserController';
+import { history } from '@@/core/history';
 
 
 export type LoginFieldProps = {
@@ -24,7 +25,7 @@ export type AccessTokenEntity = {
   token_type: string;
 }
 
-const useStyles = createStyles(({ token }) => {
+const useStyles = createStyles(({ token,css }) => {
   return {
     container: {
       display: 'flex',
@@ -43,7 +44,7 @@ const useStyles = createStyles(({ token }) => {
 
 const Login: FC = () =>{
   const { initialState, setInitialState } = useModel('@@initialState');
-  const { styles } = useStyles();
+  const { styles }  = useStyles();
 
   /**
    * 设置凭证
@@ -55,7 +56,7 @@ const Login: FC = () =>{
   }
 
   const fetchUserInfo = async () =>{
-    const userInfo = await queryCurrentUser();
+    const userInfo = await initialState?.fetchUserInfo?.();
     if(userInfo){
       await setInitialState((s: any)=>({
         ...s,
@@ -70,12 +71,23 @@ const Login: FC = () =>{
    * @param values
    */
   const onFinish: FormProps<LoginFieldProps>['onFinish'] = async (values) => {
-    const res = await login(values);
-    if(res.status === HttpStatusCode.Ok){
-      const loginRes = res.data;
-      await setAccessToken(loginRes);
-      await fetchUserInfo();
+    try {
+      const res = await login(values);
+      if(res.status === HttpStatusCode.Ok){
+        const loginRes = res.data;
+        await setAccessToken(loginRes);
+        await fetchUserInfo();
+        if (!history) return;
+        const { location } = history;
+        const { query } = location;
+        const { redirect } = query as { redirect: string };
+        history.push(redirect || '/');
+        return;
+      }
+    }catch (error){
+      //message.error();
     }
+
   }
 
   return (
