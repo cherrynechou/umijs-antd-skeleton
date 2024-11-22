@@ -3,8 +3,7 @@
 /.env
 /.umirc.local.ts
 /config/config.local.ts
-/config/config.development.ts
-/config/config.production.ts
+/config/config.dev.ts
 /src/.umi
 /src/.umi-production
 /src/.umi-test

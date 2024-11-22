@@ -3,6 +3,8 @@ import { defineConfig } from '@umijs/max';
 import routes from './routes';
 import proxy  from './proxy';
 
+const { REACT_APP_ENV } = process.env;
+
 export default defineConfig({
   antd: {},
   access: {},
@@ -13,7 +15,7 @@ export default defineConfig({
     title: '@umijs/max',
   },
   routes,
-  proxy: proxy['dev'],
+  proxy: proxy[REACT_APP_ENV || 'dev'],
   npmClient: 'pnpm',
 });
 

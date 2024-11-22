@@ -2,8 +2,8 @@
   "private": true,
   "author": "cherrynechou <iboy_2008@163.com>",
   "scripts": {
-    "dev": "cross-env UMI_ENV=development NODE_ENV=development max dev",
-    "build": "cross-env UMI_ENV=production NODE_ENV=production max build",
+    "dev": "cross-env REACT_APP_ENV=dev MOCK=none UMI_ENV=dev max dev",
+    "build": "max build",
     "format": "prettier --cache --write .",
     "prepare": "husky",
     "postinstall": "max setup",
