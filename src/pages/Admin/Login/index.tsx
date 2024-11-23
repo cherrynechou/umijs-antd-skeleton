@@ -1,18 +1,20 @@
 import { FC } from 'react';
-import { Row, Form, Input, Button, message } from 'antd';
+import { Row, Form, Input, Button, Image, message } from 'antd';
 import type { FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useModel } from '@umijs/max';
 
 import { createStyles } from 'antd-style';
-import backgroundImage from '@/assets/images/background.png'
+
 import localforage from 'localforage';
 
 import  { HttpStatusCode } from 'axios';
 
 import { login } from '@/services/admin/system/CommonController';
-import { queryCurrentUser } from '@/services/admin/auth/UserController';
 import { history } from '@@/core/history';
+
+import logoSvg from '@/assets/images/logo.svg'
+import backgroundImage from '@/assets/images/background.png'
 
 
 export type LoginFieldProps = {
@@ -45,6 +47,9 @@ const useStyles = createStyles(({ token,css }) => {
 const Login: FC = () =>{
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles }  = useStyles();
+
+
+
 
   /**
    * 设置凭证
@@ -85,7 +90,7 @@ const Login: FC = () =>{
         return;
       }
     }catch (error){
-      //message.error();
+
     }
 
   }
@@ -102,6 +107,12 @@ const Login: FC = () =>{
         style={{ minHeight: '100vh', background: '#fff' }}
       >
         <div className={styles.boxContainer}>
+
+          <div className="login-page-header flex align-center">
+            <Image className="login-logo" src={logoSvg} alt="logo" />
+            <span className="login-page-desc"></span>
+          </div>
+
           <Form
             onFinish={onFinish}
             autoComplete="off"
@@ -112,7 +123,7 @@ const Login: FC = () =>{
             >
               <Input
                 size="large"
-                prefix={<UserOutlined/>}
+                prefix={<UserOutlined />}
                 placeholder="请输入用户名"
               />
             </Form.Item>
@@ -123,7 +134,7 @@ const Login: FC = () =>{
             >
               <Input.Password
                 size="large"
-                prefix={<LockOutlined/>}
+                prefix={<LockOutlined />}
                 placeholder="请输入密码"
               />
             </Form.Item>

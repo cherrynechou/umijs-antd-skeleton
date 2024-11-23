@@ -1,7 +1,7 @@
 // 运行时配置
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
-import { AvatarName, AvatarDropdown, Footer } from '@/components';
+import { AvatarName, AvatarDropdown, RightContent, Footer } from '@/components';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import defaultSettings from '../config/defaultSettings';
 import localforage from 'localforage';
@@ -10,6 +10,7 @@ import { queryCurrentUser } from '@/services/admin/auth/UserController';
 import { getMenuList } from '@/services/admin/system/CommonController'
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import fixMenuItemIcon from '@/utils/fixMenuItemIcon';
+
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/admin/login';
@@ -67,6 +68,7 @@ export const layout = ({initialState }) => {
         return <AvatarDropdown>{avatarChildren}</AvatarDropdown>
       }
     },
+    rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
       content: initialState?.currentUser?.name,

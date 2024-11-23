@@ -44,6 +44,8 @@ export default [
     path: '/error/403',
     component: './Exception/403'
   },{
+    path: '/*',
+    layout: false,
     component: './Exception/404'
   }
 ]

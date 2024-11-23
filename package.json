@@ -20,10 +20,14 @@
     "axios": "^1.7.7",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
+    "exceljs": "^4.4.0",
     "immutable": "^5.0.3",
+    "jsencrypt": "^3.3.2",
     "localforage": "^1.10.0",
     "lodash-es": "^4.17.21",
-    "nanoid": "^5.0.8"
+    "nanoid": "^5.0.8",
+    "rc-menu": "^9.16.0",
+    "rc-tabs": "^15.4.0"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
