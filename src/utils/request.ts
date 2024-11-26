@@ -22,29 +22,13 @@ const request: AxiosInstance = axios.create(<{
   }
 });
 
-
-/**
- * 获取凭证
- */
-const getAccessToken = async () =>{
-  const access_token = await localforage.getItem('access_token');
-  const token_type =  await localforage.getItem('token_type');
-
-  if (!token_type || !access_token) {
-    return '';
-  }
-
-  return `${token_type} ${access_token}`;
-}
-
-
 // Add a request interceptor
 request.interceptors.request.use(async (config: AxiosRequestConfig) => {
 
-  const accessToken = await getAccessToken();
+  const accessToken = await localforage.getItem('access_token');
 
   if(accessToken && config && config?.headers){
-    config.headers.Authorization = accessToken;
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   //删除属性值 为空 或者 undefined

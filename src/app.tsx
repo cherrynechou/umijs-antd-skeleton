@@ -1,19 +1,27 @@
 // 运行时配置
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
-import { AvatarName, AvatarDropdown, RightContent, Footer } from '@/components';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
-import defaultSettings from '../config/defaultSettings';
+import { AvatarName, AvatarDropdown, Footer } from '@/components';
 import localforage from 'localforage';
 import { history,Link } from '@umijs/max';
 import { queryCurrentUser } from '@/services/admin/auth/UserController';
-import { getMenuList } from '@/services/admin/system/CommonController'
-import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+import { getMenuList } from '@/services/admin/system/CommonController';
 import fixMenuItemIcon from '@/utils/fixMenuItemIcon';
+import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+import defaultSettings from '../config/defaultSettings';
+import dayjs from 'dayjs';
 
+const isDev: boolean = process.env.NODE_ENV === 'development';
+const loginPath: string = '/admin/login';
 
-const isDev = process.env.NODE_ENV === 'development';
-const loginPath = '/admin/login';
+export type menuProType={
+  isUrl: any;
+  path: any;
+  target: string;
+  pro_layout_parentKeys: string | any[];
+  icon: any;
+};
 
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
@@ -60,15 +68,21 @@ export const layout = ({initialState }) => {
         return fixMenuItemIcon(menuData.data);
       },
     },
+    actionsRender: (props) => {
+      return [
+        <div key={'dateString'} style={{ color: '#fff', fontSize: 14 }}>
+          {dayjs().locale('zh-cn').format('YYYY年MM月DD日 dddd')}
+        </div>,
+      ]
+    },
     avatarProps: {
-      src: initialState?.currentUser?.avatar || undefined, //右上角头像
       title: <AvatarName />, //右上角名称
       size: 'small',
+      src: initialState?.currentUser?.avatar || undefined, //右上角头像
       render: (_, avatarChildren) => {
         return <AvatarDropdown>{avatarChildren}</AvatarDropdown>
       }
     },
-    rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
       content: initialState?.currentUser?.name,
@@ -99,5 +113,24 @@ export const layout = ({initialState }) => {
       return children;
     },
     ...initialState?.settings,
+    menuItemRender: (menuItemProps: menuProType, defaultDom: any)  => {
+      if (menuItemProps.isUrl || !menuItemProps.path) {
+        return defaultDom;
+      }
+      // 支持二级菜单显示icon
+      return (
+        menuItemProps.target ? <Link to={menuItemProps.path} target={ menuItemProps.target }>
+          {menuItemProps.pro_layout_parentKeys &&
+            menuItemProps.pro_layout_parentKeys.length > 1 &&
+            menuItemProps.icon}
+          {defaultDom}
+        </Link> : <Link to={menuItemProps.path}>
+          {menuItemProps.pro_layout_parentKeys &&
+            menuItemProps.pro_layout_parentKeys.length > 1 &&
+            menuItemProps.icon}
+          {defaultDom}
+        </Link>
+      );
+    }
   };
 };

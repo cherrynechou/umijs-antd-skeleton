@@ -1,21 +1,19 @@
 import { FC } from 'react';
+import { useAsyncEffect } from 'ahooks';
 import { Row, Form, Input, Button, Image, message } from 'antd';
 import type { FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { useModel } from '@umijs/max';
+import { useModel, history, getIntl, getLocale  } from '@umijs/max';
 
 import { createStyles } from 'antd-style';
 
 import localforage from 'localforage';
-
-import  { HttpStatusCode } from 'axios';
+import { HttpStatusCode } from 'axios';
 
 import { login } from '@/services/admin/system/CommonController';
-import { history } from '@@/core/history';
 
 import logoSvg from '@/assets/images/logo.svg'
 import backgroundImage from '@/assets/images/background.png'
-
 
 export type LoginFieldProps = {
   username?: string;
@@ -40,6 +38,14 @@ const useStyles = createStyles(({ token,css }) => {
       padding: '33px',
       marginTop: '170px',
       backgroundColor: '#fff'
+    },
+    loginHeader:{
+      marginBottom: '20px'
+    },
+    loginDesc: {
+      fontSize: '20px',
+      fontWeight: '600',
+      paddingLeft: '20px'
     }
   };
 });
@@ -47,8 +53,16 @@ const useStyles = createStyles(({ token,css }) => {
 const Login: FC = () =>{
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles }  = useStyles();
+  const { formatMessage } = getIntl(getLocale());
+
+  const fetchApi = async () =>{
+
+  }
 
 
+  useAsyncEffect(async() => {
+    await fetchApi();
+  },[])
 
 
   /**
@@ -57,7 +71,6 @@ const Login: FC = () =>{
    */
   const setAccessToken = async (data: AccessTokenEntity) =>{
     await localforage.setItem('access_token', data.access_token);
-    await localforage.setItem('token_type', data.token_type);
   }
 
   const fetchUserInfo = async () =>{
@@ -76,17 +89,15 @@ const Login: FC = () =>{
    * @param values
    */
   const onFinish: FormProps<LoginFieldProps>['onFinish'] = async (values) => {
+
     try {
       const res = await login(values);
       if(res.status === HttpStatusCode.Ok){
         const loginRes = res.data;
         await setAccessToken(loginRes);
+        message.success('登录成功');
         await fetchUserInfo();
-        if (!history) return;
-        const { location } = history;
-        const { query } = location;
-        const { redirect } = query as { redirect: string };
-        history.push(redirect || '/');
+        history.push( '/');
         return;
       }
     }catch (error){
@@ -100,6 +111,7 @@ const Login: FC = () =>{
       className={styles.container}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
+
       <Row
         align="top"
         justify="center"
@@ -108,9 +120,9 @@ const Login: FC = () =>{
       >
         <div className={styles.boxContainer}>
 
-          <div className="login-page-header flex align-center">
-            <Image className="login-logo" src={logoSvg} alt="logo" />
-            <span className="login-page-desc"></span>
+          <div className={`flex align-center ${styles.loginHeader}`}>
+            <Image src={logoSvg} width={'15%'} height={'15%'} alt="logo" />
+            <span className={styles.loginDesc}>{formatMessage({id : 'navBar.lang' })}</span>
           </div>
 
           <Form

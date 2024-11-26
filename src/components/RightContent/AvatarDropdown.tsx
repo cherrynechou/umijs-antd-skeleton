@@ -1,9 +1,12 @@
 import { FC } from 'react';
-import { Dropdown, Spin, MenuProps } from 'antd';
-import { BulbOutlined, LogoutOutlined } from '@ant-design/icons';
+import { MenuProps, Spin } from 'antd';
+import HeaderDropdown from './HeaderDropdown';
+import { UserOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
 import { createStyles } from 'antd-style';
-import { useModel } from '@umijs/max';
-import { message } from 'antd';
+import { useModel,history } from '@umijs/max';
+import localforage from 'localforage';
+import { stringify } from 'querystring';
+import { LOGIN_PATH } from '@/constants/pages'
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -19,6 +22,13 @@ export const AvatarName = () => {
     </span>
   );
 };
+
+/**
+ * 清除accesstoken
+ */
+const removeAccessToken = async () =>{
+  await localforage.removeItem('access_token');
+}
 
 const useStyles = createStyles(({ token }) => {
   return {
@@ -39,34 +49,53 @@ const useStyles = createStyles(({ token }) => {
 });
 
 
-export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({
-   children
-})=>{
+export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({  menu,children })=>{
 
-  const { initialState, setInitialState } = useModel('@@initialState');
+  const { initialState } = useModel('@@initialState');
+
+  /**
+   * 退出登录，并且将当前的 url 保存
+   */
+  const loginOut = async () => {
+    const { query = {}, search, pathname } = history;
+    const { redirect } = query;
+
+    // Note: There may be security issues, please note
+    if (window.location.pathname !== LOGIN_PATH && !redirect) {
+      await removeAccessToken();
+      history.replace({
+        pathname: LOGIN_PATH,
+        search: stringify({
+          redirect: pathname + search,
+        })
+      });
+    }
+  };
 
   const DropdownItems: MenuProps['items'] = [
     {
-      key: 'logout',
-      icon: <LogoutOutlined />,
-      label: '退出登录',
-    },
-    {
-      key: 'theme',
-      icon: <BulbOutlined />,
-      label: '切换主题',
+      key: 'center',
+      icon: <UserOutlined />,
+      label: '个人中心',
+    }, {
+      key: 'settings',
+      icon: <SettingOutlined />,
+      label: '个人设置',
+    }, {
+      type: 'divider' as const,
     },
   ];
 
-  const DropdownOnClick: MenuProps['onClick'] = ({ key }) => {
+  const DropdownOnClick: MenuProps['onClick'] = async ({ key }) => {
     if(key === 'logout'){
-
+      await loginOut();
+      return ;
     }
-    message.info(`Click on item ${key}`);
+
+    console.log(key);
   };
 
-  const { styles } = useStyles();
-
+  const  { styles} = useStyles();
 
   // -- layouts
   const loading = (
@@ -92,16 +121,14 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({
   }
 
   return (
-    <>
-      <Dropdown
-        menu={{
-          selectedKeys: [],
-          items: DropdownItems,
-          onClick: DropdownOnClick,
-        }}
-      >
-        {children}
-      </Dropdown>
-    </>
+    <HeaderDropdown
+      menu={{
+        selectedKeys: [],
+        onClick: DropdownOnClick,
+        items: DropdownItems,
+      }}
+    >
+      {children}
+    </HeaderDropdown>
   )
 }
