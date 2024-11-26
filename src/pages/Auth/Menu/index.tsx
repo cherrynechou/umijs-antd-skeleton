@@ -82,11 +82,6 @@ const Menu: FC = () =>{
       width: 80,
       align: 'center',
       dataIndex: 'name'
-    }, {
-      title: '国际化标识',
-      width: 80,
-      align: 'center',
-      dataIndex: 'locale'
     },{
       title: '路由',
       width: 80,

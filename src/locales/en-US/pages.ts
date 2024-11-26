@@ -1,4 +1,5 @@
 export default {
-  'pages.login.failure': '登录失败，请重试！',
-  'pages.login.success': '登录成功！',
+  'pages.login.title': 'Account Login',
+  'pages.login.failure': 'Login failed, please try again!',
+  'pages.login.success': 'Login successful!',
 }

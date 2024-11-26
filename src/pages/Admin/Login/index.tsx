@@ -1,9 +1,8 @@
 import { FC } from 'react';
-import { useAsyncEffect } from 'ahooks';
 import { Row, Form, Input, Button, Image, message } from 'antd';
 import type { FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { useModel, history, getIntl, getLocale  } from '@umijs/max';
+import { useModel, history,getIntl, getLocale } from '@umijs/max';
 
 import { createStyles } from 'antd-style';
 
@@ -53,16 +52,8 @@ const useStyles = createStyles(({ token,css }) => {
 const Login: FC = () =>{
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles }  = useStyles();
+
   const { formatMessage } = getIntl(getLocale());
-
-  const fetchApi = async () =>{
-
-  }
-
-
-  useAsyncEffect(async() => {
-    await fetchApi();
-  },[])
 
 
   /**
@@ -122,7 +113,7 @@ const Login: FC = () =>{
 
           <div className={`flex align-center ${styles.loginHeader}`}>
             <Image src={logoSvg} width={'15%'} height={'15%'} alt="logo" />
-            <span className={styles.loginDesc}>{formatMessage({id : 'navBar.lang' })}</span>
+            <span className={styles.loginDesc}>{formatMessage({id : 'pages.login.title' })}</span>
           </div>
 
           <Form

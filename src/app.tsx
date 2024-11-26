@@ -80,7 +80,7 @@ export const layout = ({initialState }) => {
       size: 'small',
       src: initialState?.currentUser?.avatar || undefined, //右上角头像
       render: (_, avatarChildren) => {
-        return <AvatarDropdown>{avatarChildren}</AvatarDropdown>
+        return <AvatarDropdown menu={true}>{avatarChildren}</AvatarDropdown>
       }
     },
     disableContentMargin: false,

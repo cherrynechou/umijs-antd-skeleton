@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { MenuProps, Spin } from 'antd';
 import HeaderDropdown from './HeaderDropdown';
-import { UserOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons';
+import { LogoutOutlined, SettingOutlined } from '@ant-design/icons';
 import { createStyles } from 'antd-style';
 import { useModel,history } from '@umijs/max';
 import localforage from 'localforage';
@@ -53,6 +53,8 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({  menu,children })=>
 
   const { initialState } = useModel('@@initialState');
 
+  console.log(menu);
+
   /**
    * 退出登录，并且将当前的 url 保存
    */
@@ -73,16 +75,21 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({  menu,children })=>
   };
 
   const DropdownItems: MenuProps['items'] = [
+    ...(menu ? [
+        {
+          key: 'settings',
+          icon: <SettingOutlined />,
+          label: '个人设置',
+        },
+        {
+          type: 'divider' as const,
+        },
+      ]
+      : []),
     {
-      key: 'center',
-      icon: <UserOutlined />,
-      label: '个人中心',
-    }, {
-      key: 'settings',
-      icon: <SettingOutlined />,
-      label: '个人设置',
-    }, {
-      type: 'divider' as const,
+      key: 'logout',
+      icon: <LogoutOutlined />,
+      label: '退出登录',
     },
   ];
 
@@ -121,14 +128,16 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({  menu,children })=>
   }
 
   return (
-    <HeaderDropdown
-      menu={{
-        selectedKeys: [],
-        onClick: DropdownOnClick,
-        items: DropdownItems,
-      }}
-    >
-      {children}
-    </HeaderDropdown>
+    <>
+      <HeaderDropdown
+        menu={{
+          selectedKeys: [],
+          onClick: DropdownOnClick,
+          items: DropdownItems,
+        }}
+      >
+        {children}
+      </HeaderDropdown>
+    </>
   )
 }

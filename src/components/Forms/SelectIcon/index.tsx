@@ -11,7 +11,7 @@ interface selectIconProps  {
   onChange: (icon: string)=> void
 }
 
-const SelectIcons: FC<selectIconProps> = (props: any) =>{
+const SelectIcon: FC<selectIconProps> = (props: any) =>{
   const [ currentIcon, setCurrentIcon ] = useState<string>('');
   const [viewData, setViewData] = useState<Tab[]>([])
   const [ isModalOpen, setIsModalOpen ] = useState<any>(false);
@@ -95,4 +95,4 @@ const SelectIcons: FC<selectIconProps> = (props: any) =>{
   )
 }
 
-export default SelectIcons;
+export default SelectIcon;

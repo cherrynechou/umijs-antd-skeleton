@@ -38,8 +38,12 @@ export default defineConfig({
   request: {},
 
   locale: {
-    // 默认使用 src/locales/zh-CN.ts 作为多语言文件
+    antd: true, // 如果项目依赖中包含 `antd`，则默认为 true
+    baseNavigator: true,
+    baseSeparator: '-',
     default: 'zh-CN',
+    title: false,
+    useLocalStorage: true,
   },
 
   /**
@@ -58,6 +62,9 @@ export default defineConfig({
   // umi routes: https://umijs.org/docs/routing
   routes,
   proxy: proxy[REACT_APP_ENV || 'dev'],
+  manifest: {
+    basePath: '/',
+  },
   npmClient: 'pnpm',
 });
 

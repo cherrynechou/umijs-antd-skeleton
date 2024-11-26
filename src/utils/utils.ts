@@ -1,23 +1,5 @@
-import {cloneDeep, pick} from 'lodash-es';
-
-/**
- * 生成树型列表所需要的
- */
-export interface ITreeOption {
-  idKey: string | number,
-  nameKey: string,
-  parentIdKey: string,
-  childrenKey: string,
-  rootValue: string | number
-}
-
-export interface ITreeDataObj {
-  [id: string]: any,
-  children?: ITreeDataObj[],
-  title: string,
-  parent_id: string | number
-}
-
+import { cloneDeep, pick } from 'lodash-es';
+import { ITreeOption } from '@/interfaces/tree';
 
 /**
  * 将树结构转的是成列表形貌（ 树型结构 ）
@@ -87,8 +69,7 @@ const treeToOrderList =  (
  * @param options
  * refre: https://www.jb51.net/article/234063.htm
  */
-const listToTree = (trees: any[], options: ITreeOption) =>
-{
+const listToTree = (trees: any[], options: ITreeOption) => {
   //1.格式化
   const formatTrees: any[] = [];
   trees.forEach(item=>{
