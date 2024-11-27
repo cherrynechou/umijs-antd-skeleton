@@ -28,7 +28,8 @@
     "nanoid": "^5.0.8",
     "rc-menu": "^9.16.0",
     "rc-tabs": "^15.4.0",
-    "react": "^18.3.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
@@ -42,8 +43,5 @@
     "prettier-plugin-organize-imports": "^3.2.2",
     "prettier-plugin-packagejson": "^2.4.3",
     "typescript": "^5.0.3"
-  },
-  "gitHooks": {
-    "commit-msg": "fabric verify-commit"
   }
 }
