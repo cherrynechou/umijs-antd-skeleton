@@ -2,13 +2,13 @@
   "private": true,
   "author": "cherrynechou <iboy_2008@163.com>",
   "scripts": {
-    "dev": "cross-env REACT_APP_ENV=dev MOCK=none UMI_ENV=dev max dev",
     "build": "max build",
     "format": "prettier --cache --write .",
-    "prepare": "husky",
     "postinstall": "max setup",
+    "prepare": "husky",
     "setup": "max setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "start:dev": "cross-env REACT_APP_ENV=dev MOCK=none UMI_ENV=dev max dev"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
@@ -27,7 +27,8 @@
     "lodash-es": "^4.17.21",
     "nanoid": "^5.0.8",
     "rc-menu": "^9.16.0",
-    "rc-tabs": "^15.4.0"
+    "rc-tabs": "^15.4.0",
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
@@ -41,5 +42,8 @@
     "prettier-plugin-organize-imports": "^3.2.2",
     "prettier-plugin-packagejson": "^2.4.3",
     "typescript": "^5.0.3"
+  },
+  "gitHooks": {
+    "commit-msg": "fabric verify-commit"
   }
 }

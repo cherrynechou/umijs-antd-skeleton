@@ -1,21 +1,23 @@
 // 运行时配置
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
-import type { Settings as LayoutSettings } from '@ant-design/pro-components';
-import { AvatarName, AvatarDropdown, Footer } from '@/components';
-import localforage from 'localforage';
-import { history,Link } from '@umijs/max';
+import { AvatarDropdown, AvatarName, Footer } from '@/components';
 import { queryCurrentUser } from '@/services/admin/auth/UserController';
 import { getMenuList } from '@/services/admin/system/CommonController';
 import fixMenuItemIcon from '@/utils/fixMenuItemIcon';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
-import defaultSettings from '../config/defaultSettings';
+import type { Settings as LayoutSettings } from '@ant-design/pro-components';
+import { history, Link } from '@umijs/max';
+import { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
+import localforage from 'localforage';
+import { nanoid } from 'nanoid';
+import defaultSettings from '../config/defaultSettings';
 
 const isDev: boolean = process.env.NODE_ENV === 'development';
 const loginPath: string = '/admin/login';
 
-export type menuProType={
+export type menuProType = {
   isUrl: any;
   path: any;
   target: string;
@@ -29,10 +31,9 @@ export async function getInitialState(): Promise<{
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.LoginResponse | undefined>;
 }> {
-
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser();
+      const msg: AxiosResponse = await queryCurrentUser();
       return msg.data;
     } catch (error) {
       history.push(loginPath);
@@ -57,9 +58,10 @@ export async function getInitialState(): Promise<{
   };
 }
 
-export const layout = ({initialState }) => {
+export const layout = ({ initialState }) => {
   return {
     menu: {
+      locale: false,
       params: {
         username: initialState?.currentUser?.username,
       },
@@ -73,15 +75,15 @@ export const layout = ({initialState }) => {
         <div key={'dateString'} style={{ color: '#fff', fontSize: 14 }}>
           {dayjs().locale('zh-cn').format('YYYY年MM月DD日 dddd')}
         </div>,
-      ]
+      ];
     },
     avatarProps: {
       title: <AvatarName />, //右上角名称
       size: 'small',
       src: initialState?.currentUser?.avatar || undefined, //右上角头像
       render: (_, avatarChildren) => {
-        return <AvatarDropdown menu={true}>{avatarChildren}</AvatarDropdown>
-      }
+        return <AvatarDropdown menu={true}>{avatarChildren}</AvatarDropdown>;
+      },
     },
     disableContentMargin: false,
     waterMarkProps: {
@@ -92,45 +94,44 @@ export const layout = ({initialState }) => {
       // 页面切换时触发
       console.log('页面切换时触发', initialState, location);
       const accessToken = await localforage.getItem('access_token');
-      if(!initialState?.currentUser && !accessToken && location.pathname !== loginPath){
+      if (!initialState?.currentUser && !accessToken && location.pathname !== loginPath) {
         history.push(loginPath);
       }
     },
     links: isDev
-     ? [
-        <Link to="/umi/plugin/openapi" target="_blank">
-          <LinkOutlined />
-          <span>OpenAPI 文档</span>
-        </Link>,
-        <Link to="/~docs">
-          <BookOutlined />
-          <span>业务组件文档</span>
-        </Link>,
-     ]: [],
+      ? [
+          <Link key={nanoid()} to="/umi/plugin/openapi" target="_blank">
+            <LinkOutlined />
+            <span>OpenAPI 文档</span>
+          </Link>,
+          <Link key={nanoid()} to="/~docs">
+            <BookOutlined />
+            <span>业务组件文档</span>
+          </Link>,
+        ]
+      : [],
     menuHeaderRender: undefined,
     childrenRender: (children) => {
       // if (initialState?.loading) return <PageLoading />;
       return children;
     },
     ...initialState?.settings,
-    menuItemRender: (menuItemProps: menuProType, defaultDom: any)  => {
+    menuItemRender: (menuItemProps: menuProType, defaultDom: any) => {
       if (menuItemProps.isUrl || !menuItemProps.path) {
         return defaultDom;
       }
       // 支持二级菜单显示icon
-      return (
-        menuItemProps.target ? <Link to={menuItemProps.path} target={ menuItemProps.target }>
-          {menuItemProps.pro_layout_parentKeys &&
-            menuItemProps.pro_layout_parentKeys.length > 1 &&
-            menuItemProps.icon}
+      return menuItemProps.target ? (
+        <Link to={menuItemProps.path} target={menuItemProps.target}>
+          {menuItemProps.pro_layout_parentKeys && menuItemProps.pro_layout_parentKeys.length > 1 && menuItemProps.icon}
           {defaultDom}
-        </Link> : <Link to={menuItemProps.path}>
-          {menuItemProps.pro_layout_parentKeys &&
-            menuItemProps.pro_layout_parentKeys.length > 1 &&
-            menuItemProps.icon}
+        </Link>
+      ) : (
+        <Link to={menuItemProps.path}>
+          {menuItemProps.pro_layout_parentKeys && menuItemProps.pro_layout_parentKeys.length > 1 && menuItemProps.icon}
           {defaultDom}
         </Link>
       );
-    }
+    },
   };
 };

@@ -46,7 +46,7 @@ export function updateUser(id: number, params: any = {}) {
  * @param id
  */
 export function destroyUser(id: number) {
-  return request.delete(`/auth/user/${id}`);
+  return request.delete(`/auth/users/${id}`);
 }
 
 /**
@@ -54,6 +54,11 @@ export function destroyUser(id: number) {
  */
 export function blockUser(id: number) {
   return request.patch(`/user/${id}/block`);
+}
+
+//更改密码
+export function changePassword(id: number, params: any = {}) {
+  return request.put('/auth/user/changePassword', params);
 }
 
 /**

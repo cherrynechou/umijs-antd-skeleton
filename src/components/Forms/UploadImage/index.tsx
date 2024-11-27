@@ -1,35 +1,34 @@
-import { FC, useState } from 'react';
-import { useAsyncEffect } from 'ahooks';
-import { Upload, Modal, message } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import type { UploadFile } from 'antd/es/upload/interface';
-import type { RcFile, UploadProps } from 'antd/es/upload';
-import { nanoid } from 'nanoid'
 import { uploadImageFile } from '@/services/admin/system/CommonController';
-import { cloneDeep,map } from 'lodash-es';
+import { PlusOutlined } from '@ant-design/icons';
+import { useAsyncEffect } from 'ahooks';
+import { Modal, Upload, message } from 'antd';
+import type { RcFile, UploadProps } from 'antd/es/upload';
+import type { UploadFile } from 'antd/es/upload/interface';
+import { cloneDeep, map } from 'lodash-es';
+import { nanoid } from 'nanoid';
+import { FC, useState } from 'react';
 
-
-interface UploadImageProps  {
-  accept: string,
-  listType: string,
-  maxCount: number,
-  fileList?: UploadFile[],
-  maxSize?: number,
-  onUploadChange: (file: UploadFile[] )=> void
+export interface UploadImageProps {
+  accept: string;
+  listType: string;
+  maxCount: number;
+  fileList?: UploadFile[];
+  maxSize?: number;
+  onUploadChange: (file: UploadFile[]) => void;
 }
 
 let _uploadFileList: any[] = [];
-const UploadImage: FC<UploadImageProps> = (props: any)=>{
+const UploadImage: FC<UploadImageProps> = (props: any) => {
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
   const [previewOpen, setPreviewOpen] = useState(false);
-  const [uploadFileList,setUploadFileList] = useState<UploadFile[]>([]);
-  const { accept,listType, maxCount, onUploadChange, fileList, maxSize } = props;
+  const [uploadFileList, setUploadFileList] = useState<UploadFile[]>([]);
+  const { accept, listType, maxCount, onUploadChange, fileList, maxSize } = props;
 
-  useAsyncEffect(async ()=>{
+  useAsyncEffect(async () => {
     setUploadFileList(cloneDeep(fileList));
     _uploadFileList = cloneDeep(fileList);
-  },[]);
+  }, []);
 
   const getBase64 = (file: RcFile): Promise<string> =>
     new Promise((resolve, reject) => {
@@ -78,7 +77,7 @@ const UploadImage: FC<UploadImageProps> = (props: any)=>{
       message.error(`文件上传需要小于 ${file.size / 1024}KB!`);
       return false;
     }
-  }
+  };
 
   /**
    * 处理文件上传
@@ -93,29 +92,29 @@ const UploadImage: FC<UploadImageProps> = (props: any)=>{
       const fileData = r.substring(index + 7);
 
       let fileExtension: string = '';
-      if(file.type == 'image/jpeg'){
+      if (file.type === 'image/jpeg') {
         fileExtension = 'jpg';
-      }else if(file.type == 'image/png'){
+      } else if (file.type === 'image/png') {
         fileExtension = 'png';
       }
 
       const formData = {
         extension: fileExtension,
-        fileData: fileData
-      }
+        fileData: fileData,
+      };
 
       uploadImageFile(formData).then((response: any) => {
         if (response.status === 200) {
+          const uuid: string = nanoid();
 
-          const uuid: string = nanoid()
-
-          setUploadFileList([...uploadFileList.filter(item=>item.status == 'done'),
+          setUploadFileList([
+            ...uploadFileList.filter((item) => item.status === 'done'),
             {
               uid: uuid,
               name: response.data.path,
               status: 'done',
               url: response.data.remotePath,
-            } as UploadFile
+            } as UploadFile,
           ]);
 
           _uploadFileList.push(response.data.path);
@@ -125,16 +124,16 @@ const UploadImage: FC<UploadImageProps> = (props: any)=>{
         }
       });
     });
-  }
+  };
 
   /**
    * 删除
    * @param file
    */
-  const handleRemove = (file: any) =>{
-    const _resultFileList = uploadFileList.filter(item=>item.uid !== file.uid);
-    onUploadChange(map(_resultFileList,'name'));
-  }
+  const handleRemove = (file: any) => {
+    const _resultFileList = uploadFileList.filter((item) => item.uid !== file.uid);
+    onUploadChange(map(_resultFileList, 'name'));
+  };
 
   return (
     <>
@@ -154,7 +153,7 @@ const UploadImage: FC<UploadImageProps> = (props: any)=>{
         <img alt="example" style={{ width: '100%' }} src={previewImage} />
       </Modal>
     </>
-  )
-}
+  );
+};
 
 export default UploadImage;
