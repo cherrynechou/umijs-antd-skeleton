@@ -1,7 +1,7 @@
 import { LOGIN_PATH } from '@/constants/pages';
 import { changePassword } from '@/services/admin/auth/UserController';
 import { LogoutOutlined, SettingOutlined } from '@ant-design/icons';
-import { getIntl, getLocale, history, useModel } from '@umijs/max';
+import { useIntl, history, useModel } from '@umijs/max';
 import { App, Form, Input, MenuProps, Modal, Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import { AxiosResponse, HttpStatusCode } from 'axios';
@@ -51,7 +51,7 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { message, modal } = App.useApp();
 
-  const { formatMessage } = getIntl(getLocale());
+  const { formatMessage } = useIntl();
 
   const [form] = Form.useForm();
 

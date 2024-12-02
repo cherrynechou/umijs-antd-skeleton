@@ -5,8 +5,8 @@ import { Button, Space, Tag, message, Switch, Popconfirm } from 'antd';
 import { queryUsers, blockUser, resetPassword, destroyUser } from '@/services/admin/auth/UserController';
 import { omit } from 'lodash-es';
 import { PlusOutlined } from '@ant-design/icons';
-import CreateOrEdit  from './components/CreateOrEdit';
 import { HttpStatusCode } from 'axios';
+import CreateOrEdit  from './components/CreateOrEdit';
 
 export type TableListItem = {
   id: number;
@@ -221,7 +221,7 @@ const User: FC = () =>{
           showQuickJumper: true,
         }}
         toolBarRender={() => [
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
+          <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
             新增
           </Button>,
         ]}

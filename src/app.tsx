@@ -4,14 +4,13 @@
 import { AvatarDropdown, AvatarName, Footer } from '@/components';
 import { queryCurrentUser } from '@/services/admin/auth/UserController';
 import { getMenuList } from '@/services/admin/system/CommonController';
-import fixMenuItemIcon from '@/utils/fixMenuItemIcon';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { history, Link } from '@umijs/max';
 import { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
 import localforage from 'localforage';
-import { nanoid } from 'nanoid';
+import fixMenuItemIcon from '@/utils/fixMenuItemIcon';
 import defaultSettings from '../config/defaultSettings';
 
 const isDev: boolean = process.env.NODE_ENV === 'development';
@@ -100,11 +99,11 @@ export const layout = ({ initialState }) => {
     },
     links: isDev
       ? [
-          <Link key={nanoid()} to="/umi/plugin/openapi" target="_blank">
+          <Link to="/umi/plugin/openapi" target="_blank">
             <LinkOutlined />
             <span>OpenAPI 文档</span>
           </Link>,
-          <Link key={nanoid()} to="/~docs">
+          <Link to="/~docs">
             <BookOutlined />
             <span>业务组件文档</span>
           </Link>,

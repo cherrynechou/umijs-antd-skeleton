@@ -1,5 +1,5 @@
 import { FC,  useRef, useState } from 'react';
-import type {ActionType, ProColumns} from '@ant-design/pro-components';
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
 import { Button, Popconfirm, Switch, message, Space } from 'antd';
 import { queryMenus, switchMenu, destroyMenu } from '@/services/admin/auth/MenuController';
@@ -155,7 +155,7 @@ const Menu: FC = () =>{
         rowSelection={{ fixed: true }}
         pagination={false}
         toolBarRender={() => [
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
+          <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
             新增
           </Button>,
         ]}
