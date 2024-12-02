@@ -2,7 +2,7 @@
   "private": true,
   "author": "cherrynechou <iboy_2008@163.com>",
   "scripts": {
-    "build": "max build",
+    "build": "cross-env UMI_ENV=prod NODE_ENV=prod max build",
     "format": "prettier --cache --write .",
     "postinstall": "max setup",
     "prepare": "husky",
