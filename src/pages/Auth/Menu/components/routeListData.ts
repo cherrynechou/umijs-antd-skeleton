@@ -11,7 +11,6 @@ const routeList: any = [
   '/auth/menu',
 ]
 
-
 export {
   routeList
 }

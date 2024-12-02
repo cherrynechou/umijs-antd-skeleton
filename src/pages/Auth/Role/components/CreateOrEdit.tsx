@@ -1,3 +1,4 @@
+import { FC, useState } from 'react';
 import { CreateOrEditProps } from '@/interfaces/modal';
 import { ITreeOption } from '@/interfaces/tree';
 import { queryAllPermissions } from '@/services/admin/auth/PermissionController';
@@ -7,7 +8,7 @@ import { useAsyncEffect } from 'ahooks';
 import { Form, Input, message, Modal, Skeleton, Tree } from 'antd';
 import type { TreeProps } from 'antd/es/tree';
 import { nanoid } from 'nanoid';
-import { FC, useState } from 'react';
+
 
 //默认类型
 const defaultOptionKeys: ITreeOption = {

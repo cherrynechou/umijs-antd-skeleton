@@ -1,3 +1,4 @@
+import { FC, useState } from 'react';
 import { UploadImage } from '@/components';
 import { CreateOrEditProps } from '@/interfaces/modal';
 import { ITreeOption } from '@/interfaces/tree';
@@ -11,7 +12,7 @@ import type { TreeProps } from 'antd/es/tree';
 import type { UploadFile } from 'antd/es/upload/interface';
 import { AxiosResponse } from 'axios';
 import { pick } from 'lodash-es';
-import { FC, useState } from 'react';
+
 
 export type UserEntity = {
   id: string;

@@ -1,3 +1,4 @@
+import { FC, useState } from 'react';
 import { CreateOrEditProps } from '@/interfaces/modal';
 import {
   createPermission,
@@ -9,7 +10,6 @@ import { treeToOrderList } from '@/utils/utils';
 import { useAsyncEffect } from 'ahooks';
 import { Form, Input, Modal, Select, Skeleton, message } from 'antd';
 import { AxiosResponse } from 'axios';
-import { FC, useState } from 'react';
 
 const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const [initialValues, setInitialValues] = useState<any>({});
@@ -24,6 +24,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const title = editId === undefined ? '添加' : '编辑';
 
   const fetchApi = async () => {
+
     setTreeData(treeToOrderList(permissionTreeData));
 
     const allMethods: any[] = [

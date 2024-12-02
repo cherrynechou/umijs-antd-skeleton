@@ -5,7 +5,18 @@ import { Button, Popconfirm, Switch, message, Space } from 'antd';
 import { queryMenus, switchMenu, destroyMenu } from '@/services/admin/auth/MenuController';
 import Icon, { PlusOutlined } from '@ant-design/icons';
 import * as icons from '@ant-design/icons';
-import CreateOrEdit from './components/CreateOrEdit'
+import CreateOrEdit from './components/CreateOrEdit';
+
+export type TableListItem = {
+  id: number;
+  icon: string;
+  name: string;
+  path: string;
+  order: number;
+  status: number;
+  created_at: number;
+  update_at: number;
+};
 
 const Menu: FC = () =>{
   const [ menuData, setMenuData ] = useState([]);
@@ -131,8 +142,6 @@ const Menu: FC = () =>{
       )
     },
   ];
-
-
 
   return (
     <PageContainer title="菜单管理">

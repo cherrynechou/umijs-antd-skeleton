@@ -8,7 +8,6 @@ import { PlusOutlined } from '@ant-design/icons';
 import CreateOrEdit  from './components/CreateOrEdit';
 import { HttpStatusCode } from 'axios';
 
-
 export type TableListItem = {
   id: number;
   username: string;
@@ -28,9 +27,6 @@ export type TableListItem = {
 export type RoleItem = {
   name: string;
 };
-
-
-
 
 const User: FC = () =>{
 
@@ -209,8 +205,6 @@ const User: FC = () =>{
       ),
     },
   ];
-
-
 
   return (
     <PageContainer title="用户管理">

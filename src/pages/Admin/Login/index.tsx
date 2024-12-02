@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { getIntl, getLocale, history, useModel } from '@umijs/max';
+import { FormattedMessage, history, useModel } from '@umijs/max';
 import type { FormProps } from 'antd';
 import { Button, Form, Image, Input, message, Row } from 'antd';
 import { FC } from 'react';
@@ -53,8 +53,6 @@ const Login: FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
 
-  const { formatMessage } = getIntl(getLocale());
-
   /**
    * 设置凭证
    * @param data
@@ -97,7 +95,9 @@ const Login: FC = () => {
         <div className={styles.boxContainer}>
           <div className={`flex align-center ${styles.loginHeader}`}>
             <Image src={logoSvg} width={'15%'} height={'15%'} alt="logo" />
-            <span className={styles.loginDesc}>{formatMessage({ id: 'pages.login.title' })}</span>
+            <span className={styles.loginDesc}>
+              <FormattedMessage id="pages.login.title" />
+            </span>
           </div>
 
           <Form onFinish={onFinish} autoComplete="off">
