@@ -1,4 +1,4 @@
-import { LOGIN_PATH } from '@/constants/pages';
+import { FC, useState } from 'react';
 import { changePassword } from '@/services/admin/auth/UserController';
 import { LogoutOutlined, SettingOutlined } from '@ant-design/icons';
 import { useIntl, history, useModel } from '@umijs/max';
@@ -7,7 +7,8 @@ import { createStyles } from 'antd-style';
 import { AxiosResponse, HttpStatusCode } from 'axios';
 import localforage from 'localforage';
 import { stringify } from 'querystring';
-import { FC, useState } from 'react';
+import { LOGIN_PATH } from '@/constants/pages';
+import { flushSync } from 'react-dom';
 import HeaderDropdown from './HeaderDropdown';
 
 export type GlobalHeaderRightProps = {
@@ -47,7 +48,7 @@ const useStyles = createStyles(({ token }) => {
 });
 
 export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) => {
-  const { initialState } = useModel('@@initialState');
+  const { initialState,setInitialState } = useModel('@@initialState');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { message, modal } = App.useApp();
 
@@ -67,12 +68,19 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
     // Note: There may be security issues, please note
     if (window.location.pathname !== LOGIN_PATH && !redirect) {
       await removeAccessToken();
-      history.replace({
-        pathname: LOGIN_PATH,
-        search: stringify({
-          redirect: pathname + search,
-        }),
-      });
+      const { search, pathname } = window.location;
+      const urlParams = new URL(window.location.href).searchParams;
+      /** 此方法会跳转到 redirect 参数所在的位置 */
+      const redirect = urlParams.get('redirect');
+      // Note: There may be security issues, please note
+      if (window.location.pathname !== LOGIN_PATH && !redirect) {
+        history.replace({
+          pathname: LOGIN_PATH,
+          search: stringify({
+            redirect: pathname + search,
+          }),
+        });
+      }
     }
   };
 
@@ -109,6 +117,9 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
 
   const DropdownOnClick: MenuProps['onClick'] = async ({ key }) => {
     if (key === 'logout') {
+      flushSync(() => {
+        setInitialState((s) => ({ ...s, currentUser: undefined }));
+      });
       await loginOut();
       return;
     }

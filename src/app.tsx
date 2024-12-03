@@ -4,7 +4,7 @@
 import { AvatarDropdown, AvatarName, Footer } from '@/components';
 import { queryCurrentUser } from '@/services/admin/auth/UserController';
 import { getMenuList } from '@/services/admin/system/CommonController';
-import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { history, Link } from '@umijs/max';
 import { AxiosResponse } from 'axios';
@@ -99,14 +99,10 @@ export const layout = ({ initialState }) => {
     },
     links: isDev
       ? [
-          <Link to="/umi/plugin/openapi" target="_blank">
+          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
             <LinkOutlined />
             <span>OpenAPI 文档</span>
-          </Link>,
-          <Link to="/~docs">
-            <BookOutlined />
-            <span>业务组件文档</span>
-          </Link>,
+          </Link>
         ]
       : [],
     menuHeaderRender: undefined,

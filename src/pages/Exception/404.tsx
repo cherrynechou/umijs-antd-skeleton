@@ -1,14 +1,14 @@
 import { Button, Result } from 'antd';
-import { history } from '@umijs/max';
+import { history, useIntl } from '@umijs/max';
 
 export default () => (
   <Result
     status="404"
     title="404"
-    subTitle="Sorry, the page you visited does not exist."
+    subTitle={useIntl().formatMessage({ id: 'pages.404.subTitle' })}
     extra={
       <Button type="primary" onClick={() => history.push('/')}>
-        Back Home
+        {useIntl().formatMessage({ id: 'pages.404.buttonText' })}
       </Button>
     }
   />

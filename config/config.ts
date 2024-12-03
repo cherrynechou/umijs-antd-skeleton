@@ -1,4 +1,5 @@
 import { defineConfig } from '@umijs/max';
+import { join } from 'node:path';
 
 import routes from './routes';
 import proxy  from './proxy';
@@ -7,6 +8,12 @@ import defaultSettings from './defaultSettings';
 
 const { REACT_APP_ENV } = process.env;
 
+/**
+ * @name 使用公共路径
+ * @description 部署时的路径，如果部署在非根目录下，需要配置这个变量
+ * @doc https://umijs.org/docs/api/config#publicpath
+ */
+const PUBLIC_PATH: string = '/';
 export default defineConfig({
   /**
    * @name antd 插件
@@ -23,6 +30,15 @@ export default defineConfig({
   access: {},
 
   /**
+   * @name <head> 中额外的 script
+   * @description 配置 <head> 中额外的 script
+   */
+  headScripts: [
+    // 解决首次加载时白屏的问题
+    { src: join(PUBLIC_PATH, 'scripts/loading.js'), async: true },
+  ],
+
+  /**
    * @name 数据流插件
    * @@doc https://umijs.org/docs/max/data-flow
    */
@@ -36,6 +52,16 @@ export default defineConfig({
   initialState: {},
 
   request: {},
+
+  /**
+   * @name moment2dayjs 插件
+   * @description 将项目中的 moment 替换为 dayjs
+   * @doc https://umijs.org/docs/max/moment2dayjs
+   */
+  moment2dayjs: {
+    preset: 'antd',
+    plugins: ['duration'],
+  },
 
   locale: {
     antd: true, // 如果项目依赖中包含 `antd`，则默认为 true
@@ -61,10 +87,7 @@ export default defineConfig({
    */
   // umi routes: https://umijs.org/docs/routing
   routes,
-  proxy: proxy[REACT_APP_ENV || 'dev'],
-  manifest: {
-    basePath: '/',
-  },
+  proxy: proxy[REACT_APP_ENV as keyof typeof proxy],
   npmClient: 'pnpm',
 });
 
