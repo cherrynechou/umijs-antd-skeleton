@@ -1,16 +1,15 @@
+import { history, useIntl } from '@umijs/max';
 import { Button, Result } from 'antd';
-import { history } from '@umijs/max';
 
 export default () => (
   <Result
     status="403"
     title="403"
-    subTitle="无权限"
+    subTitle={useIntl().formatMessage({ id: 'pages.403.subTitle' })}
     extra={
       <Button type="primary" onClick={() => history.push('/')}>
-        返回首页
+        {useIntl().formatMessage({ id: 'pages.403.buttonText' })}
       </Button>
     }
   />
 );
-

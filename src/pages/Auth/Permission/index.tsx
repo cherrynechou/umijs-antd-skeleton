@@ -1,10 +1,10 @@
-import { FC, useRef, useState } from 'react';
+import { destroyPermission, queryPermissions } from '@/services/admin/auth/PermissionController';
+import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
 import { Button, message, Popconfirm, Space, Tag } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import { queryPermissions, destroyPermission } from '@/services/admin/auth/PermissionController';
-import CreateOrEdit from './components/CreateOrEdit'
+import { FC, useRef, useState } from 'react';
+import CreateOrEdit from './components/CreateOrEdit';
 
 export type TableListItem = {
   id: number;
@@ -18,36 +18,33 @@ export type TableListItem = {
   update_at: number;
 };
 
-
-const Permission: FC = () =>{
-  const [ permissionTreeData, setPermissionTreeData ] = useState<any>([]);
-  const [ isModalVisible, setIsModalVisible ] = useState(false);
-  const [ editId, setEditId] = useState<number>(0);
+const Permission: FC = () => {
+  const [permissionTreeData, setPermissionTreeData] = useState<any>([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [editId, setEditId] = useState<number>(0);
 
   const actionRef = useRef<ActionType>();
 
   //自定查询
-  const requestData = async () =>{
+  const requestData = async () => {
     const permissionRes = await queryPermissions();
     setPermissionTreeData(permissionRes.data);
     return {
       data: permissionRes.data,
-      success: permissionRes.status === 200
-    }
-  }
-
+      success: permissionRes.status === 200,
+    };
+  };
 
   /**
    *  显示对话框
    * @param show
    * @param id
    */
-  const isShowModal = (show: boolean, id?: number | undefined)=> {
+  const isShowModal = (show: boolean, id?: number | undefined) => {
     // @ts-ignore
     setEditId(id);
     setIsModalVisible(show);
-  }
-
+  };
 
   /**
    * 删除id
@@ -55,7 +52,7 @@ const Permission: FC = () =>{
    */
   const confirmDel = async (id: number) => {
     const res = await destroyPermission(id);
-    if(res.status === 200){
+    if (res.status === 200) {
       message.success('删除成功');
     }
   };
@@ -69,70 +66,82 @@ const Permission: FC = () =>{
       align: 'center',
       sorter: (a, b) => a.id - b.id,
       hideInSearch: true,
-    },{
+    },
+    {
       title: '标识',
       width: 80,
       align: 'center',
       dataIndex: 'slug',
       render: (_, record) => (
         <Space>
-          <Tag color='#586cb1'>
-            {record.slug}
-          </Tag>
+          <Tag color="#586cb1">{record.slug}</Tag>
         </Space>
-      )
-    }, {
+      ),
+    },
+    {
       title: '名称',
       width: 80,
       align: 'center',
       dataIndex: 'name',
-    },{
+    },
+    {
       title: '授权信息',
       width: 80,
       align: 'center',
-      render: (_,record)=>(
+      render: (_, record) => (
         <Space>
-          {record.methods.map( (method: string,index: number) => (
-            <Tag key={index} color='#586cb1'>
+          {record.methods.map((method: string, index: number) => (
+            <Tag key={index} color="#586cb1">
               {method}
             </Tag>
           ))}
-          {record.paths.map( (path: string,index: number) => (
-            <Tag color='#f7f7f9' key={index} style={{ color:'#586cb1'}}>
+          {record.paths.map((path: string, index: number) => (
+            <Tag color="#f7f7f9" key={index} style={{ color: '#586cb1' }}>
               {path}
             </Tag>
           ))}
         </Space>
-      )
-    }, {
+      ),
+    },
+    {
       title: '创建时间',
       width: 120,
       align: 'center',
       dataIndex: 'created_at',
       hideInSearch: true,
-    }, {
+    },
+    {
       title: '更新时间',
       width: 120,
       align: 'center',
       dataIndex: 'updated_at',
       hideInSearch: true,
-    }, {
+    },
+    {
       title: '操作',
       width: 60,
       key: 'option',
       valueType: 'option',
       align: 'center',
-      render: (_,record) => (
+      render: (_, record) => (
         <Space>
-          <a key="link" onClick={() => isShowModal(true, record.id)}>编辑</a>
-          <Popconfirm key="del" placement="top" title='确认操作?' onConfirm={ () => confirmDel(record.id) } okText="Yes" cancelText="No">
+          <a key="link" onClick={() => isShowModal(true, record.id)}>
+            编辑
+          </a>
+          <Popconfirm
+            key="del"
+            placement="top"
+            title="确认操作?"
+            onConfirm={() => confirmDel(record.id)}
+            okText="Yes"
+            cancelText="No"
+          >
             <a>删除</a>
           </Popconfirm>
         </Space>
-      )
+      ),
     },
   ];
-
 
   return (
     <PageContainer title="权限管理">
@@ -147,23 +156,23 @@ const Permission: FC = () =>{
         rowSelection={{ fixed: true }}
         pagination={false}
         toolBarRender={() => [
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
+          <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
             新增
           </Button>,
         ]}
       />
 
-      {isModalVisible &&
+      {isModalVisible && (
         <CreateOrEdit
           isModalVisible={isModalVisible}
           isShowModal={isShowModal}
-          actionRef = {actionRef}
-          permissionTreeData = {permissionTreeData}
-          editId = {editId}
+          actionRef={actionRef}
+          permissionTreeData={permissionTreeData}
+          editId={editId}
         />
-      }
+      )}
     </PageContainer>
-  )
-}
+  );
+};
 
 export default Permission;

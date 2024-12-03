@@ -1,13 +1,12 @@
-import { FC, useState } from 'react';
 import { changePassword } from '@/services/admin/auth/UserController';
 import { LogoutOutlined, SettingOutlined } from '@ant-design/icons';
-import { useIntl, history, useModel } from '@umijs/max';
+import { history, useIntl, useModel } from '@umijs/max';
 import { App, Form, Input, MenuProps, Modal, Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import { AxiosResponse, HttpStatusCode } from 'axios';
 import localforage from 'localforage';
 import { stringify } from 'querystring';
-import { LOGIN_PATH } from '@/constants/pages';
+import { FC, useState } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from './HeaderDropdown';
 
@@ -48,7 +47,7 @@ const useStyles = createStyles(({ token }) => {
 });
 
 export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) => {
-  const { initialState,setInitialState } = useModel('@@initialState');
+  const { initialState, setInitialState } = useModel('@@initialState');
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { message, modal } = App.useApp();
 
@@ -66,16 +65,16 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
     const { redirect } = query;
 
     // Note: There may be security issues, please note
-    if (window.location.pathname !== LOGIN_PATH && !redirect) {
+    if (window.location.pathname !== '/admin/login' && !redirect) {
       await removeAccessToken();
       const { search, pathname } = window.location;
       const urlParams = new URL(window.location.href).searchParams;
       /** 此方法会跳转到 redirect 参数所在的位置 */
       const redirect = urlParams.get('redirect');
       // Note: There may be security issues, please note
-      if (window.location.pathname !== LOGIN_PATH && !redirect) {
+      if (window.location.pathname !== '/admin/login' && !redirect) {
         history.replace({
-          pathname: LOGIN_PATH,
+          pathname: '/admin/login',
           search: stringify({
             redirect: pathname + search,
           }),
@@ -91,7 +90,7 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
     await removeAccessToken();
     message.success('退出成功');
     history.replace({
-      pathname: LOGIN_PATH,
+      pathname: '/admin/login',
     });
   };
 

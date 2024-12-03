@@ -1,8 +1,8 @@
 import { defineConfig } from '@umijs/max';
 import { join } from 'node:path';
 
+import proxy from './proxy';
 import routes from './routes';
-import proxy  from './proxy';
 
 import defaultSettings from './defaultSettings';
 
@@ -78,7 +78,7 @@ export default defineConfig({
    */
   layout: {
     locale: true,
-    ...defaultSettings
+    ...defaultSettings,
   },
   /**
    * @name 路由的配置，不在路由中引入的文件不会编译
@@ -88,6 +88,8 @@ export default defineConfig({
   // umi routes: https://umijs.org/docs/routing
   routes,
   proxy: proxy[REACT_APP_ENV as keyof typeof proxy],
+  verifyCommit: {
+    scope: ['dev', 'fix'],
+  },
   npmClient: 'pnpm',
 });
-
