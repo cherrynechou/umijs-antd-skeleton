@@ -1,8 +1,10 @@
+import { FC } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { FormattedMessage, history, useModel } from '@umijs/max';
 import type { FormProps } from 'antd';
 import { Button, Form, Image, Input, App, Row } from 'antd';
-import { FC } from 'react';
+import { flushSync } from 'react-dom';
+import { useIntl } from '@umijs/max';
 
 import { createStyles } from 'antd-style';
 
@@ -52,6 +54,7 @@ const useStyles = createStyles(({ token, css }) => {
 const Login: FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
+  const { formatMessage } = useIntl();
 
   const { message } = App.useApp();
 
@@ -66,10 +69,12 @@ const Login: FC = () => {
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
-      await setInitialState((s: any) => ({
-        ...s,
-        currentUser: userInfo,
-      }));
+      flushSync(() => {
+        setInitialState((s: any) => ({
+          ...s,
+          currentUser: userInfo,
+        }));
+      });
     }
   };
 
@@ -83,9 +88,17 @@ const Login: FC = () => {
       if (res.status === HttpStatusCode.Ok) {
         const loginRes = res.data;
         await setAccessToken(loginRes);
-        message.success('登录成功');
+
+        const defaultLoginSuccessMessage = formatMessage({
+          id: 'pages.login.success',
+          defaultMessage: '登录成功！',
+        });
+
+
+        message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
-        history.push('/');
+        const urlParams = new URL(window.location.href).searchParams;
+        history.push(urlParams.get('redirect') || '/');
         return;
       }
     } catch (error) {}
