@@ -11,7 +11,6 @@ import { history, Link } from '@umijs/max';
 import { App, ConfigProvider } from 'antd';
 import { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
-import localforage from 'localforage';
 import fixMenuItemIcon from '@/utils/fixMenuItemIcon';
 import defaultSettings from '../config/defaultSettings';
 
@@ -105,8 +104,7 @@ export const layout = ({ initialState }) => {
     onPageChange: async (location: Location) => {
       // 页面切换时触发
       console.log('页面切换时触发', initialState, location);
-      const accessToken = await localforage.getItem('access_token');
-      if (!initialState?.currentUser && !accessToken && location.pathname !== loginPath) {
+      if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
       }
     },
