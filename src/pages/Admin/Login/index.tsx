@@ -1,7 +1,7 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { FormattedMessage, history, useModel } from '@umijs/max';
 import type { FormProps } from 'antd';
-import { Button, Form, Image, Input, message, Row } from 'antd';
+import { Button, Form, Image, Input, App, Row } from 'antd';
 import { FC } from 'react';
 
 import { createStyles } from 'antd-style';
@@ -52,6 +52,8 @@ const useStyles = createStyles(({ token, css }) => {
 const Login: FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
+
+  const { message } = App.useApp();
 
   /**
    * 设置凭证

@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { uploadImageFile } from '@/services/admin/system/CommonController';
 import { PlusOutlined } from '@ant-design/icons';
 import { useAsyncEffect } from 'ahooks';
-import { Modal, Upload, message } from 'antd';
+import { App, Modal, Upload } from 'antd';
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 import { cloneDeep, map } from 'lodash-es';
@@ -25,6 +25,8 @@ const UploadImage: FC<UploadImageProps> = (props: any) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [uploadFileList, setUploadFileList] = useState<UploadFile[]>([]);
   const { accept, listType, maxCount, onUploadChange, fileList, maxSize } = props;
+
+  const { message } = App.useApp();
 
   useAsyncEffect(async () => {
     setUploadFileList(cloneDeep(fileList));

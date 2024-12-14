@@ -8,7 +8,7 @@ import {
 } from '@/services/admin/auth/PermissionController';
 import { treeToOrderList } from '@/utils/utils';
 import { useAsyncEffect } from 'ahooks';
-import { Form, Input, Modal, Select, Skeleton, message } from 'antd';
+import { Form, Input, Modal, Select, Skeleton,App } from 'antd';
 import { AxiosResponse } from 'axios';
 
 const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
@@ -20,6 +20,8 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const [form] = Form.useForm();
 
   const { isModalVisible, isShowModal, permissionTreeData, editId, actionRef } = props;
+
+  const { message } = App.useApp();
 
   const title = editId === undefined ? '添加' : '编辑';
 

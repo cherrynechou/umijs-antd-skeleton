@@ -1,5 +1,5 @@
 import { FC,  useEffect, useState } from 'react';
-import { Button, Input, Space, Modal, message, Tabs, Radio } from 'antd';
+import { Button, Input, Space, Modal, Tabs, Radio, App } from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import Icon, { AppstoreOutlined } from '@ant-design/icons';
 import * as icons from '@ant-design/icons';
@@ -15,6 +15,8 @@ const SelectIcon: FC<selectIconProps> = (props: any) =>{
   const [ currentIcon, setCurrentIcon ] = useState<string>('');
   const [viewData, setViewData] = useState<Tab[]>([])
   const [ isModalOpen, setIsModalOpen ] = useState<any>(false);
+
+  const { message } = App.useApp();
 
   const onChange = ({ target: { value } }: RadioChangeEvent) => {
     setCurrentIcon(value);

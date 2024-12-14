@@ -2,11 +2,13 @@
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
 import { AvatarDropdown, AvatarName, Footer } from '@/components';
+import AntWrapApp from '@/components/GlobalMessage';
 import { queryCurrentUser } from '@/services/admin/auth/UserController';
 import { getMenuList } from '@/services/admin/system/CommonController';
 import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { history, Link } from '@umijs/max';
+import { App, ConfigProvider } from 'antd';
 import { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
 import localforage from 'localforage';
@@ -22,6 +24,17 @@ export type menuProType = {
   target: string;
   pro_layout_parentKeys: string | any[];
   icon: any;
+};
+
+export const rootContainer = (root: JSX.Element) => {
+  return (
+    <ConfigProvider>
+      <App>
+        <AntWrapApp />
+        {root}
+      </App>
+    </ConfigProvider>
+  );
 };
 
 export async function getInitialState(): Promise<{

@@ -5,10 +5,9 @@ import { queryAllPermissions } from '@/services/admin/auth/PermissionController'
 import { createRole, getRole, updateRole } from '@/services/admin/auth/RoleController';
 import { filterTreeLeafNode, listToTree } from '@/utils/utils';
 import { useAsyncEffect } from 'ahooks';
-import { Form, Input, message, Modal, Skeleton, Tree } from 'antd';
+import { App, Form, Input, Modal, Skeleton, Tree } from 'antd';
 import type { TreeProps } from 'antd/es/tree';
 import { nanoid } from 'nanoid';
-
 
 //默认类型
 const defaultOptionKeys: ITreeOption = {
@@ -27,6 +26,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const { isModalVisible, isShowModal, editId, actionRef } = props;
 
   const [form] = Form.useForm();
+  const { message } = App.useApp();
 
   const title = editId === undefined ? '添加' : '编辑';
 

@@ -3,7 +3,7 @@ import { createMenu, getMenu, updateMenu } from '@/services/admin/auth/MenuContr
 import { queryAllRoles } from '@/services/admin/auth/RoleController';
 import { queryListMaxValue, treeToOrderList } from '@/utils/utils';
 import { useAsyncEffect } from 'ahooks';
-import { Form, Input, InputNumber, message, Modal, Select, Skeleton, Switch } from 'antd';
+import { App, Form, Input, InputNumber, Modal, Select, Skeleton, Switch } from 'antd';
 import { AxiosResponse } from 'axios';
 import { FC, useState } from 'react';
 import { routeList } from './routeListData';
@@ -26,6 +26,7 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
   const [routes, setRoutes] = useState<any>([]);
 
   const [form] = Form.useForm();
+  const { message } = App.useApp();
 
   const title = editId === undefined ? '添加' : '编辑';
 

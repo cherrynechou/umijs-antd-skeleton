@@ -1,7 +1,7 @@
 import { FC,  useRef, useState } from 'react';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
-import { Button, Popconfirm, Switch, message, Space } from 'antd';
+import { Button, Popconfirm, Switch, Space, App } from 'antd';
 import { queryMenus, switchMenu, destroyMenu } from '@/services/admin/auth/MenuController';
 import Icon, { PlusOutlined } from '@ant-design/icons';
 import * as icons from '@ant-design/icons';
@@ -24,6 +24,8 @@ const Menu: FC = () =>{
   const [ editId, setEditId] = useState<number>(0);
 
   const actionRef = useRef<ActionType>();
+
+  const { message } = App.useApp();
 
   //自定查询
   const requestData = async () =>{

@@ -7,7 +7,7 @@ import { queryAllRoles } from '@/services/admin/auth/RoleController';
 import { createUser, getUser, updateUser } from '@/services/admin/auth/UserController';
 import { filterTreeLeafNode, listToTree } from '@/utils/utils';
 import { useAsyncEffect } from 'ahooks';
-import { Form, Input, message, Modal, Select, Skeleton, Tree } from 'antd';
+import { Form, Input, App, Modal, Select, Skeleton, Tree } from 'antd';
 import type { TreeProps } from 'antd/es/tree';
 import type { UploadFile } from 'antd/es/upload/interface';
 import { AxiosResponse } from 'axios';
@@ -45,6 +45,8 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const { isModalVisible, isShowModal, editId, actionRef } = props;
 
   const [form] = Form.useForm();
+
+  const { message} = App.useApp();
 
   const title = editId === undefined ? '添加' : '编辑';
 

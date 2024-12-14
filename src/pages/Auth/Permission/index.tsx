@@ -2,7 +2,7 @@ import { destroyPermission, queryPermissions } from '@/services/admin/auth/Permi
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
-import { Button, message, Popconfirm, Space, Tag } from 'antd';
+import { Button, App, Popconfirm, Space, Tag } from 'antd';
 import { FC, useRef, useState } from 'react';
 import CreateOrEdit from './components/CreateOrEdit';
 
@@ -24,6 +24,7 @@ const Permission: FC = () => {
   const [editId, setEditId] = useState<number>(0);
 
   const actionRef = useRef<ActionType>();
+  const { message } = App.useApp();
 
   //自定查询
   const requestData = async () => {

@@ -1,5 +1,5 @@
 import { changePassword } from '@/services/admin/auth/UserController';
-import { LogoutOutlined, SettingOutlined } from '@ant-design/icons';
+import { LogoutOutlined, LockOutlined } from '@ant-design/icons';
 import { history, useIntl, useModel } from '@umijs/max';
 import { App, Form, Input, MenuProps, Modal, Spin } from 'antd';
 import { createStyles } from 'antd-style';
@@ -99,8 +99,8 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
       ? [
           {
             key: 'settings',
-            icon: <SettingOutlined />,
-            label: '个人设置',
+            icon: <LockOutlined />,
+            label: '密码设置',
           },
           {
             type: 'divider' as const,
@@ -135,9 +135,10 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
     if (newPassword !== confirmPassword) {
       return message.error('新密码和确认密码不一致');
     }
+
     message.loading('处理中...');
     const { currentUser } = initialState;
-    const res: AxiosResponse = await changePassword(currentUser.id, {
+    const res: AxiosResponse = await changePassword(currentUser.userid, {
       oldPassword,
       newPassword,
     });

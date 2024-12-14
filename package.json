@@ -3,13 +3,13 @@
   "author": "cherrynechou <iboy_2008@163.com>",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 max build",
-    "build": "cross-env UMI_ENV=prod NODE_ENV=prod max build",
+    "dev": "cross-env REACT_APP_ENV=dev MOCK=none UMI_ENV=dev NODE_ENV=development max dev",
+    "build": "cross-env UMI_ENV=prod NODE_ENV=production max build",
     "format": "prettier --cache --write .",
     "postinstall": "max setup",
     "prepare": "husky",
     "setup": "max setup",
-    "start": "npm run dev",
-    "start:dev": "cross-env REACT_APP_ENV=dev MOCK=none UMI_ENV=dev max dev"
+    "start": "npm run dev"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",

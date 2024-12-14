@@ -58,7 +58,7 @@ export function blockUser(id: number) {
 
 //更改密码
 export function changePassword(id: number, params: any = {}) {
-  return request.put('/auth/user/changePassword', params);
+  return request.patch(`/user/${id}/changePassword`, params);
 }
 
 /**
