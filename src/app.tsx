@@ -1,29 +1,21 @@
 // 运行时配置
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://umijs.org/docs/api/runtime-config#getinitialstate
-import { AvatarDropdown, AvatarName, Footer } from '@/components';
+import { AvatarDropdown, AvatarName, Footer,SelectLang } from '@/components';
 import AntWrapApp from '@/components/GlobalMessage';
 import { queryCurrentUser } from '@/services/admin/auth/UserController';
 import { getMenuList } from '@/services/admin/system/CommonController';
 import { LinkOutlined } from '@ant-design/icons';
-import type { Settings as LayoutSettings } from '@ant-design/pro-components';
+import type { MenuDataItem, Settings as LayoutSettings } from '@ant-design/pro-components';
 import { history, Link } from '@umijs/max';
 import { App, ConfigProvider } from 'antd';
 import { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
-import fixMenuItemIcon from '@/utils/fixMenuItemIcon';
+import { menuDataRender,menuItemRender } from '@/utils/menuRender';
 import defaultSettings from '../config/defaultSettings';
 
 const isDev: boolean = process.env.NODE_ENV === 'development';
 const loginPath: string = '/admin/login';
-
-export type menuProType = {
-  isUrl: any;
-  path: any;
-  target: string;
-  pro_layout_parentKeys: string | any[];
-  icon: any;
-};
 
 export const rootContainer = (root: JSX.Element) => {
   return (
@@ -78,7 +70,7 @@ export const layout = ({ initialState }) => {
       },
       request: async () => {
         const menuData = await getMenuList();
-        return fixMenuItemIcon(menuData.data);
+        return menuData.data;
       },
     },
     actionsRender: (props) => {
@@ -86,6 +78,7 @@ export const layout = ({ initialState }) => {
         <div key={'dateString'} style={{ color: '#fff', fontSize: 14 }}>
           {dayjs().locale('zh-cn').format('YYYY年MM月DD日 dddd')}
         </div>,
+        <SelectLang key="SelectLang" />
       ];
     },
     avatarProps: {
@@ -117,27 +110,12 @@ export const layout = ({ initialState }) => {
         ]
       : [],
     menuHeaderRender: undefined,
+    menuDataRender: (menuData:MenuDataItem[]) => menuDataRender(menuData),
+    menuItemRender,
     childrenRender: (children) => {
       // if (initialState?.loading) return <PageLoading />;
       return children;
     },
-    ...initialState?.settings,
-    menuItemRender: (menuItemProps: menuProType, defaultDom: any) => {
-      if (menuItemProps.isUrl || !menuItemProps.path) {
-        return defaultDom;
-      }
-      // 支持二级菜单显示icon
-      return menuItemProps.target ? (
-        <Link to={menuItemProps.path} target={menuItemProps.target}>
-          {menuItemProps.pro_layout_parentKeys && menuItemProps.pro_layout_parentKeys.length > 1 && menuItemProps.icon}
-          {defaultDom}
-        </Link>
-      ) : (
-        <Link to={menuItemProps.path}>
-          {menuItemProps.pro_layout_parentKeys && menuItemProps.pro_layout_parentKeys.length > 1 && menuItemProps.icon}
-          {defaultDom}
-        </Link>
-      );
-    },
+    ...initialState?.settings
   };
 };
