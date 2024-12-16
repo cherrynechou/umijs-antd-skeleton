@@ -63,7 +63,18 @@ const menuItemRender = (menuItemProps: menuProType)=>{
   )
 }
 
+//自定义拥有子菜单菜单项的 render 方法
+const subMenuItemRender = (itemProps: MenuDataItem) => {
+  return (
+    <Space>
+      {itemProps.icon}
+      {itemProps.locale ? <FormattedMessage id={itemProps.locale} /> : itemProps.name}
+    </Space>
+  )
+}
+
 export {
   menuDataRender,
-  menuItemRender
+  menuItemRender,
+  subMenuItemRender
 };

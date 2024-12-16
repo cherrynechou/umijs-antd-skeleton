@@ -11,7 +11,7 @@ import { history, Link } from '@umijs/max';
 import { App, ConfigProvider } from 'antd';
 import { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
-import { menuDataRender,menuItemRender } from '@/utils/menuRender';
+import { menuDataRender, menuItemRender, subMenuItemRender } from '@/utils/menuRender';
 import defaultSettings from '../config/defaultSettings';
 
 const isDev: boolean = process.env.NODE_ENV === 'development';
@@ -101,17 +101,17 @@ export const layout = ({ initialState }) => {
         history.push(loginPath);
       }
     },
-    links: isDev
-      ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>
-        ]
-      : [],
+    links: isDev? [
+        <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
+          <LinkOutlined />
+          <span>OpenAPI 文档</span>
+        </Link>
+      ]
+    : [],
     menuHeaderRender: undefined,
     menuDataRender: (menuData:MenuDataItem[]) => menuDataRender(menuData),
     menuItemRender,
+    subMenuItemRender,
     childrenRender: (children) => {
       // if (initialState?.loading) return <PageLoading />;
       return children;
