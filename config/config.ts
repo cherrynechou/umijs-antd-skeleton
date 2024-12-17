@@ -1,10 +1,10 @@
-import { defineConfig } from '@umijs/max';
-import { join } from 'node:path';
+import { defineConfig } from "@umijs/max";
+import { join } from "node:path";
 
-import proxy from './proxy';
-import routes from './routes';
+import proxy from "./proxy";
+import routes from "./routes";
 
-import defaultSettings from './defaultSettings';
+import defaultSettings from "./defaultSettings";
 
 const { REACT_APP_ENV } = process.env;
 
@@ -13,7 +13,7 @@ const { REACT_APP_ENV } = process.env;
  * @description 部署时的路径，如果部署在非根目录下，需要配置这个变量
  * @doc https://umijs.org/docs/api/config#publicpath
  */
-const PUBLIC_PATH: string = '/';
+const PUBLIC_PATH: string = "/";
 export default defineConfig({
   /**
    * @name antd 插件
@@ -35,7 +35,7 @@ export default defineConfig({
    */
   headScripts: [
     // 解决首次加载时白屏的问题
-    { src: join(PUBLIC_PATH, 'scripts/loading.js'), async: true },
+    { src: join(PUBLIC_PATH, "scripts/loading.js"), async: true },
   ],
 
   /**
@@ -59,15 +59,15 @@ export default defineConfig({
    * @doc https://umijs.org/docs/max/moment2dayjs
    */
   moment2dayjs: {
-    preset: 'antd',
-    plugins: ['duration'],
+    preset: "antd",
+    plugins: ["duration"],
   },
 
   locale: {
     antd: true, // 如果项目依赖中包含 `antd`，则默认为 true
     baseNavigator: true,
-    baseSeparator: '-',
-    default: 'zh-CN',
+    baseSeparator: "-",
+    default: "zh-CN",
     title: false,
     useLocalStorage: true,
   },
@@ -89,7 +89,8 @@ export default defineConfig({
   routes,
   proxy: proxy[REACT_APP_ENV as keyof typeof proxy],
   verifyCommit: {
-    scope: ['dev', 'fix'],
+    scope: ["dev", "fix"],
   },
-  npmClient: 'pnpm',
+  npmClient: "pnpm",
+  tailwindcss: {},
 });
