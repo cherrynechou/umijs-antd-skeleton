@@ -65,7 +65,7 @@ const SelectIcon: FC<selectIconProps> = (props: any) =>{
 
   return (
     <>
-      <div className='flex align-center'>
+      <div className='flex items-center'>
         <Input
           style={{ width:200 }}
           placeholder={ props.placeholder }

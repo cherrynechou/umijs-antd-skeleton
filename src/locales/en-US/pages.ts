@@ -13,4 +13,14 @@ export default {
   'pages.403.buttonText': 'Back Home',
   'pages.auth.menu.icon': 'Icon',
   'pages.auth.menu.name': 'Name',
+  'pages.delete.success': 'Delete Success',
+  'pages.update.success': 'Update Success',
+  'pages.reset.success': 'Reset Success',
+  'pages.table.add': 'Add',
+  'pages.table.edit': 'Edit',
+  'pages.table.delete': 'Delete',
+  'pages.table.reset.password': 'Reset Password',
+  'pages.table.createTime': 'Create At',
+  'pages.table.updateTime': 'Update At',
+  'pages.table.operate': 'Operate'
 };

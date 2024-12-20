@@ -45,7 +45,7 @@ const useStyles = createStyles(({ token, css }) => {
     loginDesc: {
       fontSize: '20px',
       fontWeight: '600',
-      paddingLeft: '20px',
+      paddingLeft: '20px'
     },
   };
 });
@@ -106,7 +106,7 @@ const Login: FC = () => {
     <div className={styles.container} style={{ backgroundImage: `url(${backgroundImage})` }}>
       <Row align="top" justify="center" className="px-3" style={{ minHeight: '100vh', background: '#fff' }}>
         <div className={styles.boxContainer}>
-          <div className={`flex align-center ${styles.loginHeader}`}>
+          <div className={`flex items-center ${styles.loginHeader}`}>
             <Image src={logoSvg} width={'15%'} height={'15%'} alt="logo" />
             <span className={styles.loginDesc}>
               <FormattedMessage id="pages.login.title" />

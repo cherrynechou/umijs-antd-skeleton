@@ -1,12 +1,14 @@
 import { FC, useRef, useState } from 'react';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProTable ,TableDropdown  } from '@ant-design/pro-components';
+import { useIntl, FormattedMessage } from '@umijs/max';
 import { Button, Space, Tag, message, Switch, Popconfirm } from 'antd';
 import { queryUsers, blockUser, resetPassword, destroyUser } from '@/services/admin/auth/UserController';
 import { omit } from 'lodash-es';
 import { PlusOutlined } from '@ant-design/icons';
 import { HttpStatusCode } from 'axios';
 import CreateOrEdit  from './components/CreateOrEdit';
+
 
 export type TableListItem = {
   id: number;
@@ -32,6 +34,8 @@ const User: FC = () =>{
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editId, setEditId] = useState<number>(0);
+
+  const intl = useIntl();
 
   const actionRef = useRef<ActionType>();
 
@@ -60,7 +64,13 @@ const User: FC = () =>{
   const handleBlockUser = async (uid: number) => {
     const res = await blockUser(uid);
     if (res.status === 200) {
-      message.success('更新成功');
+
+      const defaultUpdateSuccessMessage = intl.formatMessage({
+        id: 'pages.update.success',
+        defaultMessage: '更新成功！',
+      });
+
+      message.success(defaultUpdateSuccessMessage);
     }
   };
 
@@ -82,7 +92,13 @@ const User: FC = () =>{
   const confirmDel = async (id: number) => {
     const res = await destroyUser(id);
     if (res.status === HttpStatusCode.Ok) {
-      message.success('删除成功');
+
+      const defaultDeleteSuccessMessage = intl.formatMessage({
+        id: 'pages.delete.success',
+        defaultMessage: '删除成功！',
+      });
+
+      message.success(defaultDeleteSuccessMessage);
     }
   };
 
@@ -93,7 +109,13 @@ const User: FC = () =>{
   const confirmResetPassword = async (id: number) => {
     const res = await resetPassword(id);
     if (res.status === 200) {
-      message.success('重置成功');
+
+      const defaultResetSuccessMessage = intl.formatMessage({
+        id: 'pages.reset.success',
+        defaultMessage: '重置成功！',
+      });
+
+      message.success(defaultResetSuccessMessage);
     }
   };
 
@@ -176,7 +198,7 @@ const User: FC = () =>{
       align: 'center',
       render: (_, record) => (
         <Space>
-          <a key="link" onClick={() => isShowModal(true, record.id)}>
+          <a key="link" className="text-blue-500" onClick={() => isShowModal(true, record.id)}>
             编辑
           </a>
           {!record.is_administrator && (
@@ -188,7 +210,7 @@ const User: FC = () =>{
               okText="Yes"
               cancelText="No"
             >
-              <a>删除</a>
+              <a key="delete" className="text-blue-500">删除</a>
             </Popconfirm>
           )}
           <Popconfirm
@@ -199,7 +221,7 @@ const User: FC = () =>{
             okText="Yes"
             cancelText="No"
           >
-            <a>重置密码</a>
+            <a key="reset" className="text-blue-500">重置密码</a>
           </Popconfirm>
         </Space>
       ),
@@ -222,7 +244,7 @@ const User: FC = () =>{
         }}
         toolBarRender={() => [
           <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
-            新增
+            <FormattedMessage id='pages.table.add' />
           </Button>,
         ]}
       />

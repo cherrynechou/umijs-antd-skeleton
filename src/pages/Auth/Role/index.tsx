@@ -1,11 +1,13 @@
 import { destroyRole, queryRoles } from '@/services/admin/auth/RoleController';
 import { PlusOutlined } from '@ant-design/icons';
+import { FormattedMessage } from '@umijs/max';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
 import { Button, Popconfirm, Space, App } from 'antd';
 import { omit } from 'lodash-es';
 import { FC, useRef, useState } from 'react';
 import CreateOrEdit from './components/CreateOrEdit';
+
 
 export type TableListItem = {
   id: number;
@@ -104,7 +106,7 @@ const Role: FC = () => {
       align: 'center',
       render: (_, record) => (
         <Space>
-          <a key="link" onClick={() => isShowModal(true, record.id)}>
+          <a key="link" className="text-blue-500" onClick={() => isShowModal(true, record.id)}>
             编辑
           </a>
           <Popconfirm
@@ -115,7 +117,7 @@ const Role: FC = () => {
             cancelText="No"
             onConfirm={() => confirmDel(record.id)}
           >
-            <a>删除</a>
+            <a key="delete" className="text-blue-500">删除</a>
           </Popconfirm>
         </Space>
       ),
@@ -138,7 +140,7 @@ const Role: FC = () => {
         }}
         toolBarRender={() => [
           <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
-            新增
+            <FormattedMessage id='pages.table.add' />
           </Button>,
         ]}
       />

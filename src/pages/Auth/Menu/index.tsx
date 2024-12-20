@@ -1,12 +1,13 @@
 import { FC,  useRef, useState } from 'react';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
-import { FormattedMessage } from '@umijs/max';
+import { useIntl, FormattedMessage } from '@umijs/max';
 import { Button, Popconfirm, Switch, Space, App } from 'antd';
 import { queryMenus, switchMenu, destroyMenu } from '@/services/admin/auth/MenuController';
 import Icon, { PlusOutlined } from '@ant-design/icons';
 import * as icons from '@ant-design/icons';
 import CreateOrEdit from './components/CreateOrEdit';
+
 
 export type TableListItem = {
   id: number;
@@ -25,6 +26,7 @@ const Menu: FC = () =>{
   const [ editId, setEditId] = useState<number>(0);
 
   const actionRef = useRef<ActionType>();
+  const intl = useIntl();
 
   const { message } = App.useApp();
 
@@ -56,7 +58,13 @@ const Menu: FC = () =>{
   const confirmDel = async (id: number) => {
     const res = await destroyMenu(id);
     if(res.status === 200){
-      message.success('删除成功');
+
+      const defaultDeleteSuccessMessage = intl.formatMessage({
+        id: 'pages.delete.success',
+        defaultMessage: '删除成功！',
+      });
+
+      message.success(defaultDeleteSuccessMessage);
     }
   }
 
@@ -67,7 +75,13 @@ const Menu: FC = () =>{
   const handleSwitch = async (id: number) =>{
     const response = await switchMenu(id);
     if(response.status === 200){
-      message.success('更新成功');
+
+      const defaultUpdateSuccessMessage = intl.formatMessage({
+        id: 'pages.update.success',
+        defaultMessage: '更新成功！',
+      });
+
+      message.success(defaultUpdateSuccessMessage);
       actionRef.current?.reload();
     }
   }
@@ -137,9 +151,9 @@ const Menu: FC = () =>{
       align: 'center',
       render: (_,record) => (
         <Space>
-          <a key="link" onClick={() => isShowModal(true, record.id)}>编辑</a>
+          <a key="link" className="text-blue-500" onClick={() => isShowModal(true, record.id)}>编辑</a>
           <Popconfirm key="del" placement="top" title='确认操作?' onConfirm={ () => confirmDel(record.id) } okText="Yes" cancelText="No">
-            <a>删除</a>
+            <a key="delete" className="text-blue-500">删除</a>
           </Popconfirm>
         </Space>
       )
@@ -159,7 +173,7 @@ const Menu: FC = () =>{
         pagination={false}
         toolBarRender={() => [
           <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
-            新增
+            <FormattedMessage id='pages.table.add' />
           </Button>,
         ]}
       />

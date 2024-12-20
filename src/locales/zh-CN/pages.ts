@@ -13,4 +13,14 @@ export default {
   'pages.403.buttonText': '返回首页',
   'pages.auth.menu.icon': '图标',
   'pages.auth.menu.name': '名称',
+  'pages.delete.success': '删除成功',
+  'pages.update.success': '更新成功',
+  'pages.reset.success': '重置成功',
+  'pages.table.add': '新增',
+  'pages.table.edit': '编辑',
+  'pages.table.delete': '删除',
+  'pages.table.reset.password': '重置密码',
+  'pages.table.createTime': '创建时间',
+  'pages.table.updateTime': '更新时间',
+  'pages.table.operate': '操作'
 };
