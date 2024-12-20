@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { FormattedMessage, history, useModel, useIntl } from '@umijs/max';
+import { FormattedMessage, history, SelectLang, useModel, useIntl } from '@umijs/max';
 import type { FormProps } from 'antd';
 import { Button, Form, Image, Input, App, Row } from 'antd';
 import { flushSync } from 'react-dom';
@@ -29,9 +29,17 @@ const useStyles = createStyles(({ token, css }) => {
   return {
     container: {
       display: 'flex',
+      justifyContent: 'flex-end',
       width: '100%',
       height: '100%',
       backgroundSize: 'contain',
+    },
+    lang:{
+      width: '42px',
+      height: '42px',
+      lineHeight: '42px',
+      position: 'fixed',
+      right: '16px'
     },
     boxContainer: {
       width: '400px',
@@ -49,6 +57,16 @@ const useStyles = createStyles(({ token, css }) => {
     },
   };
 });
+
+const Lang = () => {
+  const { styles } = useStyles();
+
+  return (
+    <div className={styles.lang} data-lang>
+      {SelectLang && <SelectLang />}
+    </div>
+  );
+};
 
 const Login: FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
@@ -104,6 +122,7 @@ const Login: FC = () => {
 
   return (
     <div className={styles.container} style={{ backgroundImage: `url(${backgroundImage})` }}>
+      <Lang />
       <Row align="top" justify="center" className="px-3" style={{ minHeight: '100vh', background: '#fff' }}>
         <div className={styles.boxContainer}>
           <div className={`flex items-center ${styles.loginHeader}`}>
@@ -157,7 +176,7 @@ const Login: FC = () => {
 
             <Form.Item>
               <Button type="primary" htmlType="submit" block>
-                <FormattedMessage id='pages.login.submit'/>
+                <FormattedMessage id='pages.login.submit' />
               </Button>
             </Form.Item>
           </Form>
