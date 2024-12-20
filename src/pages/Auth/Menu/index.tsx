@@ -1,6 +1,7 @@
 import { FC,  useRef, useState } from 'react';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
+import { FormattedMessage } from '@umijs/max';
 import { Button, Popconfirm, Switch, Space, App } from 'antd';
 import { queryMenus, switchMenu, destroyMenu } from '@/services/admin/auth/MenuController';
 import Icon, { PlusOutlined } from '@ant-design/icons';

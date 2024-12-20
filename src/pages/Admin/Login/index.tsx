@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { FormattedMessage, history, useModel } from '@umijs/max';
+import { FormattedMessage, history, useModel, useIntl } from '@umijs/max';
 import type { FormProps } from 'antd';
 import { Button, Form, Image, Input, App, Row } from 'antd';
 import { flushSync } from 'react-dom';
-import { useIntl } from '@umijs/max';
 
 import { createStyles } from 'antd-style';
 
@@ -54,7 +53,7 @@ const useStyles = createStyles(({ token, css }) => {
 const Login: FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
-  const { formatMessage } = useIntl();
+  const intl = useIntl();
 
   const { message } = App.useApp();
 
@@ -89,11 +88,10 @@ const Login: FC = () => {
         const loginRes = res.data;
         await setAccessToken(loginRes);
 
-        const defaultLoginSuccessMessage = formatMessage({
+        const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
         });
-
 
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
@@ -116,17 +114,50 @@ const Login: FC = () => {
           </div>
 
           <Form onFinish={onFinish} autoComplete="off">
-            <Form.Item name="username" rules={[{ required: true, message: '用户名是必填项！' }]}>
-              <Input size="large" prefix={<UserOutlined />} placeholder="请输入用户名" />
+            <Form.Item name="username" rules={[
+              {
+                required: true,
+                message: (
+                  <FormattedMessage
+                    id='pages.login.username.required'
+                    defaultMessage='请输入用户名'
+                  />
+                )
+              }
+            ]}>
+              <Input
+                size="large"
+                prefix={<UserOutlined />}
+                placeholder={intl.formatMessage({
+                  id: 'pages.login.username.placeholder',
+                  defaultMessage: '请输入用户名！',
+                })}
+              />
             </Form.Item>
 
-            <Form.Item name="password" rules={[{ required: true, message: '密码是必填项！' }]}>
-              <Input.Password size="large" prefix={<LockOutlined />} placeholder="请输入密码" />
+            <Form.Item name="password" rules={[
+              {
+                required: true,
+                message: (
+                  <FormattedMessage
+                    id='pages.login.password.required'
+                    defaultMessage='请输入密码'
+                  />
+                )
+              }
+            ]}>
+              <Input.Password
+                size="large"
+                prefix={<LockOutlined />}
+                placeholder={intl.formatMessage({
+                  id: 'pages.login.password.placeholder',
+                  defaultMessage: '请输入密码！',
+                })} />
             </Form.Item>
 
             <Form.Item>
               <Button type="primary" htmlType="submit" block>
-                登录
+                <FormattedMessage id='pages.login.submit'/>
               </Button>
             </Form.Item>
           </Form>
