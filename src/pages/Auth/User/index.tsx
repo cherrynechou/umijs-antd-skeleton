@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from 'react';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { PageContainer, ProTable ,TableDropdown  } from '@ant-design/pro-components';
+import { PageContainer, ProTable   } from '@ant-design/pro-components';
 import { useIntl, FormattedMessage } from '@umijs/max';
 import { Button, Space, Tag, message, Switch, Popconfirm } from 'antd';
 import { queryUsers, blockUser, resetPassword, destroyUser } from '@/services/admin/auth/UserController';
@@ -52,7 +52,7 @@ const User: FC = () =>{
     return {
       data: ret.data.data,
       total: ret.data.meta.pagination.total,
-      success: ret.status === 200,
+      success: ret.status === HttpStatusCode.Ok,
     };
   };
 
@@ -63,7 +63,7 @@ const User: FC = () =>{
    */
   const handleBlockUser = async (uid: number) => {
     const res = await blockUser(uid);
-    if (res.status === 200) {
+    if (res.status === HttpStatusCode.Ok) {
 
       const defaultUpdateSuccessMessage = intl.formatMessage({
         id: 'pages.update.success',
@@ -108,7 +108,7 @@ const User: FC = () =>{
    */
   const confirmResetPassword = async (id: number) => {
     const res = await resetPassword(id);
-    if (res.status === 200) {
+    if (res.status === HttpStatusCode.Ok) {
 
       const defaultResetSuccessMessage = intl.formatMessage({
         id: 'pages.reset.success',

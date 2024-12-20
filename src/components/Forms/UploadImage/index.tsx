@@ -7,6 +7,7 @@ import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 import { cloneDeep, map } from 'lodash-es';
 import { nanoid } from 'nanoid';
+import { HttpStatusCode } from 'axios';
 
 
 export interface UploadImageProps {
@@ -107,7 +108,7 @@ const UploadImage: FC<UploadImageProps> = (props: any) => {
       };
 
       uploadImageFile(formData).then((response: any) => {
-        if (response.status === 200) {
+        if (response.status === HttpStatusCode.Ok) {
           const uuid: string = nanoid();
 
           setUploadFileList([

@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { UploadImage } from '@/components';
 import { CreateOrEditProps } from '@/interfaces/modal';
 import { ITreeOption } from '@/interfaces/tree';
+import { useIntl, FormattedMessage } from '@umijs/max';
 import { queryAllPermissions } from '@/services/admin/auth/PermissionController';
 import { queryAllRoles } from '@/services/admin/auth/RoleController';
 import { createUser, getUser, updateUser } from '@/services/admin/auth/UserController';
@@ -10,7 +11,7 @@ import { useAsyncEffect } from 'ahooks';
 import { Form, Input, App, Modal, Select, Skeleton, Tree } from 'antd';
 import type { TreeProps } from 'antd/es/tree';
 import type { UploadFile } from 'antd/es/upload/interface';
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, HttpStatusCode } from 'axios';
 import { pick } from 'lodash-es';
 
 
@@ -45,14 +46,15 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const { isModalVisible, isShowModal, editId, actionRef } = props;
 
   const [form] = Form.useForm();
-
   const { message} = App.useApp();
+
+  const intl = useIntl();
 
   const title = editId === undefined ? '添加' : '编辑';
 
   const fetchApi = async () => {
     const roleRes = await queryAllRoles();
-    if (roleRes.status === 200) {
+    if (roleRes.status === HttpStatusCode.Ok) {
       const _roleData = roleRes.data;
       const _roleList: any[] = [];
       _roleData.forEach((item: any) => {
@@ -62,7 +64,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
     }
 
     const permissionAllRes: AxiosResponse = await queryAllPermissions();
-    if (permissionAllRes.status === 200) {
+    if (permissionAllRes.status === HttpStatusCode.Ok) {
       const _permissionData = permissionAllRes.data;
       const listTreePermissionData = listToTree(_permissionData, defaultOptionKeys);
       setTreeData(listTreePermissionData);
@@ -71,7 +73,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
 
     if (editId !== undefined) {
       const userRes: AxiosResponse = await getUser(editId);
-      if (userRes.status === 200) {
+      if (userRes.status === HttpStatusCode.Ok) {
         const currentData = userRes.data;
 
         const roleList: any[] = [];
@@ -146,9 +148,15 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
       response = await updateUser(editId, fieldsPostValue);
     }
 
-    if (response.status === 200) {
+    if (response.status === HttpStatusCode.Ok) {
       isShowModal(false);
-      message.success('更新成功');
+
+      const defaultUpdateSuccessMessage = intl.formatMessage({
+        id: 'pages.update.success',
+        defaultMessage: '更新成功！',
+      });
+
+      message.success(defaultUpdateSuccessMessage);
       actionRef.current.reload();
     }
   };

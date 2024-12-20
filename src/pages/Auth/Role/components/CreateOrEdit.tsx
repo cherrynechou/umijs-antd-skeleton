@@ -8,6 +8,7 @@ import { useAsyncEffect } from 'ahooks';
 import { App, Form, Input, Modal, Skeleton, Tree } from 'antd';
 import type { TreeProps } from 'antd/es/tree';
 import { nanoid } from 'nanoid';
+import { HttpStatusCode } from 'axios';
 
 //默认类型
 const defaultOptionKeys: ITreeOption = {
@@ -32,7 +33,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
 
   const fetchApi = async () => {
     const permissionAllRes = await queryAllPermissions();
-    if (permissionAllRes.status === 200) {
+    if (permissionAllRes.status === HttpStatusCode.Ok) {
       const _permissionData = permissionAllRes.data;
       const listTreePermissionData = listToTree(_permissionData, defaultOptionKeys);
       setTreeData(listTreePermissionData);
@@ -41,7 +42,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
 
     if (editId !== undefined) {
       const roleRes = await getRole(editId);
-      if (roleRes.status === 200) {
+      if (roleRes.status === HttpStatusCode.Ok) {
         const currentData = roleRes.data;
         let permissionList: any[] = [];
         if (currentData.permissions.length > 0) {
@@ -78,7 +79,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
       response = await updateRole(editId, fieldsValue);
     }
 
-    if (response.status === 200) {
+    if (response.status === HttpStatusCode.Ok) {
       isShowModal(false);
       message.success(`${title}成功`);
       actionRef.current.reload();

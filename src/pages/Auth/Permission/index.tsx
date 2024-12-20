@@ -6,6 +6,7 @@ import { PageContainer, ProTable } from '@ant-design/pro-components';
 import { Button, App, Popconfirm, Space, Tag } from 'antd';
 import { FC, useRef, useState } from 'react';
 import CreateOrEdit from './components/CreateOrEdit';
+import { HttpStatusCode } from 'axios';
 
 
 export type TableListItem = {
@@ -36,7 +37,7 @@ const Permission: FC = () => {
     setPermissionTreeData(permissionRes.data);
     return {
       data: permissionRes.data,
-      success: permissionRes.status === 200,
+      success: permissionRes.status === HttpStatusCode.Ok,
     };
   };
 
@@ -57,7 +58,7 @@ const Permission: FC = () => {
    */
   const confirmDel = async (id: number) => {
     const res = await destroyPermission(id);
-    if (res.status === 200) {
+    if (res.status === HttpStatusCode.Ok) {
 
       const defaultDeleteSuccessMessage = intl.formatMessage({
         id: 'pages.delete.success',

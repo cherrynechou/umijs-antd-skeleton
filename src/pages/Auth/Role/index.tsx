@@ -7,6 +7,7 @@ import { Button, Popconfirm, Space, App } from 'antd';
 import { omit } from 'lodash-es';
 import { FC, useRef, useState } from 'react';
 import CreateOrEdit from './components/CreateOrEdit';
+import { HttpStatusCode } from 'axios';
 
 
 export type TableListItem = {
@@ -37,7 +38,7 @@ const Role: FC = () => {
     return {
       data: ret.data.data,
       total: ret.data.meta.pagination.total,
-      success: ret.status === 200,
+      success: ret.status === HttpStatusCode.Ok,
     };
   };
 
@@ -58,7 +59,7 @@ const Role: FC = () => {
    */
   const confirmDel = async (id: number) => {
     const res = await destroyRole(id);
-    if (res.status === 200) {
+    if (res.status === HttpStatusCode.Ok) {
       message.success('删除成功');
     }
   };

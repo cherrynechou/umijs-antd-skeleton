@@ -3,10 +3,12 @@ import { createMenu, getMenu, updateMenu } from '@/services/admin/auth/MenuContr
 import { queryAllRoles } from '@/services/admin/auth/RoleController';
 import { queryListMaxValue, treeToOrderList } from '@/utils/utils';
 import { useAsyncEffect } from 'ahooks';
+import { useIntl } from '@umijs/max';
 import { App, Form, Input, InputNumber, Modal, Select, Skeleton, Switch } from 'antd';
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, HttpStatusCode } from 'axios';
 import { FC, useState } from 'react';
 import { routeList } from './routeListData';
+
 
 export type menuModalProps = {
   isModalVisible: boolean;
@@ -27,6 +29,8 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
 
   const [form] = Form.useForm();
   const { message } = App.useApp();
+
+  const intl = useIntl();
 
   const title = editId === undefined ? '添加' : '编辑';
 
@@ -56,7 +60,7 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
     //角色列表
     //获取角色列表
     const rolesRes = await queryAllRoles();
-    if (rolesRes.status === 200) {
+    if (rolesRes.status === HttpStatusCode.Ok) {
       const _rolesData = rolesRes.data;
       const _rolesValue: any[] = [];
       _rolesData.forEach((item: any) => {
@@ -67,7 +71,7 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
 
     if (editId !== undefined) {
       const menuRes: AxiosResponse = await getMenu(editId);
-      if (menuRes.status === 200) {
+      if (menuRes.status === HttpStatusCode.Ok) {
         const currentData = menuRes.data;
         let rolesValue: any[] = [];
         if (currentData.roles.length > 0) {
@@ -122,9 +126,16 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
       response = await updateMenu(editId, fieldsValue);
     }
 
-    if (response.status === 200) {
+    if (response.status === HttpStatusCode.Ok) {
       isShowModal(false);
-      message.success('修改成功');
+
+      const defaultUpdateSuccessMessage = intl.formatMessage({
+        id: 'pages.update.success',
+        defaultMessage: '更新成功！',
+      });
+
+      message.success(defaultUpdateSuccessMessage);
+
       setTimeout(() => {
         window.location.reload();
       }, 100);

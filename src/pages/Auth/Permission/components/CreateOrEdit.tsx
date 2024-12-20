@@ -9,7 +9,7 @@ import {
 import { treeToOrderList } from '@/utils/utils';
 import { useAsyncEffect } from 'ahooks';
 import { Form, Input, Modal, Select, Skeleton,App } from 'antd';
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, HttpStatusCode } from 'axios';
 
 const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const [initialValues, setInitialValues] = useState<any>({});
@@ -41,7 +41,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
     setHttpMethods(allMethods);
 
     const pathsRes: AxiosResponse = await queryAllPermissionRoutes();
-    if (pathsRes.status === 200) {
+    if (pathsRes.status === HttpStatusCode.Ok) {
       const _pathData = pathsRes.data;
       const _pathValues: any[] = [];
       for (const key in _pathData) {
@@ -57,7 +57,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
 
     if (editId !== undefined) {
       const permissionRes = await queryPermission(editId);
-      if (permissionRes.status === 200) {
+      if (permissionRes.status === HttpStatusCode.Ok) {
         const currentData = permissionRes.data;
         let methods: any[] = [];
         if (!currentData.methods.includes('ANY')) {
@@ -89,7 +89,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
       response = await updatePermission(editId, fieldsValue);
     }
 
-    if (response.status === 200) {
+    if (response.status === HttpStatusCode.Ok) {
       isShowModal(false);
       actionRef.current.reload();
       message.success(`${title}成功`);

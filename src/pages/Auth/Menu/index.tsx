@@ -7,7 +7,7 @@ import { queryMenus, switchMenu, destroyMenu } from '@/services/admin/auth/MenuC
 import Icon, { PlusOutlined } from '@ant-design/icons';
 import * as icons from '@ant-design/icons';
 import CreateOrEdit from './components/CreateOrEdit';
-
+import { HttpStatusCode } from 'axios';
 
 export type TableListItem = {
   id: number;
@@ -36,7 +36,7 @@ const Menu: FC = () =>{
     setMenuData(ret.data);
     return {
       data: ret.data,
-      success: ret.status === 200
+      success: ret.status === HttpStatusCode.Ok
     }
   }
 
@@ -57,7 +57,7 @@ const Menu: FC = () =>{
    */
   const confirmDel = async (id: number) => {
     const res = await destroyMenu(id);
-    if(res.status === 200){
+    if(res.status === HttpStatusCode.Ok){
 
       const defaultDeleteSuccessMessage = intl.formatMessage({
         id: 'pages.delete.success',
@@ -74,7 +74,7 @@ const Menu: FC = () =>{
    */
   const handleSwitch = async (id: number) =>{
     const response = await switchMenu(id);
-    if(response.status === 200){
+    if(response.status === HttpStatusCode.Ok){
 
       const defaultUpdateSuccessMessage = intl.formatMessage({
         id: 'pages.update.success',
