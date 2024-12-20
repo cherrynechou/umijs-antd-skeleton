@@ -9,6 +9,7 @@ export const SelectLang = () => {
     <UmiSelectLang
       style={{
         padding: 4,
+        color: 'white'
       }}
     />
   );
