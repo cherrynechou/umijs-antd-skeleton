@@ -29,6 +29,7 @@ const removeAccessToken = async () => {
 };
 
 const useStyles = createStyles(({ token }) => {
+  console.log(token);
   return {
     action: {
       display: 'flex',

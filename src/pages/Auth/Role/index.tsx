@@ -1,6 +1,6 @@
 import { destroyRole, queryRoles } from '@/services/admin/auth/RoleController';
 import { PlusOutlined } from '@ant-design/icons';
-import { FormattedMessage } from '@umijs/max';
+import { FormattedMessage,useIntl } from '@umijs/max';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
 import { Button, Popconfirm, Space, App } from 'antd';
@@ -24,6 +24,7 @@ const Role: FC = () => {
   const actionRef = useRef<ActionType>();
 
   const { message } = App.useApp();
+  const intl = useIntl();
 
   //自定查询
   const requestData = async (params: any) => {
@@ -86,14 +87,18 @@ const Role: FC = () => {
       dataIndex: 'name',
     },
     {
-      title: '创建时间',
+      title: (
+        <FormattedMessage id={'pages.searchTable.createTime'} />
+      ),
       width: 120,
       align: 'center',
       dataIndex: 'created_at',
       hideInSearch: true,
     },
     {
-      title: '更新时间',
+      title: (
+        <FormattedMessage id={'pages.searchTable.updateTime'} />
+      ),
       width: 120,
       align: 'center',
       dataIndex: 'updated_at',
@@ -113,10 +118,10 @@ const Role: FC = () => {
           <Popconfirm
             key="del"
             placement="top"
-            title="确认操作?"
-            okText="Yes"
-            cancelText="No"
+            title={intl.formatMessage({id: 'pages.searchTable.okConfirm'})}
             onConfirm={() => confirmDel(record.id)}
+            okText={intl.formatMessage({id: 'pages.searchTable.ok'})}
+            cancelText={intl.formatMessage({id: 'pages.searchTable.cancel'})}
           >
             <a key="delete" className="text-blue-500">删除</a>
           </Popconfirm>
@@ -141,7 +146,7 @@ const Role: FC = () => {
         }}
         toolBarRender={() => [
           <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
-            <FormattedMessage id='pages.table.add' />
+            <FormattedMessage id='pages.searchTable.new' />
           </Button>,
         ]}
       />

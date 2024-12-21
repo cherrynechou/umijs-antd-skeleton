@@ -50,7 +50,13 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
 
   const intl = useIntl();
 
-  const title = editId === undefined ? '添加' : '编辑';
+  const title = editId === undefined ? intl.formatMessage({
+    id: 'pages.searchTable.createForm.new',
+    defaultMessage: '添加',
+  }) : intl.formatMessage({
+    id: 'pages.searchTable.createForm.edit',
+    defaultMessage: '编辑',
+  });
 
   const fetchApi = async () => {
     const roleRes = await queryAllRoles();
@@ -198,7 +204,12 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
             name="username"
             label="用户名"
             labelCol={{ span: 3 }}
-            rules={[{ required: true, message: '用户名是必填项！' }]}
+            rules={[
+              {
+                required: true,
+                message: '用户名是必填项！'
+              }
+            ]}
           >
             <Input placeholder="请输入 用户名" />
           </Form.Item>
@@ -207,7 +218,12 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
             name="name"
             label="名 称"
             labelCol={{ span: 3 }}
-            rules={[{ required: true, message: '名称是必填项！' }]}
+            rules={[
+              {
+                required: true,
+                message: '名称是必填项！'
+              }
+            ]}
           >
             <Input placeholder="请输入 名称" />
           </Form.Item>
@@ -311,7 +327,12 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
             name="roles"
             label="角色"
             labelCol={{ span: 3 }}
-            rules={[{ required: true, message: '名称是必填项！' }]}
+            rules={[
+              {
+                required: true,
+                message: '名称是必填项！'
+              }
+            ]}
           >
             <Select mode="multiple" options={roles} placeholder="请选择 角色" />
           </Form.Item>

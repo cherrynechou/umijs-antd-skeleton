@@ -9,7 +9,6 @@ import { PlusOutlined } from '@ant-design/icons';
 import { HttpStatusCode } from 'axios';
 import CreateOrEdit  from './components/CreateOrEdit';
 
-
 export type TableListItem = {
   id: number;
   username: string;
@@ -179,13 +178,17 @@ const User: FC = () =>{
       dataIndex: 'login_count',
       hideInSearch: true,
     }, {
-      title: '创建时间',
+      title: (
+        <FormattedMessage id={'pages.searchTable.createTime'} />
+      ),
       width: 120,
       align: 'center',
       dataIndex: 'created_at',
       hideInSearch: true,
     }, {
-      title: '更新时间',
+      title: (
+        <FormattedMessage id={'pages.searchTable.updateTime'} />
+      ),
       width: 120,
       align: 'center',
       dataIndex: 'updated_at',
@@ -205,21 +208,23 @@ const User: FC = () =>{
             <Popconfirm
               key="del"
               placement="top"
-              title="确认操作?"
+              title={intl.formatMessage({id: 'pages.searchTable.okConfirm'})}
               onConfirm={() => confirmDel(record.id)}
               okText="Yes"
               cancelText="No"
             >
-              <a key="delete" className="text-blue-500">删除</a>
+              <a key="delete" className="text-blue-500">
+                删除
+              </a>
             </Popconfirm>
           )}
           <Popconfirm
             key="reset"
             placement="top"
-            title="确认操作?"
+            title={intl.formatMessage({id: 'pages.searchTable.okConfirm'})}
             onConfirm={() => confirmResetPassword(record.id)}
-            okText="Yes"
-            cancelText="No"
+            okText={intl.formatMessage({id: 'pages.searchTable.ok'})}
+            cancelText={intl.formatMessage({id: 'pages.searchTable.cancel'})}
           >
             <a key="reset" className="text-blue-500">重置密码</a>
           </Popconfirm>
@@ -229,14 +234,14 @@ const User: FC = () =>{
   ];
 
   return (
-    <PageContainer title="用户管理">
+    <PageContainer title={intl.formatMessage({id: 'pages.searchTable.administrator'})}>
       <ProTable<TableListItem>
         columns={columns}
         actionRef={actionRef}
         request={requestData}
         rowKey="id"
         dateFormatter="string"
-        headerTitle="用户列表"
+        headerTitle={intl.formatMessage({id: 'pages.searchTable.administrator'})}
         pagination={{
           pageSize: 15,
           showSizeChanger: false,
@@ -244,7 +249,7 @@ const User: FC = () =>{
         }}
         toolBarRender={() => [
           <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
-            <FormattedMessage id='pages.table.add' />
+            <FormattedMessage id='pages.searchTable.new' />
           </Button>,
         ]}
       />

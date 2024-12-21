@@ -9,6 +9,7 @@ import { App, Form, Input, Modal, Skeleton, Tree } from 'antd';
 import type { TreeProps } from 'antd/es/tree';
 import { nanoid } from 'nanoid';
 import { HttpStatusCode } from 'axios';
+import { useIntl } from '@umijs/max';
 
 //默认类型
 const defaultOptionKeys: ITreeOption = {
@@ -29,7 +30,15 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const [form] = Form.useForm();
   const { message } = App.useApp();
 
-  const title = editId === undefined ? '添加' : '编辑';
+  const intl = useIntl();
+
+  const title = editId === undefined ? intl.formatMessage({
+    id: 'pages.searchTable.createForm.new',
+    defaultMessage: '添加',
+  }) : intl.formatMessage({
+    id: 'pages.searchTable.createForm.edit',
+    defaultMessage: '编辑',
+  });
 
   const fetchApi = async () => {
     const permissionAllRes = await queryAllPermissions();
@@ -122,11 +131,27 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
         <Skeleton paragraph={{ rows: 4 }} />
       ) : (
         <Form name="role-update" form={form} initialValues={initialValues} autoComplete="off">
-          <Form.Item name="name" label="名称" rules={[{ required: true, message: '名称是必填项！' }]}>
+          <Form.Item
+            name="name"
+            label="名称"
+            rules={[
+              {
+                required: true,
+                message: '名称是必填项！'
+              }
+            ]}>
             <Input placeholder="请输入 名称" />
           </Form.Item>
 
-          <Form.Item name="slug" label="标识" rules={[{ required: true, message: '标识是必填项！' }]}>
+          <Form.Item
+            name="slug"
+            label="标识"
+            rules={[
+              {
+                required: true,
+                message: '标识是必填项！'
+              }
+            ]}>
             <Input placeholder="请输入 名称" />
           </Form.Item>
 

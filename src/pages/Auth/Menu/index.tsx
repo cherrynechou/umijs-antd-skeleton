@@ -97,7 +97,9 @@ const Menu: FC = () =>{
       sorter: (a, b) => a.id - b.id,
       hideInSearch: true,
     }, {
-      title: '图标',
+      title: (
+        <FormattedMessage id={'pages.searchTable.icon'} />
+      ),
       width: 20,
       align: 'center',
       dataIndex: 'icon',
@@ -106,54 +108,84 @@ const Menu: FC = () =>{
         record.icon && <Icon component={(icons as any)[record.icon]} style={{ fontSize: '16px' }} />
       )
     }, {
-      title: '名称',
+      title: (
+        <FormattedMessage id={'pages.searchTable.name'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'name'
     },{
-      title: '路由',
+      title: (
+        <FormattedMessage id={'pages.searchTable.router'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'path',
       hideInSearch: true,
     }, {
-      title: '排序',
+      title: (
+        <FormattedMessage id={'pages.searchTable.sort'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'order',
       hideInSearch: true,
     },{
-      title: '显示',
+      title: (
+        <FormattedMessage id={'pages.searchTable.display'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'status',
       hideInSearch: true,
       render:(_,record)=>(
-        <Switch checkedChildren="开启" unCheckedChildren="关闭"  defaultChecked= { record.status === 1 } onChange={() => handleSwitch(record.id)}/>
+        <Switch
+          checkedChildren="开启"
+          unCheckedChildren="关闭"
+          defaultChecked= { record.status === 1 }
+          onChange={() => handleSwitch(record.id)}
+        />
       )
     }, {
-      title: '创建时间',
+      title: (
+        <FormattedMessage id={'pages.searchTable.createTime'} />
+      ),
       width: 120,
       align: 'center',
       dataIndex: 'created_at',
       hideInSearch: true,
     }, {
-      title: '更新时间',
+      title: (
+        <FormattedMessage id={'pages.searchTable.updateTime'} />
+      ),
       width: 120,
       align: 'center',
       dataIndex: 'updated_at',
       hideInSearch: true,
     }, {
-      title: '操作',
+      title: (
+        <FormattedMessage id={'pages.searchTable.operate'} />
+      ),
       width: 80,
       key: 'option',
       valueType: 'option',
       align: 'center',
       render: (_,record) => (
         <Space>
-          <a key="link" className="text-blue-500" onClick={() => isShowModal(true, record.id)}>编辑</a>
-          <Popconfirm key="del" placement="top" title='确认操作?' onConfirm={ () => confirmDel(record.id) } okText="Yes" cancelText="No">
-            <a key="delete" className="text-blue-500">删除</a>
+          <a key="link" className="text-blue-500" onClick={() => isShowModal(true, record.id)}>
+            <FormattedMessage id={'pages.searchTable.edit'} />
+          </a>
+          <Popconfirm
+            key="del"
+            placement="top"
+            title={intl.formatMessage({id: 'pages.searchTable.okConfirm'})}
+            onConfirm={ () => confirmDel(record.id) }
+            okText={intl.formatMessage({id: 'pages.searchTable.ok'})}
+            cancelText={intl.formatMessage({id: 'pages.searchTable.cancel'})}
+          >
+            <a key="delete" className="text-blue-500">
+              <FormattedMessage id={'pages.searchTable.delete'} />
+            </a>
           </Popconfirm>
         </Space>
       )
@@ -173,7 +205,7 @@ const Menu: FC = () =>{
         pagination={false}
         toolBarRender={() => [
           <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
-            <FormattedMessage id='pages.table.add' />
+            <FormattedMessage id='pages.searchTable.new' />
           </Button>,
         ]}
       />

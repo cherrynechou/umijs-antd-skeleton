@@ -1,14 +1,14 @@
 import { Button, Result } from 'antd';
-import { history, useIntl } from '@umijs/max';
+import { history,FormattedMessage } from '@umijs/max';
 
 export default () => (
   <Result
     status="404"
     title="404"
-    subTitle={useIntl().formatMessage({ id: 'pages.404.subTitle' })}
+    subTitle={<FormattedMessage id='pages.404.subTitle' />}
     extra={
       <Button type="primary" onClick={() => history.push('/')}>
-        {useIntl().formatMessage({ id: 'pages.404.buttonText' })}
+        <FormattedMessage id='pages.404.buttonText' />
       </Button>
     }
   />

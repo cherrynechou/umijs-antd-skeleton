@@ -3,7 +3,7 @@ import { Button, Input, Space, Modal, Tabs, Radio, App } from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import Icon, { AppstoreOutlined } from '@ant-design/icons';
 import * as icons from '@ant-design/icons';
-import { iconData } from "./iconData"
+import { iconData } from './iconData'
 import { Tab } from "rc-tabs/lib/interface";
 
 interface selectIconProps  {

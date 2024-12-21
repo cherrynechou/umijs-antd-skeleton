@@ -1,14 +1,13 @@
+import { FC, useState } from 'react';
 import { SelectIcon } from '@/components';
 import { createMenu, getMenu, updateMenu } from '@/services/admin/auth/MenuController';
 import { queryAllRoles } from '@/services/admin/auth/RoleController';
 import { queryListMaxValue, treeToOrderList } from '@/utils/utils';
 import { useAsyncEffect } from 'ahooks';
-import { useIntl } from '@umijs/max';
+import { useIntl,FormattedMessage } from '@umijs/max';
 import { App, Form, Input, InputNumber, Modal, Select, Skeleton, Switch } from 'antd';
 import { AxiosResponse, HttpStatusCode } from 'axios';
-import { FC, useState } from 'react';
 import { routeList } from './routeListData';
-
 
 export type menuModalProps = {
   isModalVisible: boolean;
@@ -32,7 +31,13 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
 
   const intl = useIntl();
 
-  const title = editId === undefined ? '添加' : '编辑';
+  const title = editId === undefined ? intl.formatMessage({
+    id: 'pages.searchTable.createForm.new',
+    defaultMessage: '添加',
+  }) : intl.formatMessage({
+    id: 'pages.searchTable.createForm.edit',
+    defaultMessage: '编辑',
+  });
 
   const fetchApi = async () => {
     //生成树型结构
@@ -40,9 +45,16 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
     setTreeData(treeValues);
 
     const targets = [
-      { label: '新窗口', value: '_blank' },
-      { label: '当前窗口', value: '' },
+      {
+        label: intl.formatMessage({ id: 'pages.searchTable.createForm.blank', defaultMessage: '新窗口'}),
+        value: '_blank'
+      },
+      {
+        label: intl.formatMessage({ id: 'pages.searchTable.createForm.currentWindow', defaultMessage: '当前窗口'}),
+        value: ''
+      },
     ];
+
     setLinkTarget(targets);
 
     //生成路由列表
@@ -159,46 +171,124 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
             name="parent_id"
             label="父级"
             labelCol={{ span: 3 }}
-            rules={[{ required: true, message: '父级是必填项！' }]}
+            rules={[
+              {
+                required: true,
+                message: (
+                  <FormattedMessage
+                    id='pages.searchTable.createForm.parent.required'
+                    defaultMessage='父级是必填项！'
+                  />
+                )
+              }
+            ]}
           >
-            <Select options={treeData} style={{ width: 400 }} placeholder="请选择父级" />
+            <Select
+              options={treeData}
+              style={{ width: 400 }}
+              placeholder={intl.formatMessage({
+                id: 'pages.searchTable.createForm.parent.placeholder',
+                defaultMessage: '请选择父级！',
+              })} />
           </Form.Item>
 
-          <Form.Item name="icon" label="图标" labelCol={{ span: 3 }}>
-            <SelectIcon placeholder="请选择 图标" onChange={handleIconChange} />
+          <Form.Item
+            name="icon"
+            label="图标"
+            labelCol={{ span: 3 }}
+          >
+            <SelectIcon
+              placeholder="请选择 图标"
+              onChange={handleIconChange}
+            />
           </Form.Item>
 
           <Form.Item
             name="name"
             label="名称"
             labelCol={{ span: 3 }}
-            rules={[{ required: true, message: '名称是必填项！' }]}
+            rules={[
+              {
+                required: true,
+                message: '名称是必填项！'
+              }
+            ]}
           >
-            <Input placeholder="请输入 名称" style={{ width: 500 }} />
+            <Input
+              placeholder="请输入 名称"
+              style={{ width: 500 }}
+            />
           </Form.Item>
 
-          <Form.Item name="path" label="路由" labelCol={{ span: 3 }}>
-            <Select options={routes} style={{ width: 400 }} placeholder="请选择 路由" />
+          <Form.Item
+            name="path"
+            label="路由"
+            labelCol={{ span: 3 }}
+          >
+            <Select
+              options={routes}
+              style={{ width: 400 }}
+              placeholder="请选择 路由"
+            />
           </Form.Item>
 
-          <Form.Item name="url" label="跳转地址" labelCol={{ span: 3 }}>
-            <Input placeholder="请输入 地址" style={{ width: 500 }} />
+          <Form.Item
+            name="url"
+            label="跳转地址"
+            labelCol={{ span: 3 }}
+          >
+            <Input
+              placeholder="请输入 地址"
+              style={{ width: 500 }}
+            />
           </Form.Item>
 
-          <Form.Item name="target" label="目标方式" labelCol={{ span: 3 }}>
-            <Select options={linkTarget} style={{ width: 200 }} placeholder="请选择目标方式" />
+          <Form.Item
+            name="target"
+            label="目标方式"
+            labelCol={{ span: 3 }}
+          >
+            <Select
+              options={linkTarget}
+              style={{ width: 200 }}
+              placeholder="请选择目标方式"
+            />
           </Form.Item>
 
-          <Form.Item name="order" label="排序" labelCol={{ span: 3 }}>
-            <InputNumber style={{ width: 400 }} placeholder="请输入 排序" />
+          <Form.Item
+            name="order"
+            label="排序"
+            labelCol={{ span: 3 }}
+          >
+            <InputNumber
+              style={{ width: 400 }}
+              placeholder="请输入 排序"
+            />
           </Form.Item>
 
-          <Form.Item name="status" label="是否显示" labelCol={{ span: 3 }} valuePropName="checked">
-            <Switch checkedChildren="开启" unCheckedChildren="关闭" />
+          <Form.Item
+            name="status"
+            label="是否显示"
+            labelCol={{ span: 3 }}
+            valuePropName="checked"
+          >
+            <Switch
+              checkedChildren="开启"
+              unCheckedChildren="关闭"
+            />
           </Form.Item>
 
-          <Form.Item name="roles" label="角色" labelCol={{ span: 3 }}>
-            <Select mode="multiple" options={roles} style={{ width: 500 }} placeholder="请选择角色" />
+          <Form.Item
+            name="roles"
+            label="角色"
+            labelCol={{ span: 3 }}
+          >
+            <Select
+              mode="multiple"
+              options={roles}
+              style={{ width: 500 }}
+              placeholder="请选择角色"
+            />
           </Form.Item>
         </Form>
       )}

@@ -10,6 +10,7 @@ import { treeToOrderList } from '@/utils/utils';
 import { useAsyncEffect } from 'ahooks';
 import { Form, Input, Modal, Select, Skeleton,App } from 'antd';
 import { AxiosResponse, HttpStatusCode } from 'axios';
+import { useIntl } from '@umijs/max';
 
 const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const [initialValues, setInitialValues] = useState<any>({});
@@ -17,13 +18,21 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const [httpMethods, setHttpMethods] = useState<any>([]);
   const [httpPaths, setHttpPaths] = useState<any>([]);
 
-  const [form] = Form.useForm();
+  const [ form] = Form.useForm();
 
   const { isModalVisible, isShowModal, permissionTreeData, editId, actionRef } = props;
 
   const { message } = App.useApp();
 
-  const title = editId === undefined ? '添加' : '编辑';
+  const intl = useIntl();
+
+  const title = editId === undefined ? intl.formatMessage({
+    id: 'pages.searchTable.createForm.new',
+    defaultMessage: '添加',
+  }) : intl.formatMessage({
+    id: 'pages.searchTable.createForm.edit',
+    defaultMessage: '编辑',
+  });
 
   const fetchApi = async () => {
 
@@ -105,24 +114,36 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
       destroyOnClose
       width={750}
     >
-      {Object.keys(initialValues).length === 0 && editId !== undefined ? (
-        <Skeleton paragraph={{ rows: 4 }} />
-      ) : (
+      {Object.keys(initialValues).length === 0 && editId !== undefined ? (<Skeleton paragraph={{ rows: 4 }} />) : (
         <Form name="role-create" form={form} initialValues={initialValues} autoComplete="off">
           <Form.Item
             name="parent_id"
             label="父级"
             labelCol={{ span: 3 }}
-            rules={[{ required: true, message: '父级是必填项！' }]}
+            rules={[
+              {
+                required: true,
+                message: '父级是必填项！'
+              }
+            ]}
           >
-            <Select options={treeData} style={{ width: 400 }} placeholder="请选择父级" />
+            <Select
+              options={treeData}
+              style={{ width: 400 }}
+              placeholder="请选择父级"
+            />
           </Form.Item>
 
           <Form.Item
             name="name"
             label="名称"
             labelCol={{ span: 3 }}
-            rules={[{ required: true, message: '名称是必填项！' }]}
+            rules={[
+              {
+                required: true,
+                message: '名称是必填项！'
+              }
+            ]}
           >
             <Input placeholder="请输入 名称" />
           </Form.Item>
@@ -131,17 +152,39 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
             name="slug"
             label="标识"
             labelCol={{ span: 3 }}
-            rules={[{ required: true, message: '标识是必填项！' }]}
+            rules={[
+              {
+                required: true,
+                message: '标识是必填项！'
+              }
+            ]}
           >
             <Input placeholder="请输入 标识" />
           </Form.Item>
 
-          <Form.Item name="http_method" label="HTTP方法" labelCol={{ span: 3 }}>
-            <Select mode="multiple" options={httpMethods} style={{ width: 600 }} placeholder="http方法" />
+          <Form.Item
+            name="http_method"
+            label="HTTP方法"
+            labelCol={{ span: 3 }}>
+            <Select
+              mode="multiple"
+              options={httpMethods}
+              style={{ width: 600 }}
+              placeholder="http方法"
+            />
           </Form.Item>
 
-          <Form.Item name="http_path" label="HTTP路径" labelCol={{ span: 3 }}>
-            <Select mode="multiple" options={httpPaths} style={{ width: 400 }} placeholder="输入http路径" />
+          <Form.Item
+            name="http_path"
+            label="HTTP路径"
+            labelCol={{ span: 3 }}
+          >
+            <Select
+              mode="multiple"
+              options={httpPaths}
+              style={{ width: 400 }}
+              placeholder="输入http路径"
+            />
           </Form.Item>
         </Form>
       )}

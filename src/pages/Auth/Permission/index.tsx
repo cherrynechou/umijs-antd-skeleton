@@ -116,14 +116,18 @@ const Permission: FC = () => {
       ),
     },
     {
-      title: '创建时间',
+      title: (
+        <FormattedMessage id={'pages.searchTable.createTime'} />
+      ),
       width: 120,
       align: 'center',
       dataIndex: 'created_at',
       hideInSearch: true,
     },
     {
-      title: '更新时间',
+      title: (
+        <FormattedMessage id={'pages.searchTable.updateTime'} />
+      ),
       width: 120,
       align: 'center',
       dataIndex: 'updated_at',
@@ -143,10 +147,10 @@ const Permission: FC = () => {
           <Popconfirm
             key="del"
             placement="top"
-            title="确认操作?"
+            title={intl.formatMessage({id: 'pages.searchTable.okConfirm'})}
             onConfirm={() => confirmDel(record.id)}
-            okText="Yes"
-            cancelText="No"
+            okText={intl.formatMessage({id: 'pages.searchTable.ok'})}
+            cancelText={intl.formatMessage({id: 'pages.searchTable.cancel'})}
           >
             <a key="delete" className="text-blue-500">删除</a>
           </Popconfirm>
@@ -169,7 +173,7 @@ const Permission: FC = () => {
         pagination={false}
         toolBarRender={() => [
           <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
-            <FormattedMessage id='pages.table.add' />
+            <FormattedMessage id='pages.searchTable.new' />
           </Button>,
         ]}
       />
