@@ -128,18 +128,24 @@ const User: FC = () =>{
       sorter: (a, b) => a.id - b.id,
       hideInSearch: true,
     }, {
-      title: '用户名',
+      title: (
+        <FormattedMessage id={'pages.admin.searchTable.username'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'username',
     }, {
-      title: '名称',
+      title: (
+        <FormattedMessage id={'pages.admin.searchTable.name'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'name',
       hideInSearch: true,
     }, {
-      title: '角色',
+      title: (
+        <FormattedMessage id={'pages.admin.searchTable.role'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'roles',
@@ -157,22 +163,26 @@ const User: FC = () =>{
         </Space>
       ),
     }, {
-      title: '是否禁用',
+      title: (
+        <FormattedMessage id={'pages.whetherToDisabled.text'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'is_black',
       hideInSearch: true,
       render: (_, record) => (
         <Switch
-          checkedChildren="开启"
-          unCheckedChildren="关闭"
+          checkedChildren={intl.formatMessage({id: 'page.switch.checked.label'})}
+          unCheckedChildren={intl.formatMessage({id: 'page.switch.unChecked.label'})}
           defaultChecked={record.status === 1}
           disabled={record.is_administrator}
           onChange={() => handleBlockUser(record.id)}
         />
       ),
     }, {
-      title: '登录次数',
+      title: (
+        <FormattedMessage id={'pages.admin.searchTable.loginCount'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'login_count',
@@ -194,7 +204,9 @@ const User: FC = () =>{
       dataIndex: 'updated_at',
       hideInSearch: true,
     }, {
-      title: '操作',
+      title: (
+        <FormattedMessage id={'pages.searchTable.operate'} />
+      ),
       width: 140,
       key: 'option',
       valueType: 'option',
@@ -202,7 +214,7 @@ const User: FC = () =>{
       render: (_, record) => (
         <Space>
           <a key="link" className="text-blue-500" onClick={() => isShowModal(true, record.id)}>
-            编辑
+            <FormattedMessage id='pages.searchTable.edit' />
           </a>
           {!record.is_administrator && (
             <Popconfirm
@@ -214,7 +226,7 @@ const User: FC = () =>{
               cancelText="No"
             >
               <a key="delete" className="text-blue-500">
-                删除
+                <FormattedMessage id='pages.searchTable.delete' />
               </a>
             </Popconfirm>
           )}
@@ -226,7 +238,9 @@ const User: FC = () =>{
             okText={intl.formatMessage({id: 'pages.searchTable.ok'})}
             cancelText={intl.formatMessage({id: 'pages.searchTable.cancel'})}
           >
-            <a key="reset" className="text-blue-500">重置密码</a>
+            <a key="reset" className="text-blue-500">
+              <FormattedMessage id='pages.searchTable.resetPassword' />
+            </a>
           </Popconfirm>
         </Space>
       ),
@@ -234,14 +248,18 @@ const User: FC = () =>{
   ];
 
   return (
-    <PageContainer title={intl.formatMessage({id: 'pages.searchTable.administrator'})}>
+    <PageContainer title={
+      intl.formatMessage({id: 'pages.admin.administrator'})
+    }>
       <ProTable<TableListItem>
         columns={columns}
         actionRef={actionRef}
         request={requestData}
         rowKey="id"
         dateFormatter="string"
-        headerTitle={intl.formatMessage({id: 'pages.searchTable.administrator'})}
+        headerTitle={
+          intl.formatMessage({id: 'pages.admin.administrator.list'})
+        }
         pagination={{
           pageSize: 15,
           showSizeChanger: false,

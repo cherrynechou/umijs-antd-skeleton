@@ -98,7 +98,7 @@ const Menu: FC = () =>{
       hideInSearch: true,
     }, {
       title: (
-        <FormattedMessage id={'pages.searchTable.icon'} />
+        <FormattedMessage id={'pages.admin.searchTable.icon'} />
       ),
       width: 20,
       align: 'center',
@@ -109,14 +109,14 @@ const Menu: FC = () =>{
       )
     }, {
       title: (
-        <FormattedMessage id={'pages.searchTable.name'} />
+        <FormattedMessage id={'pages.admin.searchTable.key'} />
       ),
       width: 80,
       align: 'center',
-      dataIndex: 'name'
+      dataIndex: 'key'
     },{
       title: (
-        <FormattedMessage id={'pages.searchTable.router'} />
+        <FormattedMessage id={'pages.admin.searchTable.router'} />
       ),
       width: 80,
       align: 'center',
@@ -140,8 +140,8 @@ const Menu: FC = () =>{
       hideInSearch: true,
       render:(_,record)=>(
         <Switch
-          checkedChildren="开启"
-          unCheckedChildren="关闭"
+          checkedChildren={intl.formatMessage({id: 'page.switch.checked.label'})}
+          unCheckedChildren={intl.formatMessage({id: 'page.switch.unChecked.label'})}
           defaultChecked= { record.status === 1 }
           onChange={() => handleSwitch(record.id)}
         />
@@ -193,14 +193,18 @@ const Menu: FC = () =>{
   ];
 
   return (
-    <PageContainer title="菜单管理">
+    <PageContainer title={
+      intl.formatMessage({id: 'pages.admin.menu' })}
+    >
       <ProTable<TableListItem>
         columns={columns}
         actionRef={actionRef}
         request={requestData}
         rowKey="id"
         dateFormatter="string"
-        headerTitle="菜单列表"
+        headerTitle={
+          intl.formatMessage({id: 'pages.admin.menu.list'})
+        }
         rowSelection={{ fixed: true }}
         pagination={false}
         toolBarRender={() => [

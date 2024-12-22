@@ -1,6 +1,6 @@
 export default {
   'menu.dashboard': 'Dashboard',
-  'menu.dashboard.index': '分析',
+  'menu.dashboard.analysis': '分析',
   'menu.admin': '系统',
   'menu.admin.user': '管理员',
   'menu.admin.role': '角色',

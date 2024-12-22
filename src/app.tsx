@@ -7,11 +7,11 @@ import { queryCurrentUser } from '@/services/admin/auth/UserController';
 import { getMenuList } from '@/services/admin/system/CommonController';
 import { LinkOutlined } from '@ant-design/icons';
 import type { MenuDataItem, Settings as LayoutSettings } from '@ant-design/pro-components';
-import { history, Link } from '@umijs/max';
+import { getLocale, history, Link } from '@umijs/max';
 import { App, ConfigProvider } from 'antd';
 import { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
-import { menuDataRender, menuItemRender, subMenuItemRender } from '@/utils/menuRender';
+import { menuDataRender, menuItemRender, subMenuItemRender } from '@/libs/menuRender';
 import defaultSettings from '../config/defaultSettings';
 
 const isDev: boolean = process.env.NODE_ENV === 'development';
@@ -74,9 +74,10 @@ export const layout = ({ initialState }) => {
       },
     },
     actionsRender: (props) => {
+      console.log(props);
       return [
         <div key={'dateString'} style={{ color: '#fff', fontSize: 14 }}>
-          {dayjs().locale('zh-cn').format('YYYY年MM月DD日 dddd')}
+          {dayjs().locale(getLocale()).format('YYYY-MM-DD dddd')}
         </div>,
         <SelectLang key="SelectLang" />
       ];

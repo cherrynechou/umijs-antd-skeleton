@@ -12,23 +12,38 @@ export default {
   'pages.404.buttonText': '返回首页',
   'pages.403.subTitle': '无权限',
   'pages.403.buttonText': '返回首页',
-  'pages.auth.menu.icon': '图标',
-  'pages.auth.menu.name': '名称',
   'pages.delete.success': '删除成功',
   'pages.update.success': '更新成功',
   'pages.reset.success': '重置成功',
-  'pages.searchTable.name': '名称',
-  'pages.searchTable.icon': '图标',
-  'pages.searchTable.router': '路由',
-  'pages.searchTable.sort': '排序',
-  'pages.searchTable.display': '显示',
+  'page.switch.checked.label': '开启',
+  'page.switch.unChecked.label': '关闭',
+  'pages.whetherToDisabled.text': '是否禁用',
+  'pages.admin.administrator': '管理员',
+  'pages.admin.administrator.list': '管理员列表',
+  'pages.admin.role': '角色',
+  'pages.admin.role.list': '角色列表',
+  'pages.admin.permission': '权限',
+  'pages.admin.permission.list': '权限树',
+  'pages.admin.menu': '菜单',
+  'pages.admin.menu.list': '菜单列表',
+  'pages.admin.searchTable.key': '关键字',
+  'pages.admin.searchTable.username': '用户名',
+  'pages.admin.searchTable.name': '名称',
+  'pages.admin.searchTable.role': '角色',
+  'pages.admin.searchTable.loginCount': '登录次数',
+  'pages.admin.searchTable.icon': '图标',
+  'pages.admin.searchTable.router': '路由',
+  'pages.admin.searchTable.slug': '标识',
+  'pages.admin.searchTable.authorizationInformation': '授权信息',
   'pages.searchTable.new': '新增',
   'pages.searchTable.edit': '编辑',
   'pages.searchTable.delete': '删除',
+  'pages.searchTable.resetPassword': '重置密码',
   'pages.searchTable.ok': '确认',
   'pages.searchTable.okConfirm': '确认操作?',
   'pages.searchTable.cancel': '取消',
-  'pages.searchTable.reset.password': '重置密码',
+  'pages.searchTable.sort': '排序',
+  'pages.searchTable.display': '显示',
   'pages.searchTable.createTime': '创建时间',
   'pages.searchTable.updateTime': '更新时间',
   'pages.searchTable.operate': '操作',
@@ -39,3 +54,11 @@ export default {
   'pages.createOrUpdateModal.parent.required': '父级是必填项！',
   'pages.createOrUpdateModal.parent.placeholder': '请选择父级',
 };
+
+
+
+
+
+
+
+

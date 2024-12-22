@@ -29,7 +29,6 @@ const removeAccessToken = async () => {
 };
 
 const useStyles = createStyles(({ token }) => {
-  console.log(token);
   return {
     action: {
       display: 'flex',
@@ -52,11 +51,11 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { message, modal } = App.useApp();
 
-  const { formatMessage } = useIntl();
+  const intl = useIntl();
 
   const [form] = Form.useForm();
 
-  const title = formatMessage({ id: 'app.settings.modal.modifyPwd' });
+  const title = intl.formatMessage({ id: 'app.settings.modal.modifyPwd' });
 
   /**
    * 退出登录，并且将当前的 url 保存

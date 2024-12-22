@@ -80,7 +80,9 @@ const Permission: FC = () => {
       hideInSearch: true,
     },
     {
-      title: '标识',
+      title: (
+        <FormattedMessage id={'pages.admin.searchTable.slug'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'slug',
@@ -91,13 +93,17 @@ const Permission: FC = () => {
       ),
     },
     {
-      title: '名称',
+      title: (
+        <FormattedMessage id={'pages.admin.searchTable.name'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'name',
     },
     {
-      title: '授权信息',
+      title: (
+        <FormattedMessage id={'pages.admin.searchTable.authorizationInformation'} />
+      ),
       width: 80,
       align: 'center',
       render: (_, record) => (
@@ -134,7 +140,9 @@ const Permission: FC = () => {
       hideInSearch: true,
     },
     {
-      title: '操作',
+      title: (
+        <FormattedMessage id={'pages.searchTable.operate'} />
+      ),
       width: 60,
       key: 'option',
       valueType: 'option',
@@ -142,7 +150,7 @@ const Permission: FC = () => {
       render: (_, record) => (
         <Space>
           <a key="link" className="text-blue-500" onClick={() => isShowModal(true, record.id)}>
-            编辑
+            <FormattedMessage id='pages.searchTable.edit' />
           </a>
           <Popconfirm
             key="del"
@@ -152,7 +160,9 @@ const Permission: FC = () => {
             okText={intl.formatMessage({id: 'pages.searchTable.ok'})}
             cancelText={intl.formatMessage({id: 'pages.searchTable.cancel'})}
           >
-            <a key="delete" className="text-blue-500">删除</a>
+            <a key="delete" className="text-blue-500">
+              <FormattedMessage id='pages.searchTable.delete' />
+            </a>
           </Popconfirm>
         </Space>
       ),
@@ -160,7 +170,9 @@ const Permission: FC = () => {
   ];
 
   return (
-    <PageContainer title="权限管理">
+    <PageContainer title={
+      intl.formatMessage({id: 'pages.admin.permission' })
+    }>
       <ProTable<TableListItem>
         columns={columns}
         actionRef={actionRef}
@@ -168,7 +180,9 @@ const Permission: FC = () => {
         search={false}
         rowKey="id"
         dateFormatter="string"
-        headerTitle="权限列表"
+        headerTitle={
+          intl.formatMessage({id: 'pages.admin.permission.list' })
+        }
         rowSelection={{ fixed: true }}
         pagination={false}
         toolBarRender={() => [

@@ -343,7 +343,10 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
                 <Input hidden />
               </Form.Item>
 
-              <Form.Item label="权限" labelCol={{ span: 3 }}>
+              <Form.Item
+                label="权限"
+                labelCol={{ span: 3 }}
+              >
                 <Tree
                   checkable
                   defaultExpandAll={false}

@@ -1,6 +1,6 @@
 export default {
   'menu.dashboard': 'Dashboard',
-  'menu.dashboard.index': 'Index',
+  'menu.dashboard.analysis': 'Analysis',
   'menu.admin': 'Admin',
   'menu.admin.user': 'Users',
   'menu.admin.role': 'Roles',

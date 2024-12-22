@@ -13,7 +13,6 @@ import { HttpStatusCode } from 'axios';
 export type TableListItem = {
   id: number;
   name: string;
-  slug: string;
   created_at: number;
   update_at: number;
 };
@@ -61,7 +60,13 @@ const Role: FC = () => {
   const confirmDel = async (id: number) => {
     const res = await destroyRole(id);
     if (res.status === HttpStatusCode.Ok) {
-      message.success('删除成功');
+
+      const defaultDeleteSuccessMessage = intl.formatMessage({
+        id: 'pages.delete.success',
+        defaultMessage: '删除成功！',
+      });
+
+      message.success(defaultDeleteSuccessMessage);
     }
   };
 
@@ -75,13 +80,17 @@ const Role: FC = () => {
       hideInSearch: true,
     },
     {
-      title: '标识',
+      title: (
+        <FormattedMessage id={'pages.admin.searchTable.slug'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'slug',
     },
     {
-      title: '名称',
+      title: (
+        <FormattedMessage id={'pages.admin.searchTable.name'} />
+      ),
       width: 80,
       align: 'center',
       dataIndex: 'name',
@@ -105,7 +114,9 @@ const Role: FC = () => {
       hideInSearch: true,
     },
     {
-      title: '操作',
+      title: (
+        <FormattedMessage id={'pages.searchTable.operate'} />
+      ),
       width: 40,
       key: 'option',
       valueType: 'option',
@@ -113,7 +124,7 @@ const Role: FC = () => {
       render: (_, record) => (
         <Space>
           <a key="link" className="text-blue-500" onClick={() => isShowModal(true, record.id)}>
-            编辑
+            <FormattedMessage id='pages.searchTable.edit' />
           </a>
           <Popconfirm
             key="del"
@@ -123,7 +134,9 @@ const Role: FC = () => {
             okText={intl.formatMessage({id: 'pages.searchTable.ok'})}
             cancelText={intl.formatMessage({id: 'pages.searchTable.cancel'})}
           >
-            <a key="delete" className="text-blue-500">删除</a>
+            <a key="delete" className="text-blue-500">
+              <FormattedMessage id='pages.searchTable.delete' />
+            </a>
           </Popconfirm>
         </Space>
       ),
@@ -131,18 +144,21 @@ const Role: FC = () => {
   ];
 
   return (
-    <PageContainer title="角色列表">
+    <PageContainer title={
+      intl.formatMessage({id: 'pages.admin.role' })
+    }>
       <ProTable<TableListItem>
         columns={columns}
         actionRef={actionRef}
         request={requestData}
         rowKey="id"
         dateFormatter="string"
-        headerTitle="角色列表"
+        headerTitle={
+          intl.formatMessage({id: 'pages.admin.role.list' })
+        }
         rowSelection={{ fixed: true }}
         pagination={{
-          pageSize: 15,
-          onChange: (page) => console.log(page),
+          pageSize: 15
         }}
         toolBarRender={() => [
           <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>

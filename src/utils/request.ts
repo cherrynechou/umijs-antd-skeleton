@@ -7,6 +7,7 @@ import axios, {
 } from 'axios';
 
 import { message } from 'antd';
+import { getLocale } from '@umijs/max';
 import localforage from 'localforage';
 
 const request: AxiosInstance = axios.create(<{
@@ -26,6 +27,10 @@ const request: AxiosInstance = axios.create(<{
 request.interceptors.request.use(async (config: AxiosRequestConfig) => {
 
   const accessToken = await localforage.getItem('access_token');
+
+  if(getLocale()){
+    config.headers['Accept-Language'] = getLocale();
+  }
 
   if(accessToken && config && config?.headers){
     config.headers.Authorization = `Bearer ${accessToken}`;
