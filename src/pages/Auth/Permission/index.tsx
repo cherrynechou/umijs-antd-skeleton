@@ -61,7 +61,7 @@ const Permission: FC = () => {
     if (res.status === HttpStatusCode.Ok) {
 
       const defaultDeleteSuccessMessage = intl.formatMessage({
-        id: 'pages.delete.success',
+        id: 'global.delete.success',
         defaultMessage: '删除成功！',
       });
 

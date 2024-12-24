@@ -31,6 +31,7 @@ export default {
   'modal.createOrUpdateForm.icon': '图标',
   'modal.createOrUpdateForm.slug': '标识',
   'modal.createOrUpdateForm.slug.placeholder': '请输入标识',
+  'modal.createOrUpdateForm.permission': '权限',
   'modal.createOrUpdateForm.avatar': '头像',
   'modal.createOrUpdateForm.password': '密码',
   'modal.createOrUpdateForm.password.placeholder': '请输入密码',
