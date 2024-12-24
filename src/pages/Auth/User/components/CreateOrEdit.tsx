@@ -70,7 +70,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
       const _permissionData = permissionAllRes.data;
       const listTreePermissionData = listToTree(_permissionData, defaultOptionKeys);
       setTreeData(listTreePermissionData);
-      console.log(filterTreeLeafNode(listTreePermissionData))
+      console.log(listTreePermissionData)
       setTreeLeafRecord(filterTreeLeafNode(listTreePermissionData));
     }
 

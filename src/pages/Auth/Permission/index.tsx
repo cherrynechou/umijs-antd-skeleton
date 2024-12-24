@@ -7,6 +7,7 @@ import { Button, App, Popconfirm, Space, Tag } from 'antd';
 import { FC, useRef, useState } from 'react';
 import CreateOrEdit from './components/CreateOrEdit';
 import { HttpStatusCode } from 'axios';
+import { treeToList } from '@/utils/utils';
 
 
 export type TableListItem = {
@@ -24,6 +25,7 @@ export type TableListItem = {
 const Permission: FC = () => {
   const [permissionTreeData, setPermissionTreeData] = useState<any>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [defaultExpandedRowKeys, setDefaultExpandedRowKeys] = useState([])
   const [editId, setEditId] = useState<number>(0);
 
   const actionRef = useRef<ActionType>();
@@ -35,6 +37,14 @@ const Permission: FC = () => {
   const requestData = async () => {
     const permissionRes = await queryPermissions();
     setPermissionTreeData(permissionRes.data);
+
+    const treeList = treeToList(permissionRes.data);
+    const _defaultExpandedRowKeys = treeList.map((item)=>{
+      return item.id;
+    })
+    console.log(_defaultExpandedRowKeys);
+    setDefaultExpandedRowKeys(_defaultExpandedRowKeys);
+
     return {
       data: permissionRes.data,
       success: permissionRes.status === HttpStatusCode.Ok,
@@ -183,6 +193,9 @@ const Permission: FC = () => {
         headerTitle={
           intl.formatMessage({id: 'pages.admin.permission.list' })
         }
+        expandable={{
+          expandedRowKeys: defaultExpandedRowKeys
+        }}
         rowSelection={{ fixed: true }}
         pagination={false}
         toolBarRender={() => [

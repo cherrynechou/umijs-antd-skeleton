@@ -1,4 +1,4 @@
-import { FC,  useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { PageContainer, ProTable } from '@ant-design/pro-components';
 import { useIntl, FormattedMessage } from '@umijs/max';
@@ -26,10 +26,11 @@ export type TableListItem = {
 const Menu: FC = () =>{
   const [ menuData, setMenuData ] = useState([]);
   const [ isModalVisible, setIsModalVisible ] = useState(false);
-  const [defaultExpanded, setDefaultExpanded] = useState([])
+  const [defaultExpandedRowKeys, setDefaultExpandedRowKeys] = useState([])
   const [ editId, setEditId] = useState<number>(0);
 
   const actionRef = useRef<ActionType>();
+
   const intl = useIntl();
 
   const { message } = App.useApp();
@@ -40,11 +41,11 @@ const Menu: FC = () =>{
 
     setMenuData(ret.data);
     const treeList = treeToList(ret.data);
-    const _defaultExpanded = treeList.map((item)=>{
+    const _defaultExpandedRowKeys = treeList.map((item)=>{
       return item.id;
     })
 
-    setDefaultExpanded(_defaultExpanded);
+    setDefaultExpandedRowKeys(_defaultExpandedRowKeys);
 
     return {
       data: ret.data,
@@ -218,7 +219,9 @@ const Menu: FC = () =>{
         headerTitle={
           intl.formatMessage({id: 'pages.admin.menu.list'})
         }
-        expandable={{defaultExpandedRowKeys: defaultExpanded}}
+        expandable={{
+          expandedRowKeys: defaultExpandedRowKeys
+        }}
         rowSelection={{ fixed: true }}
         pagination={false}
         toolBarRender={() => [
