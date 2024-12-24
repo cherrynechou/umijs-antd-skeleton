@@ -55,7 +55,13 @@ const SelectIcon: FC<selectIconProps> = (props: any) =>{
 
   const handleOk = () =>{
     if(currentIcon === ''){
-      message.error('请选择一个图标！')
+
+      const defaultIconErrorMessage = intl.formatMessage({
+        id: 'message.icon.empty.failure',
+        defaultMessage: '请选择一个图标！',
+      });
+
+      message.error(defaultIconErrorMessage)
     }
     props.onChange(currentIcon);
     setIsModalOpen(false);

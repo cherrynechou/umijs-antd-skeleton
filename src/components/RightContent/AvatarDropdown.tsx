@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { history, useIntl, useModel } from '@umijs/max';
+import { FormattedMessage, history, useIntl, useModel } from '@umijs/max';
 import { changePassword } from '@/services/admin/auth/UserController';
 import { LogoutOutlined, LockOutlined } from '@ant-design/icons';
 import { App, Form, Input, MenuProps, Modal, Spin } from 'antd';
@@ -18,7 +18,10 @@ export type GlobalHeaderRightProps = {
 export const AvatarName = () => {
   const { initialState } = useModel('@@initialState');
   const { currentUser } = initialState || {};
-  return <span style={{ color: '#FFF', fontSize: 14 }}>{currentUser?.name || '管理员'}</span>;
+
+  const administratorText = useIntl().formatMessage({id: 'global.administratorText'});
+
+  return <span style={{ color: '#FFF', fontSize: 14 }}>{currentUser?.name || administratorText}</span>;
 };
 
 /**
@@ -55,7 +58,7 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
 
   const [form] = Form.useForm();
 
-  const title = intl.formatMessage({ id: 'modal.userSetting.modifyPwd.title' });
+  const title = intl.formatMessage({ id: 'component.userSetting.title' });
 
   /**
    * 退出登录，并且将当前的 url 保存
@@ -88,7 +91,13 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
    */
   const jumpToLoginPages = async () => {
     await removeAccessToken();
-    message.success('退出成功');
+
+    const defaultLogoutMessage = intl.formatMessage({
+      id: 'message.logout.success',
+      defaultMessage: '退出成功！',
+    });
+
+    message.success(defaultLogoutMessage);
     history.replace({
       pathname: '/admin/login',
     });
@@ -133,10 +142,21 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
 
     const { oldPassword, newPassword, confirmPassword } = fieldsValue;
     if (newPassword !== confirmPassword) {
-      return message.error('新密码和确认密码不一致');
+
+      const defaultPasswordNotMatchMessage = intl.formatMessage({
+        id: 'message.newAndOld.password.not.match',
+        defaultMessage: '新密码和确认密码不一致！',
+      });
+
+      return message.error(defaultPasswordNotMatchMessage);
     }
 
-    message.loading('处理中...');
+    const defaultLoadingMessage = intl.formatMessage({
+      id: 'message.loading.text',
+      defaultMessage: '处理中...',
+    });
+
+    message.loading(defaultLoadingMessage);
     const { currentUser } = initialState;
     const res: AxiosResponse = await changePassword(currentUser.userid, {
       oldPassword,
@@ -146,9 +166,9 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
     if (res.status === HttpStatusCode.Ok) {
       setIsModalVisible(false);
       modal.info({
-        title: '温馨提示',
-        content: '密码已修改，需重新登录',
-        okText: '立即登录',
+        title: intl.formatMessage({id:'modal.component.userSetting.tips'}),
+        content: intl.formatMessage({id:'modal.component.userSetting.passwordChange.content'}),
+        okText: intl.formatMessage({id:'modal.component.userSetting.passwordChange.successText'}),
         mask: true,
         maskClosable: false,
         onOk: () => {
@@ -206,33 +226,47 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
           <Form.Item
             name="oldPassword"
             label={
-              intl.formatMessage({id: 'model.userSetting.oldPassword.label'})
+              intl.formatMessage({id: 'component.userSetting.oldPassword.label'})
             }
             labelCol={{ span: 5 }}
             rules={[
               {
                 required: true,
-                message: '原始不能为空！',
+                message: (
+                  <FormattedMessage
+                    id='validator.userSetting.oldPassword.required'
+                    defaultMessage='原始不能为空！'
+                  />
+                ),
               },
             ]}
           >
-            <Input.Password placeholder="输入 原始密码" />
+            <Input.Password placeholder={
+              intl.formatMessage({id: 'component.userSetting.oldPassword.placeholder'})
+            } />
           </Form.Item>
 
           <Form.Item
             name="newPassword"
             label={
-              intl.formatMessage({id: 'modal.userSetting.newPassword.label'})
+              intl.formatMessage({id: 'component.userSetting.newPassword.label'})
             }
             labelCol={{ span: 5 }}
             rules={[
               {
                 required: true,
-                message: '新密码不能为空！',
+                message: (
+                  <FormattedMessage
+                    id='validator.userSetting.newPassword.required'
+                    defaultMessage='新密码是必须的！'
+                  />
+                ),
               },
             ]}
           >
-            <Input.Password placeholder="输入 新密码" />
+            <Input.Password placeholder={
+              intl.formatMessage({id: 'component.userSetting.newPassword.placeholder'})
+            } />
           </Form.Item>
 
           <Form.Item
@@ -244,11 +278,18 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
             rules={[
               {
                 required: true,
-                message: '确认密码不能为空！',
+                message: (
+                  <FormattedMessage
+                    id='validator.userSetting.confirmPassword.required'
+                    defaultMessage='确认密码是必须的！！'
+                  />
+                ),
               },
             ]}
           >
-            <Input.Password placeholder="输入 确认密码" />
+            <Input.Password placeholder={
+              intl.formatMessage({id: 'component.userSetting.confirmPassword.placeholder'})
+            } />
           </Form.Item>
         </Form>
       </Modal>

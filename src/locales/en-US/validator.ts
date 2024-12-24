@@ -1,5 +1,8 @@
 export default {
   'validator.login.username.required' : 'Username is Required！',
+  'validator.userSetting.oldPassword.required' : 'Old Password is Required！',
+  'validator.userSetting.newPassword.required' : 'New Password is Required！',
+  'validator.userSetting.confirmPassword.required' : 'Confirm Password is Required！',
   'validator.admin.username.required' : 'Username is Required！',
   'validator.admin.name.required' : 'Name is Required！',
   'validator.admin.slug.required' : 'Slug is Required！',

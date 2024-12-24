@@ -1,5 +1,8 @@
 export default {
   'validator.login.username.required' : '请输入用户名',
+  'validator.userSetting.oldPassword.required' : '原始密码是必须的！',
+  'validator.userSetting.newPassword.required' : '新密码是必须的！',
+  'validator.userSetting.confirmPassword.required' : '确认密码是必须的！',
   'validator.admin.username.required' : '用户名是必须的！',
   'validator.admin.name.required' : '名称是必填项！',
   'validator.admin.slug.required' : '标识是必填项！',
