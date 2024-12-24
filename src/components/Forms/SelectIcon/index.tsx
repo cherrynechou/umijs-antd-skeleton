@@ -1,33 +1,16 @@
-import { FC,  useEffect, useState } from 'react';
-import { Button, Input, Space, Modal, Tabs, Radio, App } from 'antd';
-import type { RadioChangeEvent } from 'antd';
-import { useIntl } from '@umijs/max';
-import Icon, { AppstoreOutlined } from '@ant-design/icons';
-import * as icons from '@ant-design/icons';
-import {
-  directionOutlinedIcons,
-  suggestionOutlinedIcons,
-  editorOutlinedIcons,
-  dataOutlinedIcons,
-  logoOutlinedIcons,
-  webOutlinedIcons
-} from './iconData'
-import { Tab } from "rc-tabs/lib/interface";
-
+import { FC,  useEffect, useState } from 'react'
+import { Button, Input, Space, Modal, Tabs, Radio, App } from 'antd'
+import type { RadioChangeEvent } from 'antd'
+import { useIntl } from '@umijs/max'
+import Icon, { AppstoreOutlined } from '@ant-design/icons'
+import * as icons from '@ant-design/icons'
+import { iconData } from './iconData'
+import { Tab } from "rc-tabs/lib/interface"
 
 interface selectIconProps  {
   placeholder: string,
   onChange: (icon: string)=> void
 }
-
-const iconData  = [
-  {'title': '方向性图标', key: 'direction', icons: directionOutlinedIcons},
-  {'title': '提示建议性图标', key: 'suggestion', icons: suggestionOutlinedIcons},
-  {'title': '编辑类图标', key: 'editor', icons: editorOutlinedIcons},
-  {'title': '数据类图标', key: 'data', icons: dataOutlinedIcons},
-  {'title': '品牌和标识', key: 'logo', icons: logoOutlinedIcons},
-  {'title': '网站通用图标', key: 'web', icons: webOutlinedIcons},
-];
 
 const SelectIcon: FC<selectIconProps> = (props: any) =>{
   const [ currentIcon, setCurrentIcon ] = useState<string>('');
@@ -46,9 +29,10 @@ const SelectIcon: FC<selectIconProps> = (props: any) =>{
     const iconViewData: Tab[] = [];
     iconData.forEach(item => {
       const childrenData = item.icons;
+      const locale = `component.selectIcon.${item.key}`;
       iconViewData.push({
         key: item.key,
-        label: item.title,
+        label: intl.formatMessage({id: locale}),
         children: (
           <Radio.Group>
             {
