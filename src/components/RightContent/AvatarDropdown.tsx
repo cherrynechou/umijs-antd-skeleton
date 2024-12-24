@@ -1,13 +1,14 @@
 import { FC, useState } from 'react';
 import { FormattedMessage, history, useIntl, useModel } from '@umijs/max';
 import { changePassword } from '@/services/admin/auth/UserController';
-import { LogoutOutlined, LockOutlined } from '@ant-design/icons';
-import { App, Form, Input, MenuProps, Modal, Spin } from 'antd';
+import { LogoutOutlined, LockOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
+import { App, Form, Input, MenuProps, Modal, Spin, Tooltip } from 'antd';
 import { createStyles } from 'antd-style';
 import { AxiosResponse, HttpStatusCode } from 'axios';
 import localforage from 'localforage';
 import { stringify } from 'querystring';
 import { flushSync } from 'react-dom';
+import { useFullScreen} from '@/hooks';
 import HeaderDropdown from './HeaderDropdown';
 
 export type GlobalHeaderRightProps = {
@@ -52,6 +53,7 @@ const useStyles = createStyles(({ token }) => {
 export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const { isFullScreen, enterFullScreen, exitFullScreen } = useFullScreen();
   const { message, modal } = App.useApp();
 
   const intl = useIntl();
@@ -226,7 +228,7 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
           <Form.Item
             name="oldPassword"
             label={
-              intl.formatMessage({id: 'component.userSetting.oldPassword.label'})
+              intl.formatMessage({ id: 'component.userSetting.oldPassword.label' })
             }
             labelCol={{ span: 5 }}
             rules={[
@@ -242,14 +244,14 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
             ]}
           >
             <Input.Password placeholder={
-              intl.formatMessage({id: 'component.userSetting.oldPassword.placeholder'})
+              intl.formatMessage({ id: 'component.userSetting.oldPassword.placeholder' })
             } />
           </Form.Item>
 
           <Form.Item
             name="newPassword"
             label={
-              intl.formatMessage({id: 'component.userSetting.newPassword.label'})
+              intl.formatMessage({ id: 'component.userSetting.newPassword.label' })
             }
             labelCol={{ span: 5 }}
             rules={[
@@ -265,14 +267,14 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
             ]}
           >
             <Input.Password placeholder={
-              intl.formatMessage({id: 'component.userSetting.newPassword.placeholder'})
+              intl.formatMessage({ id: 'component.userSetting.newPassword.placeholder' })
             } />
           </Form.Item>
 
           <Form.Item
             name="confirmPassword"
             label={
-              intl.formatMessage({id: 'component.userSetting.confirmPassword.label'})
+              intl.formatMessage({ id: 'component.userSetting.confirmPassword.label' })
             }
             labelCol={{ span: 5 }}
             rules={[
@@ -288,11 +290,29 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
             ]}
           >
             <Input.Password placeholder={
-              intl.formatMessage({id: 'component.userSetting.confirmPassword.placeholder'})
+              intl.formatMessage({ id: 'component.userSetting.confirmPassword.placeholder' })
             } />
           </Form.Item>
         </Form>
       </Modal>
+
+      <div style={{ color: '#fff', fontSize: 20 }}>
+        {isFullScreen ? (
+          <Tooltip title="退出全屏">
+            <FullscreenExitOutlined
+              className="hover:text-[#0058FE]"
+              onClick={exitFullScreen}
+            />
+          </Tooltip>
+        ) : (
+          <Tooltip title="进入全屏">
+            <FullscreenOutlined
+              className="hover:text-[#0058FE]"
+              onClick={enterFullScreen}
+            />
+          </Tooltip>
+        )}
+      </div>
     </>
   );
 };
