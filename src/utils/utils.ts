@@ -18,13 +18,7 @@ const treeToOrderList =  (
   children: string = 'children',
   fields: any[] = ['order']) =>
 {
-
-  const root = {
-    id: 0 ,
-    name: rootName,
-    level: 0
-  };
-
+  const root = { id: 0 , name: rootName, level: 0 };
   const rows: any = [];
   const result: any[] = [];
 
@@ -71,6 +65,40 @@ const treeToOrderList =  (
 }
 
 
+const treeToList = (  trees: any[],  children: string = 'children')=>{
+
+  const rows: any = [];
+  const result: any[] = [];
+
+  const deepTrees = (
+    arr: any[],
+    level: number = 1
+  ) => {
+    arr.forEach(item =>{
+      const row = Object.assign({}, item,{level:level});
+      if(item[children]){
+        rows.push(row);
+        deepTrees(item[children],level + 1);
+      } else {
+        rows.push(row);
+      }
+    });
+  }
+
+  //展开
+  deepTrees(trees);
+
+  //格式化树
+  rows.forEach((item: any)=>{
+    result.push({
+      ...item
+    })
+  })
+
+  return result;
+}
+
+
 
 /**
  * 生成树型列表(数据是从数据库查询出来的记录)
@@ -89,7 +117,6 @@ const listToTree = (trees: any[], options: ITreeOption) => {
       parent_id: item[options.parentIdKey],
     });
   })
-
 
   const getTopList = (beforeTrees: any,options:ITreeOption )=>{
     return beforeTrees.filter(item => item[options.parentIdKey] === options.rootValue);
@@ -145,6 +172,7 @@ const filterTreeLeafNode=(
 }
 
 
+
 /**
  *
  * @param originalData
@@ -177,6 +205,7 @@ const queryListMaxValue=(
 }
 
 export {
+  treeToList,
   treeToOrderList,
   listToTree,
   queryListMaxValue,

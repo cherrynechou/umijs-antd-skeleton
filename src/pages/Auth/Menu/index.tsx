@@ -5,9 +5,11 @@ import { useIntl, FormattedMessage } from '@umijs/max';
 import { Button, Popconfirm, Switch, Space, App } from 'antd';
 import { queryMenus, switchMenu, destroyMenu } from '@/services/admin/auth/MenuController';
 import Icon, { PlusOutlined } from '@ant-design/icons';
+import { treeToList } from '@/utils/utils';
 import * as icons from '@ant-design/icons';
 import CreateOrEdit from './components/CreateOrEdit';
 import { HttpStatusCode } from 'axios';
+
 
 export type TableListItem = {
   id: number;
@@ -20,9 +22,11 @@ export type TableListItem = {
   update_at: number;
 };
 
+
 const Menu: FC = () =>{
   const [ menuData, setMenuData ] = useState([]);
   const [ isModalVisible, setIsModalVisible ] = useState(false);
+  const [defaultExpanded, setDefaultExpanded] = useState([])
   const [ editId, setEditId] = useState<number>(0);
 
   const actionRef = useRef<ActionType>();
@@ -33,7 +37,15 @@ const Menu: FC = () =>{
   //自定查询
   const requestData = async () =>{
     const ret = await queryMenus();
+
     setMenuData(ret.data);
+    const treeList = treeToList(ret.data);
+    const _defaultExpanded = treeList.map((item)=>{
+      return item.id;
+    })
+
+    setDefaultExpanded(_defaultExpanded);
+
     return {
       data: ret.data,
       success: ret.status === HttpStatusCode.Ok
@@ -192,6 +204,7 @@ const Menu: FC = () =>{
     },
   ];
 
+
   return (
     <PageContainer title={
       intl.formatMessage({id: 'pages.admin.menu' })}
@@ -199,14 +212,14 @@ const Menu: FC = () =>{
       <ProTable<TableListItem>
         columns={columns}
         actionRef={actionRef}
-        request={requestData}
+        request={()=>requestData()}
         rowKey="id"
         dateFormatter="string"
         headerTitle={
           intl.formatMessage({id: 'pages.admin.menu.list'})
         }
+        expandable={{defaultExpandedRowKeys: defaultExpanded}}
         rowSelection={{ fixed: true }}
-        expandable={{ defaultExpandAllRows: true }}
         pagination={false}
         toolBarRender={() => [
           <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>
