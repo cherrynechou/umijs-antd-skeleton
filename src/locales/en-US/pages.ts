@@ -7,8 +7,6 @@ export default {
   'pages.404.buttonText': 'Back Home',
   'pages.403.subTitle': 'No Authority',
   'pages.403.buttonText': 'Back Home',
-  'page.switch.checked.label': 'enabled',
-  'page.switch.unChecked.label': 'disabled',
   'pages.admin.administrator': 'Administrator',
   'pages.admin.administrator.list': 'Administrator List',
   'pages.admin.role': 'Role',

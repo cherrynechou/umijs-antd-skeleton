@@ -14,17 +14,6 @@ import type { UploadFile } from 'antd/es/upload/interface';
 import { AxiosResponse, HttpStatusCode } from 'axios';
 import { pick } from 'lodash-es';
 
-
-export type UserEntity = {
-  id: string;
-  username: string;
-  name: string;
-  avatar: string;
-  avatar_url: string;
-  roles: any[];
-  permissions: any[];
-};
-
 //默认类型
 const defaultOptionKeys: ITreeOption = {
   idKey: 'id',

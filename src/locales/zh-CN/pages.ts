@@ -7,8 +7,6 @@ export default {
   'pages.404.buttonText': '返回首页',
   'pages.403.subTitle': '无权限',
   'pages.403.buttonText': '返回首页',
-  'page.switch.checked.label': '开启',
-  'page.switch.unChecked.label': '关闭',
   'pages.admin.administrator': '管理员',
   'pages.admin.administrator.list': '管理员列表',
   'pages.admin.role': '角色',

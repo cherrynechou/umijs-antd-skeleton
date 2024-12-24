@@ -172,8 +172,8 @@ const User: FC = () =>{
       hideInSearch: true,
       render: (_, record) => (
         <Switch
-          checkedChildren={intl.formatMessage({id: 'page.switch.checked.label'})}
-          unCheckedChildren={intl.formatMessage({id: 'page.switch.unChecked.label'})}
+          checkedChildren={intl.formatMessage({id: 'global.switch.checked.label'})}
+          unCheckedChildren={intl.formatMessage({id: 'global.switch.unChecked.label'})}
           defaultChecked={record.status === 1}
           disabled={record.is_administrator}
           onChange={() => handleBlockUser(record.id)}

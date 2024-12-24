@@ -307,8 +307,8 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
             valuePropName="checked"
           >
             <Switch
-              checkedChildren={intl.formatMessage({id: 'page.switch.checked.label'})}
-              unCheckedChildren={intl.formatMessage({id: 'page.switch.unChecked.label'})}
+              checkedChildren={intl.formatMessage({id: 'global.switch.checked.label'})}
+              unCheckedChildren={intl.formatMessage({id: 'global.switch.unChecked.label'})}
             />
           </Form.Item>
 
