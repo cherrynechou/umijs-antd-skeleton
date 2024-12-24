@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { uploadImageFile } from '@/services/admin/system/CommonController';
+import { FormattedMessage } from '@umijs/max';
 import { PlusOutlined } from '@ant-design/icons';
 import { useAsyncEffect } from 'ahooks';
 import { App, Modal, Upload } from 'antd';
@@ -8,6 +9,7 @@ import type { UploadFile } from 'antd/es/upload/interface';
 import { cloneDeep, map } from 'lodash-es';
 import { nanoid } from 'nanoid';
 import { HttpStatusCode } from 'axios';
+
 
 
 export interface UploadImageProps {
@@ -59,7 +61,9 @@ const UploadImage: FC<UploadImageProps> = (props: any) => {
   const uploadButton = (
     <button style={{ border: 0, background: 'none' }} type="button">
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>添加文件</div>
+      <div style={{ marginTop: 8 }}>
+        <FormattedMessage id='component.upload.addFile' />
+      </div>
     </button>
   );
 

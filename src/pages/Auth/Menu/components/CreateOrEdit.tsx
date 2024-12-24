@@ -31,26 +31,25 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
 
   const intl = useIntl();
 
-  const title = editId === undefined ? intl.formatMessage({
-    id: 'pages.searchTable.createForm.new',
-    defaultMessage: '添加',
-  }) : intl.formatMessage({
-    id: 'pages.searchTable.createForm.edit',
-    defaultMessage: '编辑',
-  });
+  const title = editId === undefined ?
+    intl.formatMessage({ id: 'modal.createOrUpdateForm.create.title', defaultMessage: '添加' }) :
+    intl.formatMessage({ id: 'modal.createOrUpdateForm.edit.title', defaultMessage: '编辑' });
 
   const fetchApi = async () => {
+
     //生成树型结构
-    const treeValues = treeToOrderList(menuData);
+    const rootName = intl.formatMessage({ id: 'modal.createOrUpdateForm.root'})
+
+    const treeValues = treeToOrderList(menuData,rootName);
     setTreeData(treeValues);
 
     const targets = [
       {
-        label: intl.formatMessage({ id: 'pages.searchTable.createForm.blank', defaultMessage: '新窗口'}),
+        label: intl.formatMessage({ id: 'modal.createOrUpdateForm.target.blank', defaultMessage: '新窗口'}),
         value: '_blank'
       },
       {
-        label: intl.formatMessage({ id: 'pages.searchTable.createForm.currentWindow', defaultMessage: '当前窗口'}),
+        label: intl.formatMessage({ id: 'modal.createOrUpdateForm.target.current', defaultMessage: '当前窗口'}),
         value: ''
       },
     ];
@@ -169,14 +168,16 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
         <Form form={form} initialValues={initialValues} autoComplete="off">
           <Form.Item
             name="parent_id"
-            label="父级"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.parent'})
+            }
             labelCol={{ span: 3 }}
             rules={[
               {
                 required: true,
                 message: (
                   <FormattedMessage
-                    id='pages.searchTable.createForm.parent.required'
+                    id='pages.createOrUpdateModal.parent.required'
                     defaultMessage='父级是必填项！'
                   />
                 )
@@ -186,108 +187,145 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
             <Select
               options={treeData}
               style={{ width: 400 }}
-              placeholder={intl.formatMessage({
-                id: 'pages.searchTable.createForm.parent.placeholder',
-                defaultMessage: '请选择父级！',
-              })} />
+              placeholder={
+                intl.formatMessage({ id: 'modal.createOrUpdateForm.parent.placeholder', defaultMessage: '请选择父级！', })
+              }
+            />
           </Form.Item>
 
           <Form.Item
             name="icon"
-            label="图标"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.name'})
+            }
             labelCol={{ span: 3 }}
           >
             <SelectIcon
-              placeholder="请选择 图标"
+              placeholder={intl.formatMessage({
+                id: 'pages.admin.icon.placeholder',
+                defaultMessage: '请选择 图标！',
+              })}
               onChange={handleIconChange}
             />
           </Form.Item>
 
           <Form.Item
-            name="name"
-            label="名称"
+            name="key"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.key'})
+            }
             labelCol={{ span: 3 }}
             rules={[
               {
                 required: true,
-                message: '名称是必填项！'
+                message: '关键词是必填项！'
               }
             ]}
           >
             <Input
-              placeholder="请输入 名称"
+              placeholder={intl.formatMessage({
+                id: 'modal.createOrUpdateForm.key.placeholder',
+                defaultMessage: '请输入 关键词！',
+              })}
               style={{ width: 500 }}
             />
           </Form.Item>
 
           <Form.Item
             name="path"
-            label="路由"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.router'})
+            }
             labelCol={{ span: 3 }}
           >
             <Select
               options={routes}
               style={{ width: 400 }}
-              placeholder="请选择 路由"
+              placeholder={intl.formatMessage({
+                id: 'modal.createOrUpdateForm.router.placeholder',
+                defaultMessage: '请选择 路由！',
+              })}
             />
           </Form.Item>
 
           <Form.Item
             name="url"
-            label="跳转地址"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.url'})
+            }
             labelCol={{ span: 3 }}
           >
             <Input
-              placeholder="请输入 地址"
+              placeholder={intl.formatMessage({
+                id: 'modal.createOrUpdateForm.url.placeholder',
+                defaultMessage: '请输入 跳转地址！',
+              })}
               style={{ width: 500 }}
             />
           </Form.Item>
 
           <Form.Item
             name="target"
-            label="目标方式"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.target'})
+            }
             labelCol={{ span: 3 }}
           >
             <Select
               options={linkTarget}
-              style={{ width: 200 }}
-              placeholder="请选择目标方式"
+              style={{ width: 250 }}
+              placeholder={intl.formatMessage({
+                id: 'modal.createOrUpdateForm.target.placeholder',
+                defaultMessage: '请选择目标方式！',
+              })}
             />
           </Form.Item>
 
           <Form.Item
             name="order"
-            label="排序"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.sort'})
+            }
             labelCol={{ span: 3 }}
           >
             <InputNumber
               style={{ width: 400 }}
-              placeholder="请输入 排序"
+              placeholder={intl.formatMessage({
+                id: 'modal.createOrUpdateForm.sort.placeholder',
+                defaultMessage: '请输入 排序！',
+              })}
             />
           </Form.Item>
 
           <Form.Item
             name="status"
-            label="是否显示"
+            label={
+              intl.formatMessage({id: 'model.createOrUpdateForm.display'})
+            }
             labelCol={{ span: 3 }}
             valuePropName="checked"
           >
             <Switch
-              checkedChildren="开启"
-              unCheckedChildren="关闭"
+              checkedChildren={intl.formatMessage({id: 'page.switch.checked.label'})}
+              unCheckedChildren={intl.formatMessage({id: 'page.switch.unChecked.label'})}
             />
           </Form.Item>
 
           <Form.Item
             name="roles"
-            label="角色"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.role'})
+            }
             labelCol={{ span: 3 }}
           >
             <Select
               mode="multiple"
               options={roles}
               style={{ width: 500 }}
-              placeholder="请选择角色"
+              placeholder={intl.formatMessage({
+                id: 'modal.createOrUpdateForm.role.placeholder',
+                defaultMessage: '请选择角色',
+              })}
             />
           </Form.Item>
         </Form>

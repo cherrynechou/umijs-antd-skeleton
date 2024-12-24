@@ -98,7 +98,7 @@ const Menu: FC = () =>{
       hideInSearch: true,
     }, {
       title: (
-        <FormattedMessage id={'pages.admin.searchTable.icon'} />
+        <FormattedMessage id={'pages.searchTable.icon'} />
       ),
       width: 20,
       align: 'center',
@@ -109,14 +109,14 @@ const Menu: FC = () =>{
       )
     }, {
       title: (
-        <FormattedMessage id={'pages.admin.searchTable.key'} />
+        <FormattedMessage id={'pages.searchTable.key'} />
       ),
       width: 80,
       align: 'center',
       dataIndex: 'key'
     },{
       title: (
-        <FormattedMessage id={'pages.admin.searchTable.router'} />
+        <FormattedMessage id={'pages.searchTable.router'} />
       ),
       width: 80,
       align: 'center',
@@ -164,7 +164,7 @@ const Menu: FC = () =>{
       hideInSearch: true,
     }, {
       title: (
-        <FormattedMessage id={'pages.searchTable.operate'} />
+        <FormattedMessage id={'pages.searchTable.action'} />
       ),
       width: 80,
       key: 'option',
@@ -206,6 +206,7 @@ const Menu: FC = () =>{
           intl.formatMessage({id: 'pages.admin.menu.list'})
         }
         rowSelection={{ fixed: true }}
+        expandable={{ defaultExpandAllRows: true }}
         pagination={false}
         toolBarRender={() => [
           <Button key="button" type="primary" icon={<PlusOutlined />} onClick={() => isShowModal(true)}>

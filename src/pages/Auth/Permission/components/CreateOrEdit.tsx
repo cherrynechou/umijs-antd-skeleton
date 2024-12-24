@@ -10,7 +10,7 @@ import { treeToOrderList } from '@/utils/utils';
 import { useAsyncEffect } from 'ahooks';
 import { Form, Input, Modal, Select, Skeleton,App } from 'antd';
 import { AxiosResponse, HttpStatusCode } from 'axios';
-import { useIntl } from '@umijs/max';
+import { FormattedMessage, useIntl } from '@umijs/max';
 
 const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
   const [initialValues, setInitialValues] = useState<any>({});
@@ -26,13 +26,9 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
 
   const intl = useIntl();
 
-  const title = editId === undefined ? intl.formatMessage({
-    id: 'pages.searchTable.createForm.new',
-    defaultMessage: '添加',
-  }) : intl.formatMessage({
-    id: 'pages.searchTable.createForm.edit',
-    defaultMessage: '编辑',
-  });
+  const title = editId === undefined ?
+    intl.formatMessage({ id: 'modal.createOrUpdateForm.create.title', defaultMessage: '添加' }) :
+    intl.formatMessage({ id: 'modal.createOrUpdateForm.edit.title', defaultMessage: '编辑' });
 
   const fetchApi = async () => {
 
@@ -118,72 +114,103 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
         <Form name="role-create" form={form} initialValues={initialValues} autoComplete="off">
           <Form.Item
             name="parent_id"
-            label="父级"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.parent'})
+            }
             labelCol={{ span: 3 }}
             rules={[
               {
                 required: true,
-                message: '父级是必填项！'
+                message: (
+                  <FormattedMessage
+                    id='validator.admin.parent.required'
+                    defaultMessage='角色是必填项！'
+                  />
+                )
               }
             ]}
           >
             <Select
               options={treeData}
               style={{ width: 400 }}
-              placeholder="请选择父级"
+              placeholder={intl.formatMessage({id: 'modal.createOrUpdateForm.parent.placeholder'})}
             />
           </Form.Item>
 
           <Form.Item
             name="name"
-            label="名称"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.name'})
+            }
             labelCol={{ span: 3 }}
             rules={[
               {
                 required: true,
-                message: '名称是必填项！'
+                message: (
+                  <FormattedMessage
+                    id='validator.admin.name.required'
+                    defaultMessage='名称是必填项！'
+                  />
+                )
               }
             ]}
           >
-            <Input placeholder="请输入 名称" />
+            <Input placeholder={intl.formatMessage({id: 'modal.createOrUpdateForm.name.placeholder'})} />
           </Form.Item>
 
           <Form.Item
             name="slug"
-            label="标识"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.slug'})
+            }
             labelCol={{ span: 3 }}
             rules={[
               {
                 required: true,
-                message: '标识是必填项！'
+                message: (
+                  <FormattedMessage
+                    id='validator.admin.slug.required'
+                    defaultMessage='标识是必填项！'
+                  />
+                )
               }
             ]}
           >
-            <Input placeholder="请输入 标识" />
+            <Input placeholder={
+             intl.formatMessage({id: 'modal.createOrUpdateForm.slug.placeholder'})
+            }/>
           </Form.Item>
 
           <Form.Item
             name="http_method"
-            label="HTTP方法"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.httpMethod'})
+            }
             labelCol={{ span: 3 }}>
             <Select
               mode="multiple"
               options={httpMethods}
               style={{ width: 600 }}
-              placeholder="http方法"
+              placeholder={
+                intl.formatMessage({id: 'modal.createOrUpdateForm.httpMethod.placeholder'})
+              }
             />
           </Form.Item>
 
           <Form.Item
             name="http_path"
-            label="HTTP路径"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.httpPath'})
+            }
             labelCol={{ span: 3 }}
           >
             <Select
               mode="multiple"
               options={httpPaths}
               style={{ width: 400 }}
-              placeholder="输入http路径"
+              placeholder={
+                intl.formatMessage({id: 'modal.createOrUpdateForm.httpPath.placeholder'})
+              }
             />
           </Form.Item>
         </Form>

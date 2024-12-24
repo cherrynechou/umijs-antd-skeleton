@@ -1,12 +1,12 @@
+import { FC, useState } from 'react';
+import { history, useIntl, useModel } from '@umijs/max';
 import { changePassword } from '@/services/admin/auth/UserController';
 import { LogoutOutlined, LockOutlined } from '@ant-design/icons';
-import { history, useIntl, useModel } from '@umijs/max';
 import { App, Form, Input, MenuProps, Modal, Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import { AxiosResponse, HttpStatusCode } from 'axios';
 import localforage from 'localforage';
 import { stringify } from 'querystring';
-import { FC, useState } from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from './HeaderDropdown';
 
@@ -55,7 +55,7 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
 
   const [form] = Form.useForm();
 
-  const title = intl.formatMessage({ id: 'app.settings.modal.modifyPwd' });
+  const title = intl.formatMessage({ id: 'modal.userSetting.modifyPwd.title' });
 
   /**
    * 退出登录，并且将当前的 url 保存
@@ -100,7 +100,7 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
           {
             key: 'settings',
             icon: <LockOutlined />,
-            label: '密码设置',
+            label: intl.formatMessage({id: 'component.userSetting.password'}),
           },
           {
             type: 'divider' as const,
@@ -110,7 +110,7 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
     {
       key: 'logout',
       icon: <LogoutOutlined />,
-      label: '退出登录',
+      label: intl.formatMessage({id: 'component.userSetting.logout'}),
     },
   ];
 
@@ -205,8 +205,10 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
         <Form name="password-modify" form={form} autoComplete="off">
           <Form.Item
             name="oldPassword"
-            label="原始密码"
-            labelCol={{ span: 4 }}
+            label={
+              intl.formatMessage({id: 'model.userSetting.oldPassword.label'})
+            }
+            labelCol={{ span: 5 }}
             rules={[
               {
                 required: true,
@@ -219,8 +221,10 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
 
           <Form.Item
             name="newPassword"
-            label="新密码"
-            labelCol={{ span: 4 }}
+            label={
+              intl.formatMessage({id: 'modal.userSetting.newPassword.label'})
+            }
+            labelCol={{ span: 5 }}
             rules={[
               {
                 required: true,
@@ -233,8 +237,10 @@ export const AvatarDropdown: FC<GlobalHeaderRightProps> = ({ menu, children }) =
 
           <Form.Item
             name="confirmPassword"
-            label="确认密码"
-            labelCol={{ span: 4 }}
+            label={
+              intl.formatMessage({id: 'component.userSetting.confirmPassword.label'})
+            }
+            labelCol={{ span: 5 }}
             rules={[
               {
                 required: true,

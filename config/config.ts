@@ -14,6 +14,7 @@ const { REACT_APP_ENV } = process.env;
  * @doc https://umijs.org/docs/api/config#publicpath
  */
 const PUBLIC_PATH: string = "/";
+
 export default defineConfig({
   /**
    * @name antd 插件

@@ -81,7 +81,7 @@ const Role: FC = () => {
     },
     {
       title: (
-        <FormattedMessage id={'pages.admin.searchTable.slug'} />
+        <FormattedMessage id={'pages.searchTable.slug'} />
       ),
       width: 80,
       align: 'center',
@@ -89,7 +89,7 @@ const Role: FC = () => {
     },
     {
       title: (
-        <FormattedMessage id={'pages.admin.searchTable.name'} />
+        <FormattedMessage id={'pages.searchTable.name'} />
       ),
       width: 80,
       align: 'center',
@@ -115,7 +115,7 @@ const Role: FC = () => {
     },
     {
       title: (
-        <FormattedMessage id={'pages.searchTable.operate'} />
+        <FormattedMessage id={'pages.searchTable.action'} />
       ),
       width: 40,
       key: 'option',

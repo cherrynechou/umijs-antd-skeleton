@@ -1,15 +1,33 @@
 import { FC,  useEffect, useState } from 'react';
 import { Button, Input, Space, Modal, Tabs, Radio, App } from 'antd';
 import type { RadioChangeEvent } from 'antd';
+import { useIntl } from '@umijs/max';
 import Icon, { AppstoreOutlined } from '@ant-design/icons';
 import * as icons from '@ant-design/icons';
-import { iconData } from './iconData'
+import {
+  directionOutlinedIcons,
+  suggestionOutlinedIcons,
+  editorOutlinedIcons,
+  dataOutlinedIcons,
+  logoOutlinedIcons,
+  webOutlinedIcons
+} from './iconData'
 import { Tab } from "rc-tabs/lib/interface";
+
 
 interface selectIconProps  {
   placeholder: string,
   onChange: (icon: string)=> void
 }
+
+const iconData  = [
+  {'title': '方向性图标', key: 'direction', icons: directionOutlinedIcons},
+  {'title': '提示建议性图标', key: 'suggestion', icons: suggestionOutlinedIcons},
+  {'title': '编辑类图标', key: 'editor', icons: editorOutlinedIcons},
+  {'title': '数据类图标', key: 'data', icons: dataOutlinedIcons},
+  {'title': '品牌和标识', key: 'logo', icons: logoOutlinedIcons},
+  {'title': '网站通用图标', key: 'web', icons: webOutlinedIcons},
+];
 
 const SelectIcon: FC<selectIconProps> = (props: any) =>{
   const [ currentIcon, setCurrentIcon ] = useState<string>('');
@@ -17,6 +35,8 @@ const SelectIcon: FC<selectIconProps> = (props: any) =>{
   const [ isModalOpen, setIsModalOpen ] = useState<any>(false);
 
   const { message } = App.useApp();
+
+  const intl = useIntl();
 
   const onChange = ({ target: { value } }: RadioChangeEvent) => {
     setCurrentIcon(value);
@@ -85,7 +105,9 @@ const SelectIcon: FC<selectIconProps> = (props: any) =>{
 
       <Modal
         destroyOnClose
-        title='选择图标'
+        title={
+          intl.formatMessage({id: 'component.selectIcon.title'})
+        }
         open={isModalOpen}
         onCancel={() => onCancel()}
         onOk={handleOk}//提交图标关键字

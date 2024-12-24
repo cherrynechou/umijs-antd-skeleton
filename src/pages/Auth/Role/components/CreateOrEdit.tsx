@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { CreateOrEditProps } from '@/interfaces/modal';
 import { ITreeOption } from '@/interfaces/tree';
+import { FormattedMessage, useIntl } from '@umijs/max';
 import { queryAllPermissions } from '@/services/admin/auth/PermissionController';
 import { createRole, getRole, updateRole } from '@/services/admin/auth/RoleController';
 import { filterTreeLeafNode, listToTree } from '@/utils/utils';
@@ -9,7 +10,7 @@ import { App, Form, Input, Modal, Skeleton, Tree } from 'antd';
 import type { TreeProps } from 'antd/es/tree';
 import { nanoid } from 'nanoid';
 import { HttpStatusCode } from 'axios';
-import { useIntl } from '@umijs/max';
+
 
 //默认类型
 const defaultOptionKeys: ITreeOption = {
@@ -32,13 +33,9 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
 
   const intl = useIntl();
 
-  const title = editId === undefined ? intl.formatMessage({
-    id: 'pages.searchTable.createForm.new',
-    defaultMessage: '添加',
-  }) : intl.formatMessage({
-    id: 'pages.searchTable.createForm.edit',
-    defaultMessage: '编辑',
-  });
+  const title = editId === undefined ?
+    intl.formatMessage({ id: 'modal.createOrUpdateForm.create.title', defaultMessage: '添加' }) :
+    intl.formatMessage({ id: 'modal.createOrUpdateForm.edit.title', defaultMessage: '编辑' });
 
   const fetchApi = async () => {
     const permissionAllRes = await queryAllPermissions();
@@ -133,33 +130,60 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
         <Form name="role-update" form={form} initialValues={initialValues} autoComplete="off">
           <Form.Item
             name="name"
-            label="名称"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.name'})
+            }
+            labelCol={{ span: 3 }}
             rules={[
               {
                 required: true,
-                message: '名称是必填项！'
+                message: (
+                  <FormattedMessage
+                    id='validator.admin.name.required'
+                    defaultMessage='名称是必填项！'
+                  />
+                )
               }
             ]}>
-            <Input placeholder="请输入 名称" />
+            <Input placeholder={
+              intl.formatMessage({id: 'pages.admin.name.placeholder'})
+            } />
           </Form.Item>
 
           <Form.Item
             name="slug"
-            label="标识"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.slug'})
+            }
+            labelCol={{ span: 3 }}
             rules={[
               {
                 required: true,
-                message: '标识是必填项！'
+                message: (
+                  <FormattedMessage
+                    id='validator.admin.slug.required'
+                    defaultMessage='标识是必填项！'
+                  />
+                )
               }
             ]}>
-            <Input placeholder="请输入 名称" />
+            <Input placeholder={intl.formatMessage({
+              id: 'pages.admin.slug.placeholder',
+              defaultMessage: '请输入 标识',
+            })}
+            />
           </Form.Item>
 
           <Form.Item name="permissions" hidden>
-            <Input hidden placeholder="请输入 名称" />
+            <Input hidden />
           </Form.Item>
 
-          <Form.Item label="权限">
+          <Form.Item
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.permission'})
+            }
+            labelCol={{ span: 3 }}
+          >
             <Tree
               checkable
               defaultExpandAll={false}

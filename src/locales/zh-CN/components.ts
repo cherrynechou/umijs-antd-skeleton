@@ -1,3 +1,16 @@
 export default {
-
+  'component.userSetting.password': '密码设置',
+  'component.userSetting.logout': '退出登录',
+  'component.userSetting.oldPassword': '原始密码',
+  'component.userSetting.confirmPassword': '确认密码',
+  'component.userSetting.newPassword': '新密码',
+  'component.upload.addFile': '添加文件',
+  'component.upload.success': '上传成功',
+  'component.selectIcon.title': '选择图标',
+  'component.selectIcon.direction': '方向性图标',
+  'component.selectIcon.suggestion': '提示建议性图标',
+  'component.selectIcon.editor': '编辑类图标',
+  'component.selectIcon.data': '数据类图标',
+  'component.selectIcon.logo': '品牌和标识',
+  'component.selectIcon.web': '网站通用图标',
 }

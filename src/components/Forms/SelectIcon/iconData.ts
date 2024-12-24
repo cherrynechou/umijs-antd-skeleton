@@ -1,5 +1,5 @@
 //方向性图标
-const directionOutlinedIcons: any[] = [
+export const directionOutlinedIcons: any[] = [
   'StepBackwardOutlined', 'StepForwardOutlined',  'FastBackwardOutlined', 'ShrinkOutlined', 'ShrinkOutlined', 'ArrowsAltOutlined',
   'DownOutlined', 'UpOutlined', 'LeftOutlined', 'RightOutlined',  'CaretUpOutlined',  'CaretDownOutlined',
   'CaretLeftOutlined',  'CaretRightOutlined', 'UpCircleOutlined',  'DownCircleOutlined', 'LeftCircleOutlined',  'RightCircleOutlined',
@@ -14,7 +14,7 @@ const directionOutlinedIcons: any[] = [
 ];
 
 //提示建议性图标
-const suggestionOutlinedIcons: any[] = [
+export const suggestionOutlinedIcons: any[] = [
   'QuestionOutlined', 'QuestionCircleOutlined', 'PlusOutlined', 'PlusCircleOutlined', 'PauseOutlined',  'PauseCircleOutlined',
   'MinusOutlined',  'MinusCircleOutlined',  'PlusSquareOutlined', 'MinusSquareOutlined', 'InfoOutlined',  'InfoCircleOutlined',
   'ExclamationOutlined',  'ExclamationCircleOutlined',  'CloseOutlined',  'CloseCircleOutlined',  'CloseSquareOutlined',  'CheckOutlined',
@@ -22,7 +22,7 @@ const suggestionOutlinedIcons: any[] = [
 ];
 
 //编辑类图标
-const editorOutlinedIcons: any[] = [
+export const editorOutlinedIcons: any[] = [
   'EditOutlined', 'FormOutlined',  'CopyOutlined', 'ScissorOutlined', 'DeleteOutlined',  'SnippetsOutlined',
   'DiffOutlined', 'HighlightOutlined',  'AlignCenterOutlined',  'AlignLeftOutlined',  'AlignRightOutlined', 'BgColorsOutlined',
   'BoldOutlined', 'ItalicOutlined', 'UnderlineOutlined',  'StrikethroughOutlined',  'RedoOutlined', 'UndoOutlined',
@@ -32,14 +32,14 @@ const editorOutlinedIcons: any[] = [
 ];
 
 //数据类图标
-const dataOutlinedIcons: any[] = [
+export const dataOutlinedIcons: any[] = [
   'AreaChartOutlined',  'PieChartOutlined', 'BarChartOutlined', 'DotChartOutlined', 'LineChartOutlined',  'RadarChartOutlined',
   'HeatMapOutlined',  'FallOutlined', 'RiseOutlined', 'StockOutlined',  'BoxPlotOutlined',  'FundOutlined',
   'SlidersOutlined',
 ];
 
 //品牌和标识
-const logoOutlinedIcons: any[] = [
+export const logoOutlinedIcons: any[] = [
   'AndroidOutlined',  'AppleOutlined',  'WindowsOutlined',  'IeOutlined', 'ChromeOutlined', 'GithubOutlined',
   'AliwangwangOutlined',  'DingdingOutlined', 'WeiboSquareOutlined', 'WeiboCircleOutlined', 'TaobaoCircleOutlined',  'Html5Outlined',
   'WeiboOutlined',  'TwitterOutlined',  'WechatOutlined', 'YoutubeOutlined',  'AlipayCircleOutlined', 'TaobaoOutlined',
@@ -52,7 +52,7 @@ const logoOutlinedIcons: any[] = [
 ];
 
 //网站通用图标
-const webOutlinedIcons: any[] = [
+export const webOutlinedIcons: any[] = [
   'AccountBookOutlined',  'AimOutlined',  'AlertOutlined',  'ApartmentOutlined',  'ApiOutlined',  'AppstoreAddOutlined',
   'AppstoreOutlined', 'AudioOutlined', 'AudioMutedOutlined',  'AuditOutlined',  'BankOutlined', 'BarcodeOutlined',
   'BarsOutlined', 'BellOutlined', 'BlockOutlined',  'BookOutlined', 'BorderOutlined', 'BorderlessTableOutlined',
@@ -96,12 +96,3 @@ const webOutlinedIcons: any[] = [
 ];
 
 
-// 线框风格全部种类数据
-export const iconData  = [
-  {'title': '方向性图标', key: 'direction', icons: directionOutlinedIcons},
-  {'title': '提示建议性图标', key: 'suggestion', icons: suggestionOutlinedIcons},
-  {'title': '编辑类图标', key: 'editor', icons: editorOutlinedIcons},
-  {'title': '数据类图标', key: 'data', icons: dataOutlinedIcons},
-  {'title': '品牌和标识', key: 'logo', icons: logoOutlinedIcons},
-  {'title': '网站通用图标', key: 'web', icons: webOutlinedIcons},
-];

@@ -107,7 +107,7 @@ const Login: FC = () => {
         await setAccessToken(loginRes);
 
         const defaultLoginSuccessMessage = intl.formatMessage({
-          id: 'pages.login.success',
+          id: 'message.login.success',
           defaultMessage: '登录成功！',
         });
 
@@ -138,7 +138,7 @@ const Login: FC = () => {
                 required: true,
                 message: (
                   <FormattedMessage
-                    id='pages.login.username.required'
+                    id='validator.login.username.required'
                     defaultMessage='请输入用户名'
                   />
                 )

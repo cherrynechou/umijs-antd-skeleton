@@ -1,9 +1,11 @@
 import { cloneDeep, pick } from 'lodash-es';
 import { ITreeOption } from '@/interfaces/tree';
 
+
 /**
  * 将树结构转的是成列表形貌（ 树型结构 ）
  * @param trees
+ * @param rootName
  * @param name
  * @param children
  * @param fields
@@ -11,11 +13,18 @@ import { ITreeOption } from '@/interfaces/tree';
  */
 const treeToOrderList =  (
   trees: any[],
+  rootName: string = 'Root',
   name: string = 'name',
   children: string = 'children',
   fields: any[] = ['order']) =>
 {
-  const root = { name: '顶级', id: 0 ,level: 0};
+
+  const root = {
+    id: 0 ,
+    name: rootName,
+    level: 0
+  };
+
   const rows: any = [];
   const result: any[] = [];
 
@@ -166,8 +175,6 @@ const queryListMaxValue=(
   const sort_max_array: number[] = sortListValues.filter(item=> item !== undefined)
   return Math.max(...sort_max_array);
 }
-
-
 
 export {
   treeToOrderList,

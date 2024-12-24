@@ -1,3 +1,16 @@
 export default {
-
+  'component.userSetting.password': 'Password setting',
+  'component.userSetting.logout': 'Logout',
+  'component.userSetting.oldPassword': 'Old PWD',
+  'component.userSetting.confirmPassword': 'Confirm PWD',
+  'component.userSetting.newPassword': 'New PWD',
+  'component.upload.addFile': 'Add File',
+  'component.upload.success': 'Upload Success',
+  'component.selectIcon.title': 'Select Icon',
+  'component.selectIcon.direction': 'Direction',
+  'component.selectIcon.suggestion': 'Suggestion',
+  'component.selectIcon.editor': 'Editor',
+  'component.selectIcon.data': 'Data',
+  'component.selectIcon.logo': 'Logo',
+  'component.selectIcon.web': 'Web',
 }

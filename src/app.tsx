@@ -74,7 +74,6 @@ export const layout = ({ initialState }) => {
       },
     },
     actionsRender: (props) => {
-      console.log(props);
       return [
         <div key={'dateString'} style={{ color: '#fff', fontSize: 14 }}>
           {dayjs().locale(getLocale()).format('YYYY-MM-DD dddd')}

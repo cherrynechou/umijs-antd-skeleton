@@ -50,13 +50,9 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
 
   const intl = useIntl();
 
-  const title = editId === undefined ? intl.formatMessage({
-    id: 'pages.searchTable.createForm.new',
-    defaultMessage: '添加',
-  }) : intl.formatMessage({
-    id: 'pages.searchTable.createForm.edit',
-    defaultMessage: '编辑',
-  });
+  const title = editId === undefined ?
+    intl.formatMessage({ id: 'modal.createOrUpdateForm.create.title', defaultMessage: '添加' }) :
+    intl.formatMessage({ id: 'modal.createOrUpdateForm.edit.title', defaultMessage: '编辑' });
 
   const fetchApi = async () => {
     const roleRes = await queryAllRoles();
@@ -196,36 +192,58 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
       destroyOnClose
       width={750}
     >
-      {Object.keys(initialValues).length === 0 && editId !== undefined ? (
-        <Skeleton paragraph={{ rows: 4 }} />
+      {
+        Object.keys(initialValues).length === 0 && editId !== undefined ? (<Skeleton paragraph={{ rows: 4 }} />
       ) : (
         <Form form={form} initialValues={initialValues} autoComplete="off">
           <Form.Item
             name="username"
-            label="用户名"
-            labelCol={{ span: 3 }}
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.username'})
+            }
+            labelCol={{ span: 4 }}
             rules={[
               {
                 required: true,
-                message: '用户名是必填项！'
+                message: (
+                  <FormattedMessage
+                    id='validator.admin.username.required'
+                    defaultMessage='用户名是必填项！'
+                  />
+                )
               }
             ]}
           >
-            <Input placeholder="请输入 用户名" />
+            <Input placeholder={intl.formatMessage({
+              id: 'pages.admin.username.placeholder',
+              defaultMessage: '请输入 用户名',
+            })}
+            />
           </Form.Item>
 
           <Form.Item
             name="name"
-            label="名 称"
-            labelCol={{ span: 3 }}
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.name'})
+            }
+            labelCol={{ span: 4 }}
             rules={[
               {
                 required: true,
-                message: '名称是必填项！'
+                message: (
+                  <FormattedMessage
+                    id='validator.admin.name.required'
+                    defaultMessage='名称是必填项！'
+                  />
+                )
               }
             ]}
           >
-            <Input placeholder="请输入 名称" />
+            <Input placeholder={intl.formatMessage({
+              id: 'pages.admin.name.placeholder',
+              defaultMessage: '请输入 名称',
+            })}
+            />
           </Form.Item>
 
           <Form.Item name="avatar" hidden>
@@ -233,7 +251,12 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
           </Form.Item>
 
           {/*头像*/}
-          <Form.Item label="头像" labelCol={{ span: 3 }}>
+          <Form.Item
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.avatar'})
+            }
+            labelCol={{ span: 4 }}
+          >
             <UploadImage
               accept="image/*"
               listType="picture-card"
@@ -248,49 +271,68 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
             <>
               <Form.Item
                 name="password"
-                label="密码"
-                labelCol={{ span: 3 }}
+                label={
+                  intl.formatMessage({id: 'modal.createOrUpdateForm.password'})
+                }
+                labelCol={{ span: 4 }}
                 rules={[
                   {
                     required: true,
-                    message: '密码不能为空！',
+                    message: (
+                      <FormattedMessage
+                        id='validator.admin.password.required'
+                        defaultMessage='密码不能为空！'
+                      />
+                    ),
                   },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
                       if (value.length >= 6) {
                         return Promise.resolve();
                       }
-                      return Promise.reject(new Error('密码长度至少6位!'));
+                      return Promise.reject(new Error( intl.formatMessage({id: 'message.password.length.failure'})));
                     },
                   }),
                 ]}
                 hasFeedback
               >
-                <Input.Password />
+                <Input.Password placeholder={
+                  intl.formatMessage({id: 'pages.admin.password.placeholder'})
+                }
+                />
               </Form.Item>
 
               <Form.Item
                 name="confirm"
-                label="确认密码"
-                labelCol={{ span: 3 }}
+                label={
+                  intl.formatMessage({id: 'modal.createOrUpdateForm.password.confirm'})
+                }
+                labelCol={{ span: 4 }}
                 dependencies={['password']}
                 hasFeedback
                 rules={[
                   {
                     required: true,
-                    message: '请确认你的密码！',
+                    message: (
+                      <FormattedMessage
+                        id='validator.admin.password.confirm.required'
+                        defaultMessage='请确认你的密码！'
+                      />
+                    ),
                   },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
                       if (!value || getFieldValue('password') === value) {
                         return Promise.resolve();
                       }
-                      return Promise.reject(new Error('输入的密码不匹配!'));
+                      return Promise.reject(new Error(intl.formatMessage({id: 'message.password.not.match'})));
                     },
                   }),
                 ]}
               >
-                <Input.Password />
+                <Input.Password placeholder={
+                  intl.formatMessage({id: 'pages.admin.password.confirm.placeholder'})
+                }/>
               </Form.Item>
             </>
           )}
@@ -298,13 +340,25 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
           {/*编辑*/}
           {editId !== undefined && (
             <>
-              <Form.Item name="password" label="密码" labelCol={{ span: 3 }} hasFeedback>
-                <Input.Password />
+              <Form.Item
+                name="password"
+                label={
+                  intl.formatMessage({id: 'modal.createOrUpdateForm.password'})
+                }
+                labelCol={{ span: 4 }}
+                hasFeedback
+              >
+                <Input.Password placeholder={
+                  intl.formatMessage({id: 'pages.admin.password.placeholder'})
+                }/>
               </Form.Item>
+
               <Form.Item
                 name="confirm"
-                label="确认密码"
-                labelCol={{ span: 3 }}
+                label={
+                  intl.formatMessage({id: 'modal.createOrUpdateForm.password.confirm'})
+                }
+                labelCol={{ span: 4 }}
                 dependencies={['password']}
                 hasFeedback
                 rules={[
@@ -313,28 +367,43 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
                       if (getFieldValue('password') === value) {
                         return Promise.resolve();
                       }
-                      return Promise.reject(new Error('输入的密码不匹配!'));
+                      return Promise.reject(new Error(intl.formatMessage({id: 'message.password.not.match'})));
                     },
                   }),
                 ]}
               >
-                <Input.Password />
+                <Input.Password placeholder={
+                  intl.formatMessage({id: 'pages.admin.password.confirm.placeholder'})
+                }/>
               </Form.Item>
             </>
           )}
 
           <Form.Item
             name="roles"
-            label="角色"
-            labelCol={{ span: 3 }}
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.role'})
+            }
+            labelCol={{ span: 4 }}
             rules={[
               {
                 required: true,
-                message: '名称是必填项！'
+                message: (
+                  <FormattedMessage
+                    id='validator.admin.role.required'
+                    defaultMessage='角色是必填项！'
+                  />
+                )
               }
             ]}
           >
-            <Select mode="multiple" options={roles} placeholder="请选择 角色" />
+            <Select
+              mode="multiple"
+              options={roles}
+              placeholder={
+                intl.formatMessage({id: 'pages.admin.role.placeholder'})
+              }
+            />
           </Form.Item>
 
           {!userRoles.includes('administrator') && (
@@ -342,10 +411,11 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               <Form.Item name="permissions" hidden>
                 <Input hidden />
               </Form.Item>
-
               <Form.Item
-                label="权限"
-                labelCol={{ span: 3 }}
+                label={
+                  intl.formatMessage({id: 'modal.createOrUpdateForm.permission'})
+                }
+                labelCol={{ span: 4 }}
               >
                 <Tree
                   checkable

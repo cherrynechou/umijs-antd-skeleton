@@ -129,14 +129,14 @@ const User: FC = () =>{
       hideInSearch: true,
     }, {
       title: (
-        <FormattedMessage id={'pages.admin.searchTable.username'} />
+        <FormattedMessage id={'pages.searchTable.username'} />
       ),
       width: 80,
       align: 'center',
       dataIndex: 'username',
     }, {
       title: (
-        <FormattedMessage id={'pages.admin.searchTable.name'} />
+        <FormattedMessage id={'pages.searchTable.name'} />
       ),
       width: 80,
       align: 'center',
@@ -144,7 +144,7 @@ const User: FC = () =>{
       hideInSearch: true,
     }, {
       title: (
-        <FormattedMessage id={'pages.admin.searchTable.role'} />
+        <FormattedMessage id={'pages.searchTable.role'} />
       ),
       width: 80,
       align: 'center',
@@ -164,7 +164,7 @@ const User: FC = () =>{
       ),
     }, {
       title: (
-        <FormattedMessage id={'pages.whetherToDisabled.text'} />
+        <FormattedMessage id={'pages.searchTable.whetherToDisabled.text'} />
       ),
       width: 80,
       align: 'center',
@@ -181,7 +181,7 @@ const User: FC = () =>{
       ),
     }, {
       title: (
-        <FormattedMessage id={'pages.admin.searchTable.loginCount'} />
+        <FormattedMessage id={'pages.searchTable.loginCount'} />
       ),
       width: 80,
       align: 'center',
@@ -205,7 +205,7 @@ const User: FC = () =>{
       hideInSearch: true,
     }, {
       title: (
-        <FormattedMessage id={'pages.searchTable.operate'} />
+        <FormattedMessage id={'pages.searchTable.action'} />
       ),
       width: 140,
       key: 'option',
