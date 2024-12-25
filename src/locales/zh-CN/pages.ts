@@ -25,6 +25,7 @@ export default {
   'pages.searchTable.username': '用户名',
   'pages.searchTable.name': '名称',
   'pages.searchTable.role': '角色',
+  'pages.searchTable.locale': '国际化标识',
   'pages.searchTable.loginCount': '登录次数',
   'pages.searchTable.whetherToDisabled.text': '是否被禁用',
   'pages.searchTable.sort': '排序',

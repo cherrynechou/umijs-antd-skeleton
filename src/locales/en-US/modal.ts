@@ -13,6 +13,8 @@ export default {
   'modal.createOrUpdateForm.name.placeholder': 'Please Input Name',
   'modal.createOrUpdateForm.key': 'Key',
   'modal.createOrUpdateForm.key.placeholder': 'Please Input Key',
+  'modal.createOrUpdateForm.locale': 'Locale',
+  'modal.createOrUpdateForm.locale.placeholder': 'Please Input Locale Key',
   'modal.createOrUpdateForm.router': 'Router',
   'modal.createOrUpdateForm.router.placeholder': 'Please Select Router',
   'modal.createOrUpdateForm.url': 'Url',

@@ -11,5 +11,6 @@ export default {
   'validator.admin.password.confirm.required': '确认密码不能为空！',
   'validator.admin.password.confirm': '请确认你的密码！',
   'validator.admin.role.required' : '角色是必填项！',
-  'validator.admin.key.required' : '关键词是必填项！'
+  'validator.admin.key.required' : '关键词是必填项！',
+  'validator.admin.locale.required': '国际化标识是必填项！',
 }

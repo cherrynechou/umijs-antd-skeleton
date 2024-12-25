@@ -13,6 +13,8 @@ export default {
   'modal.createOrUpdateForm.name.placeholder': '请输入 名称',
   'modal.createOrUpdateForm.key': '关键词',
   'modal.createOrUpdateForm.key.placeholder': '请输入关键词！',
+  'modal.createOrUpdateForm.locale': '国际化标识',
+  'modal.createOrUpdateForm.locale.placeholder': '请输入国际化标识',
   'modal.createOrUpdateForm.router': '路由',
   'modal.createOrUpdateForm.router.placeholder': '请选择路由！',
   'modal.createOrUpdateForm.url': 'Url',

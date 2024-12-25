@@ -25,6 +25,7 @@ export default {
   'pages.searchTable.username': 'Username',
   'pages.searchTable.name': 'Name',
   'pages.searchTable.role': 'Role',
+  'pages.searchTable.locale': 'locale',
   'pages.searchTable.loginCount': 'Login Count',
   'pages.searchTable.whetherToDisabled.text': 'Whether To Disabled',
   'pages.searchTable.sort': 'Sort',

@@ -11,5 +11,6 @@ export default {
   'validator.admin.password.confirm.required': 'Confirm Password is Required！',
   'validator.admin.password.confirm': 'Please Confirm your password！',
   'validator.admin.role.required' : 'Role is Required！',
-  'validator.admin.key.required' : 'Key is Required！'
+  'validator.admin.key.required' : 'Key is Required！',
+  'validator.admin.locale.required': 'Locale is Required!',
 }

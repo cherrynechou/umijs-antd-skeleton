@@ -42,6 +42,7 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
     const rootName = intl.formatMessage({ id: 'modal.createOrUpdateForm.root'})
 
     const treeValues = treeToOrderList(menuData,rootName);
+
     setTreeData(treeValues);
 
     const targets = [
@@ -94,6 +95,7 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
 
         setInitialValues({
           name: currentData.name,
+          key:currentData.key,
           locale: currentData.locale,
           parent_id: currentData.parent_id,
           icon: currentData.icon,
@@ -219,7 +221,12 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
             rules={[
               {
                 required: true,
-                message: '关键词是必填项！'
+                message: (
+                  <FormattedMessage
+                    id='validator.admin.key.required'
+                    defaultMessage='关键词是必填项！'
+                  />
+                )
               }
             ]}
           >
@@ -230,6 +237,33 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
               })}
               style={{ width: 500 }}
             />
+          </Form.Item>
+
+          <Form.Item
+            name="locale"
+            label={
+              intl.formatMessage({id: 'modal.createOrUpdateForm.locale'})
+            }
+            labelCol={{ span: 3 }}
+            rules={[
+              {
+                required: true,
+                message: (
+                  <FormattedMessage
+                    id='validator.admin.locale.required'
+                    defaultMessage='国际化标识是必填项！'
+                  />
+                )
+              }
+            ]}
+          >
+             <Input
+               placeholder={intl.formatMessage({
+                 id: 'modal.createOrUpdateForm.locale.placeholder',
+                 defaultMessage: '请输入 国际化标识！',
+               })}
+               style={{ width: 500 }}
+             />
           </Form.Item>
 
           <Form.Item

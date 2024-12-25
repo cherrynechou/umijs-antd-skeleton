@@ -18,7 +18,7 @@ const treeToOrderList =  (
   children: string = 'children',
   fields: any[] = ['order']) =>
 {
-  const root = { id: 0 , name: rootName, level: 0 };
+  const root = { id: 0 , name: rootName, level: 0, parent_id: -1 };
   const rows: any = [];
   const result: any[] = [];
 
@@ -39,16 +39,24 @@ const treeToOrderList =  (
     });
   }
 
-  const formatLabelName = (level: number) => {
-    let str= '';
-    for( let i = 0; i < level; ++i){
-      str += '-';
-    }
-    return level == 0 ? '' : '|' + str
-  }
-
   //展开
   deepTrees(trees);
+  console.log(rows);
+
+
+  const formatLabelName = (level: number) => {
+    let str= '';
+
+    for( let i = 0; i < level; ++i){
+      str += '─';
+    }
+
+    if(level == 0){
+      return '';
+    }else {
+      return '├' + str;
+    }
+  }
 
   //格式化树
   rows.forEach((item: any)=>{
@@ -60,6 +68,8 @@ const treeToOrderList =  (
       ...filterFields
     })
   })
+
+  console.log(result);
 
   return result;
 }

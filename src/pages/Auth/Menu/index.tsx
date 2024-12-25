@@ -129,6 +129,13 @@ const Menu: FC = () =>{
       dataIndex: 'key'
     },{
       title: (
+        <FormattedMessage id={'pages.searchTable.locale'} />
+      ),
+      width: 80,
+      align: 'center',
+      dataIndex: 'locale'
+    },{
+      title: (
         <FormattedMessage id={'pages.searchTable.router'} />
       ),
       width: 80,
