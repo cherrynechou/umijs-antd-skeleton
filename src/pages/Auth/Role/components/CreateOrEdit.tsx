@@ -167,10 +167,9 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
                 )
               }
             ]}>
-            <Input placeholder={intl.formatMessage({
-              id: 'pages.admin.slug.placeholder',
-              defaultMessage: '请输入 标识',
-            })}
+            <Input placeholder={
+                intl.formatMessage({ id: 'pages.admin.slug.placeholder', defaultMessage: '请输入 标识', })
+              }
             />
           </Form.Item>
 

@@ -204,10 +204,9 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               }
             ]}
           >
-            <Input placeholder={intl.formatMessage({
-              id: 'pages.admin.username.placeholder',
-              defaultMessage: '请输入 用户名',
-            })}
+            <Input placeholder={
+                intl.formatMessage({ id: 'pages.admin.username.placeholder', defaultMessage: '请输入 用户名', })
+              }
             />
           </Form.Item>
 
@@ -229,10 +228,9 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               }
             ]}
           >
-            <Input placeholder={intl.formatMessage({
-              id: 'pages.admin.name.placeholder',
-              defaultMessage: '请输入 名称',
-            })}
+            <Input placeholder={
+                intl.formatMessage({ id: 'pages.admin.name.placeholder', defaultMessage: '请输入 名称', })
+              }
             />
           </Form.Item>
 
@@ -287,8 +285,8 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
                 hasFeedback
               >
                 <Input.Password placeholder={
-                  intl.formatMessage({id: 'pages.admin.password.placeholder'})
-                }
+                    intl.formatMessage({id: 'pages.admin.password.placeholder'})
+                  }
                 />
               </Form.Item>
 
@@ -363,8 +361,9 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
                 ]}
               >
                 <Input.Password placeholder={
-                  intl.formatMessage({id: 'pages.admin.password.confirm.placeholder'})
-                }/>
+                    intl.formatMessage({id: 'pages.admin.password.confirm.placeholder'})
+                  }
+                />
               </Form.Item>
             </>
           )}

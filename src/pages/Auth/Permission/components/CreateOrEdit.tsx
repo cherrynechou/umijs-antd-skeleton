@@ -155,7 +155,11 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               }
             ]}
           >
-            <Input placeholder={intl.formatMessage({id: 'modal.createOrUpdateForm.name.placeholder'})} />
+            <Input
+              placeholder={
+                intl.formatMessage({id: 'modal.createOrUpdateForm.name.placeholder'})
+              }
+            />
           </Form.Item>
 
           <Form.Item
