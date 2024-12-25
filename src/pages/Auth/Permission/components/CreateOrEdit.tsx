@@ -98,12 +98,11 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
       isShowModal(false);
       actionRef.current.reload();
 
-      const defaultSuccessMessage = intl.formatMessage({
-        id: 'global.success.text',
-        defaultMessage: '成功！',
-      });
+      const defaultUpdateSuccessMessage = editId === undefined ?
+        intl.formatMessage({ id: 'global.create.success', defaultMessage: '添加成功！'}):
+        intl.formatMessage({ id: 'global.update.success', defaultMessage: '更新成功！'});
 
-      message.success(`${title}${defaultSuccessMessage}`);
+      message.success(defaultUpdateSuccessMessage);
     }
   };
 

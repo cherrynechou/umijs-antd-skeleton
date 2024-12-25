@@ -88,12 +88,11 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
     if (response.status === HttpStatusCode.Ok) {
       isShowModal(false);
 
-      const defaultSuccessMessage = intl.formatMessage({
-        id: 'global.success.text',
-        defaultMessage: '成功！',
-      });
+      const defaultUpdateSuccessMessage = editId === undefined ?
+        intl.formatMessage({ id: 'global.create.success', defaultMessage: '添加成功！'}):
+        intl.formatMessage({ id: 'global.update.success', defaultMessage: '更新成功！'});
 
-      message.success(`${title}${defaultSuccessMessage}`);
+      message.success(defaultUpdateSuccessMessage);
       actionRef.current.reload();
     }
   };
@@ -152,7 +151,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               }
             ]}>
             <Input placeholder={
-              intl.formatMessage({id: 'pages.admin.name.placeholder'})
+              intl.formatMessage({id: 'modal.createOrUpdateForm.name.placeholder'})
             } />
           </Form.Item>
 
@@ -174,7 +173,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               }
             ]}>
             <Input placeholder={
-                intl.formatMessage({ id: 'pages.admin.slug.placeholder', defaultMessage: '请输入 标识', })
+                intl.formatMessage({ id: 'modal.createOrUpdateForm.slug.placeholder', defaultMessage: '请输入 标识', })
               }
             />
           </Form.Item>

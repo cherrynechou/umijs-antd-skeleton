@@ -1,4 +1,5 @@
 export default {
+  'global.create.success' : 'Create Success',
   'global.delete.success' : 'Delete Success',
   'global.update.success' : 'Update Success',
   'global.reset.success' : 'Reset Success',

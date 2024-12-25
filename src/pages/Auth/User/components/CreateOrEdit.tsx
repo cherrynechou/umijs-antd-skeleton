@@ -143,10 +143,9 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
     if (response.status === HttpStatusCode.Ok) {
       isShowModal(false);
 
-      const defaultUpdateSuccessMessage = intl.formatMessage({
-        id: 'pages.update.success',
-        defaultMessage: '更新成功！',
-      });
+      const defaultUpdateSuccessMessage = editId === undefined ?
+        intl.formatMessage({ id: 'global.create.success', defaultMessage: '添加成功！'}):
+        intl.formatMessage({ id: 'global.update.success', defaultMessage: '更新成功！'});
 
       message.success(defaultUpdateSuccessMessage);
       actionRef.current.reload();
@@ -205,7 +204,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
             ]}
           >
             <Input placeholder={
-                intl.formatMessage({ id: 'pages.admin.username.placeholder', defaultMessage: '请输入 用户名', })
+                intl.formatMessage({ id: 'modal.createOrUpdateForm.username.placeholder', defaultMessage: '请输入 用户名', })
               }
             />
           </Form.Item>
@@ -229,7 +228,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
             ]}
           >
             <Input placeholder={
-                intl.formatMessage({ id: 'pages.admin.name.placeholder', defaultMessage: '请输入 名称', })
+                intl.formatMessage({ id: 'modal.createOrUpdateForm.name.placeholder', defaultMessage: '请输入 名称', })
               }
             />
           </Form.Item>
@@ -286,7 +285,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               >
                 <Input.Password
                   placeholder={
-                    intl.formatMessage({id: 'pages.admin.password.placeholder'})
+                    intl.formatMessage({id: 'modal.createOrUpdateForm.password.placeholder'})
                   }
                 />
               </Form.Item>
@@ -321,7 +320,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               >
                 <Input.Password
                   placeholder={
-                    intl.formatMessage({id: 'pages.admin.password.confirm.placeholder'})
+                    intl.formatMessage({id: 'modal.createOrUpdateForm.password.confirm.placeholder'})
                   }
                 />
               </Form.Item>
@@ -341,7 +340,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               >
                 <Input.Password
                   placeholder={
-                    intl.formatMessage({id: 'pages.admin.password.placeholder'})
+                    intl.formatMessage({id: 'modal.createOrUpdateForm.password.placeholder'})
                   }
                 />
               </Form.Item>
@@ -367,7 +366,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               >
                 <Input.Password
                   placeholder={
-                    intl.formatMessage({id: 'pages.admin.password.confirm.placeholder'})
+                    intl.formatMessage({id: 'modal.createOrUpdateForm.password.confirm.placeholder'})
                   }
                 />
               </Form.Item>
@@ -396,7 +395,7 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
               mode="multiple"
               options={roles}
               placeholder={
-                intl.formatMessage({id: 'pages.admin.role.placeholder'})
+                intl.formatMessage({id: 'modal.createOrUpdateForm.role.placeholder'})
               }
             />
           </Form.Item>

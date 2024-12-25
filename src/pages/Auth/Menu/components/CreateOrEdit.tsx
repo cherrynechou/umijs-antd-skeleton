@@ -143,10 +143,9 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
     if (response.status === HttpStatusCode.Ok) {
       isShowModal(false);
 
-      const defaultUpdateSuccessMessage = intl.formatMessage({
-        id: 'global.update.success',
-        defaultMessage: '更新成功！',
-      });
+      const defaultUpdateSuccessMessage = editId === undefined ?
+        intl.formatMessage({ id: 'global.create.success', defaultMessage: '添加成功！'}):
+        intl.formatMessage({ id: 'global.update.success', defaultMessage: '更新成功！'});
 
       message.success(defaultUpdateSuccessMessage);
 
