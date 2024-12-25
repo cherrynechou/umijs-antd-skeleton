@@ -144,7 +144,7 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
       isShowModal(false);
 
       const defaultUpdateSuccessMessage = intl.formatMessage({
-        id: 'pages.update.success',
+        id: 'global.update.success',
         defaultMessage: '更新成功！',
       });
 
@@ -180,7 +180,7 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
                 required: true,
                 message: (
                   <FormattedMessage
-                    id='pages.createOrUpdateModal.parent.required'
+                    id='validator.admin.parent.required'
                     defaultMessage='父级是必填项！'
                   />
                 )
@@ -205,7 +205,7 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
           >
             <SelectIcon
               placeholder={intl.formatMessage({
-                id: 'pages.admin.icon.placeholder',
+                id: 'modal.createOrUpdateForm.icon.placeholder',
                 defaultMessage: '请选择 图标！',
               })}
               onChange={handleIconChange}

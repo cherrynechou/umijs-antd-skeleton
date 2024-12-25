@@ -87,7 +87,13 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
 
     if (response.status === HttpStatusCode.Ok) {
       isShowModal(false);
-      message.success(`${title}成功`);
+
+      const defaultSuccessMessage = intl.formatMessage({
+        id: 'global.success.text',
+        defaultMessage: '成功！',
+      });
+
+      message.success(`${title}${defaultSuccessMessage}`);
       actionRef.current.reload();
     }
   };

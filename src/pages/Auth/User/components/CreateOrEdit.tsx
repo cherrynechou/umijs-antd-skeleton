@@ -284,7 +284,8 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
                 ]}
                 hasFeedback
               >
-                <Input.Password placeholder={
+                <Input.Password
+                  placeholder={
                     intl.formatMessage({id: 'pages.admin.password.placeholder'})
                   }
                 />
@@ -318,9 +319,11 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
                   }),
                 ]}
               >
-                <Input.Password placeholder={
-                  intl.formatMessage({id: 'pages.admin.password.confirm.placeholder'})
-                }/>
+                <Input.Password
+                  placeholder={
+                    intl.formatMessage({id: 'pages.admin.password.confirm.placeholder'})
+                  }
+                />
               </Form.Item>
             </>
           )}
@@ -336,9 +339,11 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
                 labelCol={{ span: 4 }}
                 hasFeedback
               >
-                <Input.Password placeholder={
-                  intl.formatMessage({id: 'pages.admin.password.placeholder'})
-                }/>
+                <Input.Password
+                  placeholder={
+                    intl.formatMessage({id: 'pages.admin.password.placeholder'})
+                  }
+                />
               </Form.Item>
 
               <Form.Item
@@ -360,7 +365,8 @@ const CreateOrEdit: FC<CreateOrEditProps> = (props: any) => {
                   }),
                 ]}
               >
-                <Input.Password placeholder={
+                <Input.Password
+                  placeholder={
                     intl.formatMessage({id: 'pages.admin.password.confirm.placeholder'})
                   }
                 />
