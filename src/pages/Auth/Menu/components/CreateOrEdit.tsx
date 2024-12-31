@@ -10,6 +10,7 @@ import { AxiosResponse, HttpStatusCode } from 'axios';
 import { routeList } from './routeListData';
 
 
+
 export type menuModalProps = {
   isModalVisible: boolean;
   isShowModal: (show: boolean, id?: number | undefined) => void;
@@ -27,6 +28,8 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
   const [roles, setRoles] = useState<any>([]);
   const [routes, setRoutes] = useState<any>([]);
 
+  const routers = config.routes;
+
   const [form] = Form.useForm();
   const { message } = App.useApp();
 
@@ -42,7 +45,6 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
     const rootName = intl.formatMessage({ id: 'modal.createOrUpdateForm.root'})
 
     const treeValues = treeToOrderList(menuData,rootName);
-
     setTreeData(treeValues);
 
     const targets = [
@@ -57,6 +59,8 @@ const CreateOrEdit: FC<menuModalProps> = (props: any) => {
     ];
 
     setLinkTarget(targets);
+
+    console.log(config)
 
     //生成路由列表
     if (routeList.length > 0) {

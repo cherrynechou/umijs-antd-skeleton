@@ -23,14 +23,14 @@ const request: AxiosInstance = axios.create(<{
   }
 });
 
+
+
 // Add a request interceptor
 request.interceptors.request.use(async (config: AxiosRequestConfig) => {
 
   const accessToken = await localforage.getItem('access_token');
 
-  if(getLocale()){
-    config.headers['Accept-Language'] = getLocale();
-  }
+  config.headers['Accept-Language'] = getLocale();
 
   if(accessToken && config && config?.headers){
     config.headers.Authorization = `Bearer ${accessToken}`;

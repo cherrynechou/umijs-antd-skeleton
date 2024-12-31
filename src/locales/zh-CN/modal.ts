@@ -31,6 +31,7 @@ export default {
   'modal.createOrUpdateForm.httpPath': 'Http路径',
   'modal.createOrUpdateForm.httpPath.placeholder': '请选择Http路径',
   'modal.createOrUpdateForm.icon': '图标',
+  'modal.createOrUpdateForm.icon.placeholder': '请选择图标',
   'modal.createOrUpdateForm.slug': '标识',
   'modal.createOrUpdateForm.slug.placeholder': '请输入标识',
   'modal.createOrUpdateForm.permission': '权限',

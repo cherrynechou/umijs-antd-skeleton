@@ -31,6 +31,7 @@ export default {
   'modal.createOrUpdateForm.httpPath': 'Http Path',
   'modal.createOrUpdateForm.httpPath.placeholder': 'please Select Http Path',
   'modal.createOrUpdateForm.icon': 'Icon',
+  'modal.createOrUpdateForm.icon.placeholder': 'Please Select Icon',
   'modal.createOrUpdateForm.slug': 'Slug',
   'modal.createOrUpdateForm.slug.placeholder': 'Please Input Slug',
   'modal.createOrUpdateForm.permission': 'Permission',

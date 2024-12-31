@@ -41,8 +41,6 @@ const treeToOrderList =  (
 
   //展开
   deepTrees(trees);
-  console.log(rows);
-
 
   const formatLabelName = (level: number) => {
     let str= '';
@@ -68,8 +66,6 @@ const treeToOrderList =  (
       ...filterFields
     })
   })
-
-  console.log(result);
 
   return result;
 }
